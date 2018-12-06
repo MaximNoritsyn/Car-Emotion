@@ -9,6 +9,22 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
+  getIdToken = () => {
+    return new Promise((resolve, reject) => {
+      const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        unsubscribe();
+        if (user) {
+          user.getIdToken().then((idToken) => {
+            resolve(idToken);
+          }, (error) => {
+            resolve(null);
+          });
+        } else {
+          resolve(null);
+        }
+      });
+    });
+  };
 
   constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
     this.user = _firebaseAuth.authState;
@@ -18,12 +34,15 @@ export class AuthService {
         if (user) {
           this.userDetails = user;
           console.log(this.userDetails);
+           // this.writeUserData(this.userDetails.uid, name, this.userDetails.email, this.userDetails.photoURL)
         } else {
           this.userDetails = null;
         }
       }
     );
   }
+
+
 
 
   signInWithTwitter() {
@@ -57,6 +76,10 @@ export class AuthService {
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
+  registrateInRegular(email, password) {
+    return firebase.auth().createUserWithEmailAndPassword( email, password );
+  }
+
 
   isLoggedIn() {
   if (this.userDetails == null ) {
@@ -70,5 +93,18 @@ export class AuthService {
   logout() {
     this._firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));
+  }
+
+  getuser() {
+    console.log(this.userDetails);
+    console.log(this.getIdToken());
+  }
+
+  writeUserData(userId, name, email, imageUrl) {
+    firebase.database().ref('users/' + userId).set({
+      username: name,
+      email: email,
+      profile_picture : imageUrl
+    });
   }
 }
