@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
+
   getIdToken = () => {
     return new Promise((resolve, reject) => {
       const unsubscribe = firebase.auth().onAuthStateChanged((user) => {

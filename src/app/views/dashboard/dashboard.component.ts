@@ -18,8 +18,6 @@ export class DashboardComponent implements OnInit {
     this.authService.getuser();
   }
 
-  routeto(Routestring: string) {
-    this.router.navigate([Routestring])
-  }
+
 
 }

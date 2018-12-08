@@ -17,12 +17,16 @@ import * as firebase from 'firebase/app';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from 'app/services/auth-guard.service';
+import { ParticipantComponent } from './views/participants/participant/participant.component';
+import { ParticipantsComponent } from './views/participants/participants.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    ParticipantComponent,
+    ParticipantsComponent
   ],
   imports: [
     BrowserModule,
