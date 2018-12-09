@@ -1,3 +1,25 @@
-<p>
-  participant works!
-</p>
+<form name="participantform" method="post" #formCtrl="ngForm">
+    <div class="form-group">
+      <label>Имя</label>
+      <input class="form-control" [(ngModel)]="currentParticipant.name" name="currentParticipant.name" placeholder="Имя" required>
+    </div>
+  <div class="form-group">
+      <label>Фамилия</label>
+      <input type="familyName" class="form-control" [(ngModel)]="currentParticipant.familyName" name="currentParticipant.familyName" placeholder="Фамилия" required>
+    </div>
+  <div class="form-group">
+    <label for="exampleInputEmail">Email address</label>
+    <input type="email" class="form-control" [(ngModel)]="currentParticipant.email" name="currentParticipant.email" placeholder="Email" required>
+  </div>
+  <div class="form-group">
+    <label >Телефон</label>
+    <input type="telephone" class="form-control" [(ngModel)]="currentParticipant.telephone" name="currentParticipant.telephone" placeholder="Телефон" required>
+  </div>
+  <div class="form-group">
+    <label >Город</label>
+    <input type="city" class="form-control" [(ngModel)]="currentParticipant.city" name="currentParticipant.city" placeholder="Город" required>
+  </div>
+  <div class="form-group">
+    <button type="buton" class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="setParticipant()">Добавить</button>
+  </div>
+</form>

@@ -10,17 +10,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" (click)="openPageDashboard()">Главная</a>
-      </div>
+        </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li (click)="openPageParticipants()"><a>Участники</a></li>
+          <li [routerLink]="''"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"
+              (click)="openPageDashboard()"><a>Главная</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li [routerLink]="'/participants'" routerLinkActive="active"><a>Участники</a></li>
         </ul>
         <ul *ngIf="!authService.isLoggedIn()" class="nav navbar-nav navbar-right">
-          <li><a (click)="openPageLogin()">Login</a></li>
+          <li><a [routerLink]="'/login'" routerLinkActive="active">Login</a></li>
         </ul>
         <ul *ngIf="authService.isLoggedIn()" class="nav navbar-nav navbar-right">
-          <li><a (click)="openPageDashboard()"(click)="authService.logout()">Logout</a></li>
+          <li><a [routerLink]="''" (click)="authService.logout()">Logout</a></li>
         </ul>
 
       </div><!--/.nav-collapse -->

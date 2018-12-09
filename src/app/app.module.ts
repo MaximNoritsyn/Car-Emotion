@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
 import { AuthService } from './services/auth.service';
+import { ParticipantsService } from './services/participants.service';
 import { AuthGuard } from 'app/services/auth-guard.service';
 import { ParticipantComponent } from './views/participants/participant/participant.component';
 import { ParticipantsComponent } from './views/participants/participants.component';
@@ -36,7 +37,7 @@ import { ParticipantsComponent } from './views/participants/participants.compone
     AngularFireDatabaseModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, ParticipantsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

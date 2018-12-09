@@ -34,7 +34,7 @@ export class AuthService {
       (user) => {
         if (user) {
           this.userDetails = user;
-          console.log(this.userDetails);
+          // console.log(this.userDetails);
            // this.writeUserData(this.userDetails.uid, name, this.userDetails.email, this.userDetails.photoURL)
         } else {
           this.userDetails = null;
@@ -51,7 +51,6 @@ export class AuthService {
       new firebase.auth.TwitterAuthProvider()
     )
   }
-
 
   signInWithFacebook() {
     return this._firebaseAuth.auth.signInWithPopup(
@@ -81,7 +80,6 @@ export class AuthService {
     return firebase.auth().createUserWithEmailAndPassword( email, password );
   }
 
-
   isLoggedIn() {
   if (this.userDetails == null ) {
       return false;
@@ -89,7 +87,6 @@ export class AuthService {
       return true;
     }
   }
-
 
   logout() {
     this._firebaseAuth.auth.signOut()
