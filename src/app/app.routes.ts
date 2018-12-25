@@ -8,6 +8,7 @@ import {ParticipantsComponent} from './views/participants/participants.component
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: '', component: DashboardComponent},
+    //{path: '/', component: DashboardComponent},
     {path: 'participants', component: ParticipantsComponent, children:
         [{path: ':keyparticipant', component: ParticipantComponent}]},
     {path: 'participant/:keyparticipant', component: ParticipantComponent},

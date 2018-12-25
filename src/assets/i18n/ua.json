@@ -1,0 +1,12 @@
+{
+  "Title": "Car Emotion - змагання з автозвуку",
+  "navigate": {
+    "Main": "Головна",
+    "Participants": "Учасники",
+    "Login": "Увійти",
+    "Logout": "Вийти"
+  },
+  "loginemail": "Електроний ящик",
+  "loginpass": "Пароль",
+  "loginbutton": "Увійти"
+}

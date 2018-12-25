@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList , AngularFireObject } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {promise} from 'selenium-webdriver';
 
 export interface participant {
@@ -20,14 +20,14 @@ export interface participant {
 @Injectable()
 export class ParticipantsService {
 
-  private currentParticipant: FirebaseObjectObservable<participant>;
+  private currentParticipant: AngularFireObject<participant>;
   private createnew: boolean;
-  private participants: FirebaseListObservable<any[]>;
+  private participants: AngularFireList<participant>;
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _auth: AuthService) {
-    this.participants = this._db.list('/participants/') as FirebaseListObservable<any[]>
+    this.participants = this._db.list('/participants/')
   }
 
   getParticipants() {
@@ -52,7 +52,7 @@ export class ParticipantsService {
   }
 
   getParticipant(keyparticipant) {
-    this.currentParticipant = this._db.object('/participants/' + keyparticipant) as FirebaseObjectObservable<participant>
+    this.currentParticipant = this._db.object('/participants/' + keyparticipant)
     console.log(keyparticipant)
     return this.currentParticipant;
   }

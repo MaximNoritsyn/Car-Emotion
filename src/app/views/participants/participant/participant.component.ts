@@ -31,12 +31,12 @@ export class ParticipantComponent implements OnInit {
       name: string = "";
       telephone: string = "";
     })
-    else
+      /*else
 
-      (this._ParticipantsService.getParticipant(params["keyparticipant"]).subscribe(snapshot => {
-        console.log(snapshot)
-        this.currentParticipant = snapshot
-      }))
+        (this._ParticipantsService.getParticipant(params["keyparticipant"]).subscribe(snapshot => {
+          console.log(snapshot)
+          this.currentParticipant = snapshot
+        }))*/
 
   })}
 

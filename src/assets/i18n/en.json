@@ -1,0 +1,12 @@
+{
+  "Title": "Car Emotion - championship of CarSound",
+  "navigate": {
+    "Main": "Main",
+    "Participants": "Participants",
+    "Login": "Login",
+    "Logout": "Logout"
+  },
+  "loginemail": "Email address",
+  "loginpass": "Password",
+  "loginbutton": "Login"
+}

@@ -21,6 +21,16 @@ import { AuthGuard } from 'app/services/auth-guard.service';
 import { ParticipantComponent } from './views/participants/participant/participant.component';
 import { ParticipantsComponent } from './views/participants/participants.component';
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {Translate_Service} from './services/translate.service';
+import {APP_BASE_HREF} from '@angular/common';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,9 +45,18 @@ import { ParticipantsComponent } from './views/participants/participants.compone
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }
+    )
   ],
-  providers: [AuthService, AuthGuard, ParticipantsService],
+  providers: [AuthService, AuthGuard, ParticipantsService, Translate_Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

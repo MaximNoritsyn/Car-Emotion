@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import * as firebase from 'firebase/app';
+import {Translate_Service} from '../../services/translate.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,9 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService,
+              private router: Router,
+              private translate_service: Translate_Service) {
   }
 
 

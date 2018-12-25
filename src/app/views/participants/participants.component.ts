@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {participant, ParticipantsService} from '../../services/participants.service';
-import { FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
+//import { FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database-deprecated';
 import {forEach} from '@angular/router/src/utils/collection';
 import {promise} from 'selenium-webdriver';
 
@@ -18,10 +18,9 @@ export class ParticipantsComponent implements OnInit {
   constructor(public authService: AuthService, private router: Router, private _ParticipantsService: ParticipantsService) { }
 
   ngOnInit() {
-    this._ParticipantsService.getParticipants().subscribe(snapshot => {
+    /*this._ParticipantsService.getParticipants().subscribe(snapshot => {
       this.participants = snapshot
-    }
-       )
+    })*/
   }
 
   addNewParticipant() {
