@@ -22,12 +22,12 @@ export class ParticipantsService {
 
   private currentParticipant: AngularFireObject<participant>;
   private createnew: boolean;
-  private participants: AngularFireList<participant>;
+  private participants: Observable<any[]>;
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _auth: AuthService) {
-    this.participants = this._db.list('/participants/')
+    this.participants = this._db.list('/participants/').valueChanges()
   }
 
   getParticipants() {
@@ -56,4 +56,16 @@ export class ParticipantsService {
     console.log(keyparticipant)
     return this.currentParticipant;
   }
+
+  getnewParticipantclass() {
+    return new class implements participant {
+      city: string = "";
+      email: string = "";
+      familyName: string = "";
+      $key: string;
+      name: string = "";
+      telephone: string = "";
+    }
+    }
+
 }

@@ -1,12 +1,22 @@
 {
   "Title": "Car Emotion - championship of CarSound",
+  "add": "Add",
   "navigate": {
     "Main": "Main",
     "Participants": "Participants",
     "Login": "Login",
     "Logout": "Logout"
   },
-  "loginemail": "Email address",
-  "loginpass": "Password",
-  "loginbutton": "Login"
+  "login": {
+    "email": "Email address",
+    "pass": "Password",
+    "button": "Login"
+  },
+  "participant": {
+    "name": "Name",
+    "familyName": "Last name",
+    "email": "email",
+    "telephone": "telephone",
+    "city": "city"
+  }
 }

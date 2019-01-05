@@ -1,6 +1,6 @@
 
   <button type="submit" (click)="addNewParticipant()">Добавить нового участника</button>
-  <li *ngFor="let participant of participants ;">
+  <li *ngFor="let participant of participants | async;">
     <a routerLink="['/participants', participant.$key]">{{participant.name}}</a>
   </li>
   <router-outlet></router-outlet>

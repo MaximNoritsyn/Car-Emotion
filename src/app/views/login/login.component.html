@@ -10,17 +10,17 @@
                   <form name="userform" method="post" #formCtrl="ngForm">
                     <h3 align="center"></h3>
                     <div class="form-group">
-                      <label for="exampleInputEmail">{{ 'loginemail' | translate }}</label>
+                      <label for="exampleInputEmail">{{ 'login.email' | translate }}</label>
                       <input type="email" class="form-control" [(ngModel)]="user.email" name="email" placeholder="Email" required>
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputPassword">{{ 'loginpass' | translate }}</label>
+                      <label for="exampleInputPassword">{{ 'login.pass' | translate }}</label>
                       <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="Password" required>
                     </div>
 
                     <div class="form-group">
                         <button type="buton" class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="signInWithEmail()" [disabled]="formCtrl.form.invalid">
-                          {{ 'loginbutton' | translate }}
+                          {{ 'login.button' | translate }}
                         </button>
                     </div>
 

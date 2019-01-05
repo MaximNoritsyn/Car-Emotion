@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {participant, ParticipantsService} from '../../services/participants.service';
-//import { FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database-deprecated';
+import { AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 import {forEach} from '@angular/router/src/utils/collection';
 import {promise} from 'selenium-webdriver';
 
@@ -13,22 +14,21 @@ import {promise} from 'selenium-webdriver';
 })
 export class ParticipantsComponent implements OnInit {
 
-  participants: participant[];
+  participants: Observable<any[]>;
 
-  constructor(public authService: AuthService, private router: Router, private _ParticipantsService: ParticipantsService) { }
+  constructor(public authService: AuthService,
+              private router: Router,
+              private _ParticipantsService: ParticipantsService) { }
 
   ngOnInit() {
-    /*this._ParticipantsService.getParticipants().subscribe(snapshot => {
-      this.participants = snapshot
-    })*/
+    this.participants = this._ParticipantsService.getParticipants();
+    console.log(this.participants)
   }
 
   addNewParticipant() {
     this.router.navigate(['/newparticipant']);
+    //console.log(this.participants)
   }
 
-  openChildParticipant(id: string) {
-    this.router.navigate(['/participant/:'+id]);
-  }
 
 }
