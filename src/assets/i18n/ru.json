@@ -13,7 +13,7 @@
     "button": "Войти"
   },
   "participant": {
-    "name": "Імя",
+    "name": "Имя",
     "familyName": "Фамилия",
     "email": "Электронный ящик",
     "telephone": "Номер телефона",

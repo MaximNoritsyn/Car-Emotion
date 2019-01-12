@@ -14,20 +14,19 @@ import {promise} from 'selenium-webdriver';
 })
 export class ParticipantsComponent implements OnInit {
 
-  participants: Observable<any[]>;
+  participants: Observable<participant[]>;
 
-  constructor(public authService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router,
               private _ParticipantsService: ParticipantsService) { }
 
   ngOnInit() {
     this.participants = this._ParticipantsService.getParticipants();
-    console.log(this.participants)
+    //console.log(this.participants)
   }
 
   addNewParticipant() {
     this.router.navigate(['/newparticipant']);
-    //console.log(this.participants)
   }
 
 

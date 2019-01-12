@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireList , AngularFireObject } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
-import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
-import {promise} from 'selenium-webdriver';
+import { map } from 'rxjs/operators';
 
 export interface participant {
-  $key: string,
+  id: string,
   name: string,
   familyName: string,
   email: string,
@@ -20,40 +18,35 @@ export interface participant {
 @Injectable()
 export class ParticipantsService {
 
-  private currentParticipant: AngularFireObject<participant>;
-  private createnew: boolean;
-  private participants: Observable<any[]>;
+  private currentParticipant: Observable<participant>;
+  private participants: Observable<participant[]>;
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _auth: AuthService) {
-    this.participants = this._db.list('/participants/').valueChanges()
+    this.participants = this._db.list<participant>('/participants/').valueChanges();
+    this.currentParticipant = this._db.object<participant>('/participants/').valueChanges();
   }
 
   getParticipants() {
     return this.participants
   }
 
-  isNew() {
-    this.createnew = true;
-  }
-
-  inNotNew() {
-    this.createnew = false;
-  }
-
   setParticipant(participant: participant) {
-    if (this.createnew) {
-      this._db.list('/participants/').push(participant)
+    if (participant.id == "") {
+      this._db.list('/participants/').push(participant).then((snapshot) => {
+        //console.log(snapshot.key);
+        this._db.object('/participants/' + snapshot.key).update({"id": snapshot.key})
+      });
     }
     else {
-      this.currentParticipant.update(participant)
-    }
+        this._db.object('/participants/' + participant.id).update(participant)
+      }
   }
 
   getParticipant(keyparticipant) {
-    this.currentParticipant = this._db.object('/participants/' + keyparticipant)
-    console.log(keyparticipant)
+    console.log(keyparticipant);
+    this.currentParticipant = this._db.object<participant>('/participants/' + keyparticipant).valueChanges();
     return this.currentParticipant;
   }
 
@@ -62,7 +55,7 @@ export class ParticipantsService {
       city: string = "";
       email: string = "";
       familyName: string = "";
-      $key: string;
+      id: string = "";
       name: string = "";
       telephone: string = "";
     }
