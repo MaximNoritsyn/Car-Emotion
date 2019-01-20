@@ -4,6 +4,7 @@
   "navigate": {
     "Main": "Main",
     "Participants": "Participants",
+    "Events": "Events",
     "Login": "Login",
     "Logout": "Logout"
   },

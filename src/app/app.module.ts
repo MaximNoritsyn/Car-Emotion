@@ -13,7 +13,6 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 
 import { AuthService } from './services/auth.service';
 import { ParticipantsService } from './services/participants.service';
@@ -25,7 +24,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {Translate_Service} from './services/translate.service';
-import {APP_BASE_HREF} from '@angular/common';
+import { SeasonComponent } from './views/events/season/season.component';
+import { EventsComponent } from './views/events/events.component';
+import {EventsService} from './services/events.service';
+import {CurrentdataService} from './services/currentdata.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -37,7 +39,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     DashboardComponent,
     ParticipantComponent,
-    ParticipantsComponent
+    ParticipantsComponent,
+    SeasonComponent,
+    EventsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }
     )
   ],
-  providers: [AuthService, AuthGuard, ParticipantsService, Translate_Service],
+  providers: [AuthService, AuthGuard, ParticipantsService, Translate_Service, EventsService, CurrentdataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

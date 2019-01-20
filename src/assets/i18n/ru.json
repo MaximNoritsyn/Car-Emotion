@@ -4,6 +4,7 @@
   "navigate": {
     "Main": "Главная",
     "Participants": "Участники",
+    "Events": "Мероприятия",
     "Login": "Войти",
     "Logout": "Выйти"
   },

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
-import {participant, ParticipantsService} from '../../services/participants.service';
-import { AngularFireList } from 'angularfire2/database';
+import {ParticipantsService} from '../../services/participants.service';
 import { Observable } from 'rxjs';
-import {forEach} from '@angular/router/src/utils/collection';
-import {promise} from 'selenium-webdriver';
+import {participant} from '../../interfaces/app.interface';
 
 @Component({
   selector: 'app-participants',

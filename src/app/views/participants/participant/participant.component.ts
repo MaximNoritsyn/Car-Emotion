@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {participant, ParticipantsService} from '../../../services/participants.service';
+import {ParticipantsService} from '../../../services/participants.service';
 import {Translate_Service} from '../../../services/translate.service';
 import {Observable} from 'rxjs/Rx';
-import {map} from 'rxjs/operators';
+import {participant} from '../../../interfaces/app.interface';
 
 @Component({
   selector: 'app-participant',

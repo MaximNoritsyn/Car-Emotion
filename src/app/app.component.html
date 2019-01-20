@@ -21,6 +21,9 @@
           <li >
             <a [routerLink]="['/participants']" routerLinkActive="active-link">{{ 'navigate.Participants' | translate }}</a>
           </li>
+          <li >
+            <a [routerLink]="['/events']" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
+          </li>
 
         <ul *ngIf="!authService.isLoggedIn()" class="nav navbar-nav navbar-right">
           <li [routerLink]="['/login']" routerLinkActive="active-link">

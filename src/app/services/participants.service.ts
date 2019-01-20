@@ -1,19 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { AngularFireDatabase, AngularFireList , AngularFireObject } from 'angularfire2/database';
-import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { AngularFireDatabase} from 'angularfire2/database';
+import { AuthService } from '../services/auth.service';
 
-export interface participant {
-  id: string,
-  name: string,
-  familyName: string,
-  email: string,
-  telephone: string,
-  city: string
-}
+import { participant } from '../interfaces/app.interface';
+
+
 
 @Injectable()
 export class ParticipantsService {
