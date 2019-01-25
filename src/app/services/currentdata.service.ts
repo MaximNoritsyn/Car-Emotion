@@ -6,10 +6,10 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class CurrentdataService {
 
-  private idseason: Observable<string>
+  private idseason: Observable<season>
 
   constructor(private _db: AngularFireDatabase) {
-    this.idseason = this._db.object<string>('/currentseason/').valueChanges();
+    this.idseason = this._db.object<season>('/currentseason/maindata').valueChanges();
   }
 
   getseason() {
@@ -17,9 +17,6 @@ export class CurrentdataService {
   }
 
   setseason(id: season) {
-    this._db.list('/currentseason/').push(id).then((snapshot) => {
-      //console.log(snapshot.key);
-      //this._db.object('/currentseason/' + snapshot.key).update({"id": snapshot.key})
-    });
+    this._db.object('/currentseason/maindata').update(id);
   }
 }

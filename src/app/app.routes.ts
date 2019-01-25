@@ -10,13 +10,13 @@ import {SeasonComponent} from './views/events/season/season.component';
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
-    {path: 'season', component: SeasonComponent},
+    {path: 'season/:id', component: SeasonComponent},
     //{path: '/', component: DashboardComponent},
     {path: 'participants', component: ParticipantsComponent, children:
         [{path: ':keyparticipant', component: ParticipantComponent}]},
     {path: 'participant/:keyparticipant', component: ParticipantComponent},
     {path: 'newparticipant', component: ParticipantComponent},
-    {path: '**', redirectTo: ''}
+    //{path: '**', redirectTo: ''}
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

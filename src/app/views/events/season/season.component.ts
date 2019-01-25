@@ -25,13 +25,10 @@ export class SeasonComponent implements OnInit {
     {
       if (params["id"] == null)
       {
-
-        //console.log(1);
         this.currentseason = this._EventsService.getnewSeason();
         console.log(this.currentseason);
       }
       else {
-        //console.log(2);
         this.season = this._EventsService.getSeason(params["id"]);
         this.season.subscribe(item => this.currentseason = item)
       }
@@ -40,7 +37,6 @@ export class SeasonComponent implements OnInit {
   }
 
   setSeason() {
-    console.log(this.currentseason)
     this._EventsService.setSeason(this.currentseason)
   }
 
