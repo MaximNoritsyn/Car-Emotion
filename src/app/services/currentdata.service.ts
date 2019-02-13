@@ -9,7 +9,7 @@ export class CurrentdataService {
   private idseason: Observable<season>
 
   constructor(private _db: AngularFireDatabase) {
-    this.idseason = this._db.object<season>('/currentseason/maindata').valueChanges();
+    this.idseason = this._db.object<season>('/currentseason').valueChanges();
   }
 
   getseason() {
@@ -17,6 +17,6 @@ export class CurrentdataService {
   }
 
   setseason(id: season) {
-    this._db.object('/currentseason/maindata').update(id);
+    this._db.object('/currentseason').update(id);
   }
 }

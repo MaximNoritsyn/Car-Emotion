@@ -11,6 +11,7 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
     {path: 'season/:id', component: SeasonComponent},
+    {path: 'event/:id', component: SeasonComponent},
     //{path: '/', component: DashboardComponent},
     {path: 'participants', component: ParticipantsComponent, children:
         [{path: ':keyparticipant', component: ParticipantComponent}]},

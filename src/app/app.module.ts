@@ -28,6 +28,7 @@ import { SeasonComponent } from './views/events/season/season.component';
 import { EventsComponent } from './views/events/events.component';
 import {EventsService} from './services/events.service';
 import {CurrentdataService} from './services/currentdata.service';
+import { EventComponent } from './views/events/event/event.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -41,7 +42,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ParticipantComponent,
     ParticipantsComponent,
     SeasonComponent,
-    EventsComponent
+    EventsComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,
