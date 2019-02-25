@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {event, eventstatus, season} from '../../../interfaces/app.interface';
 import {Observable} from 'rxjs/Rx';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CurrentdataService} from '../../../services/currentdata.service';
-import {EventsService} from '../../../services/events.service';
+import {arraystatuses, EventsService} from '../../../services/events.service';
 
 @Component({
   selector: 'app-event',
@@ -17,7 +17,8 @@ export class EventComponent implements OnInit {
   seasons: season[];
   currentevent: event;
   private eventObs: Observable<event>;
-  statuses: eventstatus[];
+  arraystatuseslocal: eventstatus[] = arraystatuses;
+  eventstatus = eventstatus;
 
   constructor(private _auth: AuthService,
               private router: Router,
@@ -41,7 +42,6 @@ export class EventComponent implements OnInit {
     this.seasonsObs.subscribe(items => {
       this.seasons = items;
     });
-    //this.statuses.
   }
 
   setEvent() {

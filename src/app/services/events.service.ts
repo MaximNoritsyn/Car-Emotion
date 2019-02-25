@@ -7,6 +7,11 @@ import {competition, competitionclass, event, eventstatus, season} from '../inte
 
 
 export const vocabcompatition = new Map<competition, competitionclass[]>()
+export const arraystatuses: eventstatus[] = [];
+arraystatuses.push(eventstatus.inplan);
+arraystatuses.push(eventstatus.begun);
+arraystatuses.push(eventstatus.finish);
+arraystatuses.push(eventstatus.canceled);
 
 @Injectable()
 export class EventsService {
@@ -24,10 +29,11 @@ export class EventsService {
     this.seasons = this._db.list<season>('/seasons/').valueChanges();
     this.currentevent = this._db.object<event>('/events/').valueChanges();
     this.events = this._db.list<event>('/events/').valueChanges();
+
   }
 
   getEvets() {
-    return this.events
+    return this.events;
   }
 
   getEvent(id: string) {

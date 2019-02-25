@@ -17,8 +17,8 @@
     <input type="date" [ngModel]="currentevent.startDate | date:'yyyy-MM-dd'" (ngModelChange)="currentevent.startDate = $event" name="currentevent.startDate" placeholder="Дата этапа" required>
   </div>
   <select class="form-control" [compareWith]="selectedstatus" [(ngModel)]="currentevent.eventStatus" [ngModelOptions]="{standalone: true}">
-    <option *ngFor="let season of seasons" [ngValue]="season">
-      {{season.name}}
+    <option *ngFor="let key of arraystatuseslocal" [ngValue]="key">
+      {{ 'eventsstatus.' + eventstatus[key] | translate }}
     </option>
   </select>
   <button type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>

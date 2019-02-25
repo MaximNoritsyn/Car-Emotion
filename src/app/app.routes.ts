@@ -16,10 +16,10 @@ const appRoutes: Routes = [
     {path: 'event', component: EventComponent},
     {path: 'event/:id', component: EventComponent},
     //{path: '/', component: DashboardComponent},
-    {path: 'participants', component: ParticipantsComponent, children:
-        [{path: ':keyparticipant', component: ParticipantComponent}]},
-    {path: 'participant/:keyparticipant', component: ParticipantComponent},
-    {path: 'newparticipant', component: ParticipantComponent},
+    //{path: 'participants', component: ParticipantsComponent, children:
+    //    [{path: ':keyparticipant', component: ParticipantComponent}]},
+    //{path: 'participant/:keyparticipant', component: ParticipantComponent},
+    //{path: 'newparticipant', component: ParticipantComponent},
     //{path: '**', redirectTo: ''}
 ];
 

@@ -3,7 +3,7 @@
   "add": "Add",
   "navigate": {
     "Main": "Main",
-    "Participants": "Participants",
+    "Persons": "Participants",
     "Events": "Events",
     "Login": "Login",
     "Logout": "Logout"
@@ -30,5 +30,11 @@
     "date": "Date",
     "save": "Save",
     "setcurrent": "Set current season for users"
+  },
+  "eventsstatus": {
+    "inplan": "Planning",
+    "begun": "Begun",
+    "finish": "Finished",
+    "canceled": "Canceled"
   }
 }
