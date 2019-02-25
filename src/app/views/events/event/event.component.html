@@ -1,3 +1,25 @@
-<p>
-  event works!
-</p>
+<form name="eventform" method="post" #formCtrl="ngForm">
+  <div class="form-group">
+    <label>{{ 'season.name' | translate }}</label>
+    <input class="form-control" [(ngModel)]="currentevent.name" name="currentevent.name" placeholder="Название этапа" required>
+  </div>
+  <select class="form-control" [compareWith]="selectedseason" [(ngModel)]="currentevent.season" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let season of seasons" [ngValue]="season">
+      {{season.name}}
+    </option>
+  </select>
+  <div class="form-group">
+    <label>{{ 'season.name' | translate }}</label>
+    <input class="form-control" [(ngModel)]="currentevent.location" name="currentevent.location" placeholder="Город этапа" required>
+  </div>
+  <div class="form-group">
+    <label>{{ 'season.date' | translate }}</label>
+    <input type="date" [ngModel]="currentevent.startDate | date:'yyyy-MM-dd'" (ngModelChange)="currentevent.startDate = $event" name="currentevent.startDate" placeholder="Дата этапа" required>
+  </div>
+  <select class="form-control" [compareWith]="selectedstatus" [(ngModel)]="currentevent.eventStatus" [ngModelOptions]="{standalone: true}">
+    <option *ngFor="let season of seasons" [ngValue]="season">
+      {{season.name}}
+    </option>
+  </select>
+  <button type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>
+</form>

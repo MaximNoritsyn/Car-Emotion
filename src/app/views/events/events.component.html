@@ -1,9 +1,10 @@
 
-<select class="form-control" #elseasons [ngModel]="seasons"
-        (ngModelChange)="setNewSeason($event)">
-  <option *ngFor="let season of seasons | async;" [selected]="season.id == currentseason.id" [ngValue]="season">
+<label><select class="form-control" [compareWith]="selectedseason" [(ngModel)]="currentseason"
+        (ngModelChange)="setCurrentSeason($event)">
+  <option *ngFor="let season of seasons" [ngValue]="season">
     {{season.name}}
   </option>
-</select>
-<div [routerLink]="['/season/' + [currentseason.id]]">Редатикровать</div>
-<button (click)="addSeason()">Добавить сезон</button>
+</select></label>
+<button [routerLink]="['/season/' + [currentseason.id]]">{{ 'events.editseason' | translate }}</button>
+<button [routerLink]="['/season']">{{ 'events.addseason' | translate }}</button>
+<button [routerLink]="['/event']">{{ 'events.addevent' | translate }}</button>

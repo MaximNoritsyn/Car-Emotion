@@ -1,4 +1,4 @@
-<form name="participantform" method="post" #formCtrl="ngForm">
+<form name="seasonform" method="post" #formCtrl="ngForm">
   <div class="form-group">
     <label>{{ 'season.name' | translate }}</label>
     <input class="form-control" [(ngModel)]="currentseason.name" name="currentseason.name" placeholder="Название сезона" required>
@@ -7,5 +7,6 @@
     <label>{{ 'season.date' | translate }}</label>
     <input type="date" [ngModel]="currentseason.date | date:'yyyy-MM-dd'" (ngModelChange)="currentseason.date = $event" name="currentSeason.date" placeholder="Дата сезона" required>
   </div>
-  <button type="edit" (click)="setSeason()">Сохранить</button>
+  <button type="edit" (click)="setSeason()">{{ 'season.save' | translate }}</button>
+  <button type="edit" (click)="setcurrentSeason()">{{ 'season.setcurrent' | translate }}</button>
 </form>

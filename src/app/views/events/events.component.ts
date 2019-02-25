@@ -13,7 +13,8 @@ import {CurrentdataService} from '../../services/currentdata.service';
 })
 export class EventsComponent implements OnInit {
 
-  seasons: Observable<season[]>;
+  seasonsObs: Observable<season[]>;
+  seasons: season[];
   currentseasonObs: Observable<season>;
   currentseason: season;
   events: Observable<event[]>;
@@ -26,24 +27,24 @@ export class EventsComponent implements OnInit {
               private _EventsService: EventsService) {}
 
   ngOnInit() {
-    this.currentseason = this._EventsService.getnewSeason();
-    this.seasons = this._EventsService.getSeasons();
-    this.currentseasonObs = this._CurrentdataService.getseason();
-    this.currentseasonObs.subscribe(item => this.currentseason = item)
+    this.currentseason = this._CurrentdataService.getseason();
+    this.seasonsObs = this._EventsService.getSeasons();
+    this.seasonsObs.subscribe(items => {
+      this.seasons = items;
+      if (this.currentseason.id == "") {
+        this.currentseason = this._CurrentdataService.getseason()
+      };
+    });
   }
 
-  editSeason() {
-    this.router.navigate(['season/' + this.currentseason.id] );
-  }
-
-  addSeason() {
-    this.router.navigate(['season']);
-  }
-
-  setNewSeason(season: season)
+  setCurrentSeason(season: season)
   {
+    this._CurrentdataService.setcashseason(season);
     this.currentseason = season;
-    //this._CurrentdataService.setseason(season);
+  }
+
+  selectedseason(seasonel, currentseasonel) {
+    return seasonel.id == currentseasonel.id;
   }
 
 

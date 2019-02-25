@@ -65,9 +65,7 @@ export interface car {
 export interface season{
   id: string,
   name: string,
-  date: Date,
-  events: event[],
-  points: point[]
+  date: Date
 }
 
 // Sportevent https://schema.org/SportsEvent
@@ -78,9 +76,9 @@ export interface event{
   location: string,
   eventStatus: eventstatus,
   organizer: string,
-  startDate: Date,
-  competitors: participant[],
-  points: point[],
+  startDate: Date
+  //competitors: participant[],
+  //points: point[],
 }
 
 // SportTeam https://schema.org/SportsTeam

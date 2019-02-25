@@ -19,5 +19,16 @@
     "email": "email",
     "telephone": "telephone",
     "city": "city"
+  },
+  "events": {
+    "editseason": "Edit season",
+    "addseason": "Add new season",
+    "addevent": "Add new event"
+  },
+  "season": {
+    "name": "Name of season",
+    "date": "Date",
+    "save": "Save",
+    "setcurrent": "Set current season for users"
   }
 }

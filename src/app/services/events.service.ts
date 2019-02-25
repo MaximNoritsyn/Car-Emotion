@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {AngularFireDatabase} from 'angularfire2/database';
-import {competition, competitionclass, event, participant, point, season} from '../interfaces/app.interface';
+import {competition, competitionclass, event, eventstatus, season} from '../interfaces/app.interface';
 
 
 export const vocabcompatition = new Map<competition, competitionclass[]>()
@@ -28,6 +28,21 @@ export class EventsService {
 
   getEvets() {
     return this.events
+  }
+
+  getEvent(id: string) {
+    this.currentevent = this._db.object<event>('/events/' + id).valueChanges();
+    return this.currentevent;
+  }
+
+  setEvent(event: event) {
+    if (event.id == "") {
+      this._db.list('/events/').push(event).then((snapshot) => {
+        this._db.object('/events/' + snapshot.key).update({"id": snapshot.key})
+      });
+    } else {
+      this._db.object('/events/' + event.id).update(event)
+    }
   }
 
   getSeasons() {
@@ -55,9 +70,23 @@ export class EventsService {
     return new class implements season {
       id: string = "";
       name: string = "";
-      date: Date = new Date();
-      events: event[];
-      points: point[]
+      date: Date = new Date()
+    }
+  }
+
+  getnewEvent() {
+    return new class implements event {
+      id: string = "";
+      name: string = "";
+      season: season = new class implements season {
+        id: string = "";
+        name: string = "";
+        date: Date = new Date()
+      };
+      location: string = "";
+      eventStatus: eventstatus = eventstatus.inplan;
+      organizer: string = "Car Emotion";
+      startDate: Date = new Date()
     }
   }
 
