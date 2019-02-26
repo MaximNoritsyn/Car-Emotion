@@ -7,6 +7,6 @@
     <label>{{ 'season.date' | translate }}</label>
     <input type="date" [ngModel]="currentseason.date | date:'yyyy-MM-dd'" (ngModelChange)="currentseason.date = $event" name="currentSeason.date" placeholder="Дата сезона" required>
   </div>
-  <button type="edit" (click)="setSeason()">{{ 'season.save' | translate }}</button>
-  <button type="edit" (click)="setcurrentSeason()">{{ 'season.setcurrent' | translate }}</button>
+  <button class="btn btn-primary btn-block" type="edit" (click)="setSeason()">{{ 'season.save' | translate }}</button>
+  <button class="btn btn-primary btn-block" type="edit" (click)="setcurrentSeason()">{{ 'season.setcurrent' | translate }}</button>
 </form>

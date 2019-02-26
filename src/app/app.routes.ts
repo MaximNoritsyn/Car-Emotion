@@ -12,15 +12,9 @@ const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
     {path: 'season', component: SeasonComponent},
-    {path: 'season/:id', component: SeasonComponent},
-    {path: 'event', component: EventComponent},
-    {path: 'event/:id', component: EventComponent},
-    //{path: '/', component: DashboardComponent},
-    //{path: 'participants', component: ParticipantsComponent, children:
-    //    [{path: ':keyparticipant', component: ParticipantComponent}]},
-    //{path: 'participant/:keyparticipant', component: ParticipantComponent},
-    //{path: 'newparticipant', component: ParticipantComponent},
-    //{path: '**', redirectTo: ''}
+    {path: 'event', component: EventComponent, children:
+        [{path: '', component: ParticipantsComponent}]},
+    {path: 'participant', component: ParticipantComponent},
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

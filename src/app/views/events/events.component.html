@@ -5,9 +5,19 @@
     {{season.name}}
   </option>
 </select></label>
-<button [routerLink]="['/season/' + [currentseason.id]]">{{ 'events.editseason' | translate }}</button>
-<button [routerLink]="['/season']">{{ 'events.addseason' | translate }}</button>
-<button [routerLink]="['/event']">{{ 'events.addevent' | translate }}</button>
+<button class="btn btn-primary btn-block"
+        [routerLink]="['/season/']"
+        [queryParams]="{idseason: currentseason.id}"
+>{{ 'events.editseason' | translate }}</button>
+<button class="btn btn-primary btn-block"
+        [routerLink]="['/season']"
+>{{ 'events.addseason' | translate }}</button>
+<button class="btn btn-primary btn-block"
+        [routerLink]="['/event']"
+>{{ 'events.addevent' | translate }}</button>
 <li *ngFor="let events of events">
-  <a [routerLink]="'/event/' + [events.id]">{{events.name}}</a>
+  <a
+    [routerLink]="'/event/'"
+    [queryParams]="{idevent: events.id}"
+  >{{events.name}}</a>
 </li>

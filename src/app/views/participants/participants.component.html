@@ -1,7 +1,12 @@
 
-  <button type="submit" (click)="addNewParticipant()">Добавить нового участника</button>
-  <li *ngFor="let participant of participants | async;">
-    <a [routerLink]="[participant.id]">{{participant.name}}</a>
+  <button class="btn btn-primary btn-block" type="submit"
+          [routerLink]="['/participant']"
+          [queryParams]="{idevent: this.idevent}"
+  >Добавить нового участника</button>
+  <li *ngFor="let participant of participants">
+    <a
+      [routerLink]="['/participant/']"
+      [queryParams]="{idevent: this.idevent, idParticipant: participant.id}"
+    >{{participant.person.name}}</a>
   </li>
-  <router-outlet></router-outlet>
 

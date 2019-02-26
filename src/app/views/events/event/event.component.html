@@ -21,5 +21,6 @@
       {{ 'eventsstatus.' + eventstatus[key] | translate }}
     </option>
   </select>
-  <button type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>
+  <button class="btn btn-primary btn-block" type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>
 </form>
+<router-outlet></router-outlet>

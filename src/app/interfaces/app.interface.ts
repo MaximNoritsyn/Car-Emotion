@@ -1,13 +1,13 @@
 
 
-export interface participant {
+/*export interface participant {
   id: string,
   name: string,
   familyName: string,
   email: string,
   telephone: string,
   city: string
-}
+}*/
 
 //https://schema.org/Person
 export interface person {
@@ -21,9 +21,9 @@ export interface person {
 }
 
 //свой формат
-export interface participant1 {
+export interface participant {
   id: string,
-  event: event,
+  idevent: string,
   person: person,
   imageperson: string,
   car: car,
@@ -38,6 +38,7 @@ export interface participant1 {
   classDecibelVolume: competitionclass,
   classDecibelShow: competitionclass,
   registered: boolean,
+  datainput: Date,
   points: point[]
 }
 
@@ -76,8 +77,8 @@ export interface event{
   location: string,
   eventStatus: eventstatus,
   organizer: string,
-  startDate: Date
-  //competitors: participant[],
+  startDate: Date,
+  competitors: participant[]
   //points: point[],
 }
 

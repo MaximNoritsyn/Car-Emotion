@@ -5,6 +5,8 @@ import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CurrentdataService} from '../../../services/currentdata.service';
 import {arraystatuses, EventsService} from '../../../services/events.service';
+import {ParticipantComponent} from '../../participants/participant/participant.component';
+import {ParticipantsService} from '../../../services/participants.service';
 
 @Component({
   selector: 'app-event',
@@ -23,17 +25,22 @@ export class EventComponent implements OnInit {
   constructor(private _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
+              private _ParticipantsService: ParticipantsService,
               private _CurrentdataService: CurrentdataService,
               private _EventsService: EventsService) { }
 
   ngOnInit() {
     this.currentevent = this._EventsService.getnewEvent();
-    this.activeRoute.params.subscribe((params: Params) =>
+    this._ParticipantsService.setidcurrenevent(this.currentevent.id)
+    this.activeRoute.queryParams.subscribe((params: Params) =>
       {
-        if ((params["id"] == null && params["id"] == undefined) == false)
+        if ((params["idevent"] == null && params["idevent"] == undefined) == false)
         {
-          this.eventObs = this._EventsService.getEvent(params["id"]);
-          this.eventObs.subscribe(item => {this.currentevent = item});
+          this.eventObs = this._EventsService.getEvent(params["idevent"]);
+          this.eventObs.subscribe(item => {
+            this.currentevent = item;
+            this._ParticipantsService.setidcurrenevent(this.currentevent.id)
+          });
         }
       }
     )
@@ -45,7 +52,8 @@ export class EventComponent implements OnInit {
   }
 
   setEvent() {
-    this._EventsService.setEvent(this.currentevent)
+    this._EventsService.setEvent(this.currentevent);
+    this._ParticipantsService.setidcurrenevent(this.currentevent.id)
   }
 
   selectedseason(seasonel, currentseasonel) {

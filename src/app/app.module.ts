@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutes } from './app.routes';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './views/login/login.component';
@@ -23,12 +23,14 @@ import { ParticipantsComponent } from './views/participants/participants.compone
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {Translate_Service} from './services/translate.service';
+import { Translate_Service } from './services/translate.service';
 import { SeasonComponent } from './views/events/season/season.component';
 import { EventsComponent } from './views/events/events.component';
-import {EventsService} from './services/events.service';
-import {CurrentdataService} from './services/currentdata.service';
+import { EventsService} from './services/events.service';
+import { CurrentdataService } from './services/currentdata.service';
 import { EventComponent } from './views/events/event/event.component';
+import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -49,10 +51,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     AppRoutes,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpClientModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

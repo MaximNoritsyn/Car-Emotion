@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {ParticipantsService} from '../../services/participants.service';
 import { Observable } from 'rxjs';
@@ -12,20 +12,28 @@ import {participant} from '../../interfaces/app.interface';
 })
 export class ParticipantsComponent implements OnInit {
 
-  participants: Observable<participant[]>;
+  participantsObs: Observable<participant[]>;
+  participants: participant[];
+  idevent: string = "";
 
   constructor(private authService: AuthService,
               private router: Router,
+              private activeRoute: ActivatedRoute,
               private _ParticipantsService: ParticipantsService) { }
 
   ngOnInit() {
-    this.participants = this._ParticipantsService.getParticipants();
-    //console.log(this.participants)
+
+    this.activeRoute.queryParams.subscribe((params: Params) =>
+    {
+      this.idevent = params["idevent"];
+      this._ParticipantsService.setidcurrenevent(this.idevent);
+      this.participantsObs = this._ParticipantsService.getParticipants();
+      this.participantsObs.subscribe(items => {
+        this.participants = items;
+      })
+    })
   }
 
-  addNewParticipant() {
-    this.router.navigate(['/newparticipant']);
-  }
 
 
 }

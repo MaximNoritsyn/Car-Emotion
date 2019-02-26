@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {AngularFireDatabase} from 'angularfire2/database';
-import {competition, competitionclass, event, eventstatus, season} from '../interfaces/app.interface';
+import {competition, competitionclass, event, eventstatus, participant, season} from '../interfaces/app.interface';
 
 
 export const vocabcompatition = new Map<competition, competitionclass[]>()
@@ -92,7 +92,8 @@ export class EventsService {
       location: string = "";
       eventStatus: eventstatus = eventstatus.inplan;
       organizer: string = "Car Emotion";
-      startDate: Date = new Date()
+      startDate: Date = new Date();
+      competitors: participant[]
     }
   }
 
