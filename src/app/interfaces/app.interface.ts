@@ -122,24 +122,11 @@ export enum competition{
   DecibelShow = "Decibel show"
 }
 
-export enum competitionclass {
-  beginner750,
-  amateur1500,
-  specialist3000,
-  professional5000,
-  extreme,
-  sedan4000,
-
-  _129,
-  _139,
-
-  upto150,
-  upto250,
-  from250,
-
-  Master1500,
-  Expert3000,
-  Monster
+export interface competitionclass {
+  competition: competition,
+  name: string,
+  actual: boolean,
+  comment: string
 
 }
 
