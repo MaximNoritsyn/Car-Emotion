@@ -7,11 +7,13 @@ import {ParticipantsComponent} from './views/participants/participants.component
 import {EventsComponent} from './views/events/events.component';
 import {SeasonComponent} from './views/events/season/season.component';
 import {EventComponent} from './views/events/event/event.component';
+import {AdminboardComponent} from './views/adminboard/adminboard.component';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
     {path: 'season', component: SeasonComponent},
+    {path: 'adminboard', component: AdminboardComponent},
     {path: 'season/:idseason', component: SeasonComponent},
     {path: 'event/', component: EventComponent},
     {path: 'event/:idevent', component: EventComponent, children:

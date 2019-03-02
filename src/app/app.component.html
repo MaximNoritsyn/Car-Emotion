@@ -19,11 +19,14 @@
                   [routerLinkActiveOptions]="{exact: true}">{{ 'navigate.Main' | translate }}</a>
           </li>
           <li >
-            <a [routerLink]="['/persons']" routerLinkActive="active-link">{{ 'navigate.Persons' | translate }}</a>
+            <a [routerLink]="['/persons']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Persons' | translate }}</a>
           </li>
           <li >
-            <a [routerLink]="['/events']" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
+            <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
           </li>
+        <li >
+          <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.AdminBoard' | translate }}</a>
+        </li>
 
         <ul *ngIf="!authService.isLoggedIn()" class="nav navbar-nav navbar-right">
           <li [routerLink]="['/login']" routerLinkActive="active-link">

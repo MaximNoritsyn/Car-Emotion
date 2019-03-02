@@ -31,6 +31,7 @@ import { CurrentdataService } from './services/currentdata.service';
 import { EventComponent } from './views/events/event/event.component';
 import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AdminboardComponent } from './views/adminboard/adminboard.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -45,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ParticipantsComponent,
     SeasonComponent,
     EventsComponent,
-    EventComponent
+    EventComponent,
+    AdminboardComponent
   ],
   imports: [
     BrowserModule,
