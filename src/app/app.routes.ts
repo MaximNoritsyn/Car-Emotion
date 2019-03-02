@@ -8,12 +8,15 @@ import {EventsComponent} from './views/events/events.component';
 import {SeasonComponent} from './views/events/season/season.component';
 import {EventComponent} from './views/events/event/event.component';
 import {AdminboardComponent} from './views/adminboard/adminboard.component';
+import {CompetitionclassComponent} from './views/adminboard/competitionclass/competitionclass.component';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
     {path: 'season', component: SeasonComponent},
-    {path: 'adminboard', component: AdminboardComponent},
+    {path: 'adminboard', component: AdminboardComponent, children:
+        [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
+          {path: 'competitionclass', component: CompetitionclassComponent}]},
     {path: 'season/:idseason', component: SeasonComponent},
     {path: 'event/', component: EventComponent},
     {path: 'event/:idevent', component: EventComponent, children:

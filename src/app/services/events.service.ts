@@ -6,7 +6,6 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {competition, competitionclass, event, eventstatus, participant, season} from '../interfaces/app.interface';
 
 
-export const vocabcompatition = new Map<competition, competitionclass[]>()
 export const arraystatuses: eventstatus[] = [];
 arraystatuses.push(eventstatus.inplan);
 arraystatuses.push(eventstatus.begun);
@@ -20,16 +19,18 @@ export class EventsService {
   private seasons: Observable<season[]>;
   private currentevent: Observable<event>;
   private events: Observable<event[]>;
+  private competitionclassObs: Observable<competitionclass[]>;
+  private competitionclassArray: competitionclass[];
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _auth: AuthService) {
-    this.Prepairvocabluaryclass();
     this.currentseason = this._db.object<season>('/seasons/').valueChanges();
     this.seasons = this._db.list<season>('/seasons/').valueChanges();
     this.currentevent = this._db.object<event>('/events/').valueChanges();
     this.events = this._db.list<event>('/events/').valueChanges();
-
+    this.competitionclassObs = this._db.list<competitionclass>('/competitionclass/').valueChanges();
+    this.competitionclassObs.subscribe(items => this.competitionclassArray = items)
   }
 
   getEvets() {
@@ -98,40 +99,4 @@ export class EventsService {
   }
 
 
-  Prepairvocabluaryclass() {
-    vocabcompatition.set(
-      competition.DecibelLeague,
-      [
-        competitionclass.beginner750,
-        competitionclass.amateur1500,
-        competitionclass.specialist3000,
-        competitionclass.professional5000,
-        competitionclass.extreme,
-        competitionclass.sedan4000,
-      ]
-    );
-    vocabcompatition.set(
-      competition.DecibelBattle,
-      [
-        competitionclass._129,
-        competitionclass._139
-      ]
-    );
-    vocabcompatition.set(
-      competition.DecibelVolume,
-      [
-        competitionclass.upto150,
-        competitionclass.upto250,
-        competitionclass.from250
-      ]
-    );
-    vocabcompatition.set(
-      competition.DecibelShow,
-      [
-        competitionclass.Master1500,
-        competitionclass.Expert3000,
-        competitionclass.Monster
-      ]
-    );
-  }
 }

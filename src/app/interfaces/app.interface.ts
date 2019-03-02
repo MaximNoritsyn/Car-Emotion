@@ -123,6 +123,7 @@ export enum competition{
 }
 
 export interface competitionclass {
+  id: string,
   competition: competition,
   name: string,
   actual: boolean,
