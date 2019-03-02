@@ -23,7 +23,7 @@ export class ParticipantsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.activeRoute.queryParams.subscribe((params: Params) =>
+    this.activeRoute.params.subscribe((params: Params) =>
     {
       this.idevent = params["idevent"];
       this._ParticipantsService.setidcurrenevent(this.idevent);

@@ -1,12 +1,12 @@
 
-  <button class="btn btn-primary btn-block" type="submit"
-          [routerLink]="['/participant']"
-          [queryParams]="{idevent: this.idevent}"
-  >Добавить нового участника</button>
-  <li *ngFor="let participant of participants">
-    <a
-      [routerLink]="['/participant/']"
-      [queryParams]="{idevent: this.idevent, idParticipant: participant.id}"
+<div>
+  <H4>Участники</H4>
+  <div class="list-group">
+    <a class="list-group-item active" [routerLink]="['/participant/' + this.idevent]">
+      Добавить нового участника
+    </a>
+    <a *ngFor="let participant of participants" class="list-group-item list-group-item-action"
+      [routerLink]="['/participant/' + this.idevent + '/' + participant.id]"
     >{{participant.person.name}}</a>
-  </li>
-
+  </div>
+</div>

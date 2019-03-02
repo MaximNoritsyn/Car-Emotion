@@ -24,11 +24,11 @@ export class SeasonComponent implements OnInit {
 
   ngOnInit() {
     this.currentseason = this._EventsService.getnewSeason();
-    this.activeRoute.queryParams.subscribe((params: Params) =>
+    this.activeRoute.params.subscribe((params: Params) =>
     {
-      if ((params["id"] == null && params["id"] == undefined) == false)
+      if ((params["idseason"] == null && params["idseason"] == undefined) == false)
       {
-        this.season = this._EventsService.getSeason(params["id"]);
+        this.season = this._EventsService.getSeason(params["idseason"]);
         this.season.subscribe(item => {this.currentseason = item});
       }
     }

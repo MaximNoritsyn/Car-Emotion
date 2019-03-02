@@ -32,7 +32,7 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     this.currentevent = this._EventsService.getnewEvent();
     this._ParticipantsService.setidcurrenevent(this.currentevent.id)
-    this.activeRoute.queryParams.subscribe((params: Params) =>
+    this.activeRoute.params.subscribe((params: Params) =>
       {
         if ((params["idevent"] == null && params["idevent"] == undefined) == false)
         {

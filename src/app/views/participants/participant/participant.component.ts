@@ -37,13 +37,13 @@ export class ParticipantComponent implements OnInit {
 
     this.FilteredPersons = this.personsControl.valueChanges
       .pipe(
-        startWith<string | person>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(name => this._filterperson(name))
+        startWith(''),
+        map(value => typeof value === 'string' ? this._filterperson(value) : this._setPersonToParticipant(value)
+        )
       );
 
     this.currentParticipant = this._ParticipantsService.getnewParticipantclass();
-    this.activeRoute.queryParams.subscribe((params: Params) =>
+    this.activeRoute.params.subscribe((params: Params) =>
     {
       this.idevent = params["idevent"];
       this._ParticipantsService.setidcurrenevent(this.idevent);
@@ -64,10 +64,15 @@ export class ParticipantComponent implements OnInit {
     const filterValue = name.toLowerCase();
 
     return this.persons.filter(option =>
-      option.name.toLowerCase().indexOf(filterValue) === 0
-
-
+      option.name.toLowerCase().indexOf(filterValue) === 0 //|| option.familyName.toLowerCase().indexOf(filterValue) === 0
+      //|| option.telephone.toLowerCase().indexOf(filterValue)
     );
+  }
+
+  private _setPersonToParticipant(value: person): undefined {
+
+    this.currentParticipant.person = value
+    return null
   }
 
   displayPerson(person: person): string | undefined {
