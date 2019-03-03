@@ -14,12 +14,33 @@
     "pass": "Password",
     "button": "Login"
   },
+  "competitionclasses": {
+    "classes": "Classes of competitions",
+    "addnewclass": "Add new class",
+    "name": "Name of class",
+    "competition": "Competition of class",
+    "actual": "It is actual class",
+    "comment": "Comment",
+    "save": "Save"
+  },
+  "participants": {
+    "participants": "Participants",
+    "addnewparticipant": "Add new"
+  },
   "participant": {
     "name": "Name",
     "familyName": "Last name",
     "email": "email",
     "telephone": "telephone",
-    "city": "city"
+    "city": "city",
+    "isDecibelLeague": "Involved in Decibel League",
+    "isDecibelBattle": "Involved in Decibel Battle",
+    "isDecibelVolume": "Involved in Decibel Volume",
+    "isDecibelShow": "Involved in Decibel Show",
+    "classDecibelLeague": "Class in Decibel League",
+    "classDecibelBattle": "Class in Decibel Battle",
+    "classDecibelVolume": "Class in Decibel Volume",
+    "classDecibelShow": "Class in Decibel Show"
   },
   "events": {
     "editseason": "Edit season",

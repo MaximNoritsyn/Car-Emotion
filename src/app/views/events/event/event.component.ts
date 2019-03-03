@@ -5,7 +5,6 @@ import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CurrentdataService} from '../../../services/currentdata.service';
 import {arraystatuses, EventsService} from '../../../services/events.service';
-import {ParticipantComponent} from '../../participants/participant/participant.component';
 import {ParticipantsService} from '../../../services/participants.service';
 
 @Component({

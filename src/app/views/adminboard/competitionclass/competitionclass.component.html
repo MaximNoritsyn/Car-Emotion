@@ -1,3 +1,28 @@
-<p>
-  competitionclass works!
-</p>
+<form name="eventform" method="post" #formCtrl="ngForm">
+  <div class="form-group">
+    <label>{{ 'competitionclasses.name' | translate }}</label>
+    <input class="form-control" [(ngModel)]="currentClass.name" name="competitionclasses.location" placeholder="Название класса" required>
+  </div>
+
+  <select class="form-control" [compareWith]="selectedcompetition" [(ngModel)]="currentClass.competition" [ngModelOptions]="{standalone: true}">
+    <label>{{ 'competitionclasses.competition' | translate }}</label>
+    <option *ngFor="let key of arrayCompetitons" [ngValue]="key">
+      {{key}}
+    </option>
+  </select>
+  <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="actual">
+        <input type="checkbox" class="form-check-input" id="actual" name="competitionclasses.actual" [(ngModel)]="currentClass.actual">
+        {{ 'competitionclasses.actual' | translate }}
+      </label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>{{ 'competitionclasses.comment' | translate }}</label>
+    <input class="form-control" [(ngModel)]="currentClass.comment" name="competitionclasses.comment" placeholder="Описание" required>
+  </div>
+
+
+  <button class="btn btn-primary btn-block" type="edit" (click)="SetCompetitionClass()">{{ 'competitionclasses.save' | translate }}</button>
+</form>

@@ -14,12 +14,33 @@
     "pass": "Пароль",
     "button": "Войти"
   },
+  "competitionclasses": {
+    "classes": "Классы соревнований",
+    "addnewclass": "Добавить новый класс",
+    "name": "Название класса",
+    "competition": "Класс соревнования",
+    "actual": "Сейчас актуальный",
+    "comment": "Описание",
+    "save": "Сохранить"
+  },
+  "participants": {
+    "participants": "Участники",
+    "addnewparticipant": "Добавить нового"
+  },
   "participant": {
     "name": "Имя",
     "familyName": "Фамилия",
     "email": "Электронный ящик",
     "telephone": "Номер телефона",
-    "city": "Город"
+    "city": "Город",
+    "isDecibelLeague": "Принимает участие в Decibel League",
+    "isDecibelBattle": "Принимает участие в Decibel Battle",
+    "isDecibelVolume": "Принимает участие в Decibel Volume",
+    "isDecibelShow": "Принимает участие в Decibel Show",
+    "classDecibelLeague": "Класс в Decibel League",
+    "classDecibelBattle": "Класс в Decibel Battle",
+    "classDecibelVolume": "Класс в Decibel Volume",
+    "classDecibelShow": "Класс в Decibel Show"
   },
   "events": {
     "editseason": "Изменить",

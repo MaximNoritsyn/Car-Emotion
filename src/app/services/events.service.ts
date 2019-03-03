@@ -12,6 +12,12 @@ arraystatuses.push(eventstatus.begun);
 arraystatuses.push(eventstatus.finish);
 arraystatuses.push(eventstatus.canceled);
 
+export const arraycompetition: competition[] = [];
+arraycompetition.push(competition.DecibelBattle);
+arraycompetition.push(competition.DecibelLeague);
+arraycompetition.push(competition.DecibelShow);
+arraycompetition.push(competition.DecibelVolume);
+
 @Injectable()
 export class EventsService {
 
@@ -19,18 +25,21 @@ export class EventsService {
   private seasons: Observable<season[]>;
   private currentevent: Observable<event>;
   private events: Observable<event[]>;
-  private competitionclassObs: Observable<competitionclass[]>;
+  private competitionclassObs: Observable<competitionclass>;
+  private competitionclassesObs: Observable<competitionclass[]>;
   private competitionclassArray: competitionclass[];
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _auth: AuthService) {
+    this.competitionclassArray = [];
     this.currentseason = this._db.object<season>('/seasons/').valueChanges();
     this.seasons = this._db.list<season>('/seasons/').valueChanges();
     this.currentevent = this._db.object<event>('/events/').valueChanges();
     this.events = this._db.list<event>('/events/').valueChanges();
-    this.competitionclassObs = this._db.list<competitionclass>('/competitionclass/').valueChanges();
-    this.competitionclassObs.subscribe(items => this.competitionclassArray = items)
+    this.competitionclassObs = this._db.object<competitionclass>('/competitionclass/').valueChanges();
+    this.competitionclassesObs = this._db.list<competitionclass>('/competitionclass/').valueChanges();
+    this.competitionclassesObs.subscribe(items => this.competitionclassArray = items.filter(option => option.actual = true))
   }
 
   getEvets() {
@@ -61,10 +70,9 @@ export class EventsService {
     return this.currentseason;
   }
 
-  setSeason(season: season) {
+  setSeason(season: season): void {
     if (season.id == "") {
       this._db.list('/seasons/').push(season).then((snapshot) => {
-        //console.log(snapshot.key);
         this._db.object('/seasons/' + snapshot.key).update({"id": snapshot.key})
       });
     }
@@ -73,7 +81,7 @@ export class EventsService {
     }
   }
 
-  getnewSeason() {
+  getnewSeason(): season {
     return new class implements season {
       id: string = "";
       name: string = "";
@@ -81,7 +89,7 @@ export class EventsService {
     }
   }
 
-  getnewEvent() {
+  getnewEvent(): event {
     return new class implements event {
       id: string = "";
       name: string = "";
@@ -98,5 +106,39 @@ export class EventsService {
     }
   }
 
+  getNewCompetitionClass() {
+    return new class implements competitionclass {
+      id: string = "";
+      competition: competition;
+      name: string = "";
+      actual: boolean = false;
+      comment: string = ""
+    }
+  }
+
+  getCompetitionClasses(classes: competitionclass[], localcompetition: competition): competitionclass[] {
+    return classes.filter(option => option.competition == localcompetition)
+  }
+
+  getCompetitionClassesObs() {
+    return this.competitionclassesObs;
+  }
+
+  getCompetitionClassObs(idclass: string) {
+    this.competitionclassObs = this._db.object<competitionclass>('/competitionclass/' + idclass).valueChanges();
+    return this.competitionclassObs
+  }
+
+  setCompetitionClass(localClass: competitionclass) {
+
+    if (localClass.id == "") {
+      this._db.list('/competitionclass/').push(localClass).then((snapshot) => {
+        this._db.object('/competitionclass/' + snapshot.key).update({"id": snapshot.key})
+      });
+    }
+    else {
+      this._db.object('/competitionclass/' + localClass.id).update(localClass)
+    }
+  }
 
 }

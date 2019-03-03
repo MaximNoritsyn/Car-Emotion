@@ -53,6 +53,75 @@
            required>
   </div>
   <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="isDecibelLeague">
+        <input type="checkbox" class="form-check-input" id="isDecibelLeague" name="currentParticipant.isDecibelLeague"
+               [(ngModel)]="currentParticipant.isDecibelLeague">
+        {{ 'participant.isDecibelLeague' | translate }}
+      </label>
+    </div>
+  </div>
+  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelLeague"
+          [ngModelOptions]="{standalone: true}">
+    <label>{{ 'participant.classDecibelLeague' | translate }}</label>
+    <option *ngFor="let key of arrayclassDecibelLeague" [ngValue]="key">
+      {{key.name}}
+    </option>
+  </select>
+
+  <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="isDecibelBattle">
+        <input type="checkbox" class="form-check-input" id="isDecibelBattle" name="currentParticipant.isDecibelBattle"
+               [(ngModel)]="currentParticipant.isDecibelBattle">
+        {{ 'participant.isDecibelBattle' | translate }}
+      </label>
+    </div>
+  </div>
+  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelBattle"
+          [ngModelOptions]="{standalone: true}">
+    <label>{{ 'participant.classDecibelBattle' | translate }}</label>
+    <option *ngFor="let key of arrayclassDecibelBattle" [ngValue]="key">
+      {{key.name}}
+    </option>
+  </select>
+
+  <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="isDecibelVolume">
+        <input type="checkbox" class="form-check-input" id="isDecibelVolume" name="currentParticipant.isDecibelVolume"
+               [(ngModel)]="currentParticipant.isDecibelVolume">
+        {{ 'participant.isDecibelVolume' | translate }}
+      </label>
+    </div>
+  </div>
+  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelVolume"
+          [ngModelOptions]="{standalone: true}">
+    <label>{{ 'participant.classDecibelVolume' | translate }}</label>
+    <option *ngFor="let key of arrayclassDecibelVolume" [ngValue]="key">
+      {{key.name}}
+    </option>
+  </select>
+
+  <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="isDecibelShow">
+        <input type="checkbox" class="form-check-input" id="isDecibelShow" name="currentParticipant.isDecibelShow"
+               [(ngModel)]="currentParticipant.isDecibelShow">
+        {{ 'participant.isDecibelShow' | translate }}
+      </label>
+    </div>
+  </div>
+  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelShow"
+          [ngModelOptions]="{standalone: true}">
+    <label>{{ 'participant.classDecibelShow' | translate }}</label>
+    <option *ngFor="let key of arrayclassDecibelShow" [ngValue]="key">
+      {{key.name}}
+    </option>
+  </select>
+
+  <hr>
+  <div class="form-group">
     <button type="buton" class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="setParticipant()">
       {{ 'add' | translate }}
     </button>

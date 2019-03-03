@@ -1,14 +1,5 @@
 
 
-/*export interface participant {
-  id: string,
-  name: string,
-  familyName: string,
-  email: string,
-  telephone: string,
-  city: string
-}*/
-
 //https://schema.org/Person
 export interface person {
   id: string,

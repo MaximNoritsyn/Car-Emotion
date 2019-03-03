@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ParticipantsService} from '../../../services/participants.service';
 import {Translate_Service} from '../../../services/translate.service';
 import {Observable} from 'rxjs/Rx';
-import {participant, person} from '../../../interfaces/app.interface';
+import {competition, competitionclass, participant, person} from '../../../interfaces/app.interface';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
+import {EventsService} from '../../../services/events.service';
 
 @Component({
   selector: 'app-participant',
@@ -22,15 +23,27 @@ export class ParticipantComponent implements OnInit {
   private persons: person[] = [];
   private FilteredPersons: Observable<person[]>;
   private personsControl = new FormControl();
+  private arrayclassDecibelLeague: competitionclass[];
+  private arrayclassDecibelBattle: competitionclass[];
+  private arrayclassDecibelShow: competitionclass[];
+  private arrayclassDecibelVolume: competitionclass[];
 
   constructor(private _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private _ParticipantsService: ParticipantsService,
-              private translate_service: Translate_Service)
+              private translate_service: Translate_Service,
+              private _EventsService: EventsService)
   {}
 
   ngOnInit() {
+
+    this._EventsService.getCompetitionClassesObs().subscribe(items => {
+      this.arrayclassDecibelBattle = this._EventsService.getCompetitionClasses(items, competition.DecibelBattle);
+      this.arrayclassDecibelLeague = this._EventsService.getCompetitionClasses(items, competition.DecibelLeague);
+      this.arrayclassDecibelShow = this._EventsService.getCompetitionClasses(items, competition.DecibelShow);
+      this.arrayclassDecibelVolume = this._EventsService.getCompetitionClasses(items, competition.DecibelVolume);
+    })
 
     this._ParticipantsService.getPersons().subscribe(items =>
       this.persons = items);
@@ -77,6 +90,10 @@ export class ParticipantComponent implements OnInit {
 
   displayPerson(person: person): string | undefined {
     return person ? person.familyName + " - " + person.name + " - " + person.telephone : undefined;
+  }
+
+  selectedclass(classel, currentclassel) {
+    return classel == currentclassel;
   }
 
 }
