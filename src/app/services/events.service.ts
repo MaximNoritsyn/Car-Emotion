@@ -27,19 +27,16 @@ export class EventsService {
   private events: Observable<event[]>;
   private competitionclassObs: Observable<competitionclass>;
   private competitionclassesObs: Observable<competitionclass[]>;
-  private competitionclassArray: competitionclass[];
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _auth: AuthService) {
-    this.competitionclassArray = [];
     this.currentseason = this._db.object<season>('/seasons/').valueChanges();
     this.seasons = this._db.list<season>('/seasons/').valueChanges();
     this.currentevent = this._db.object<event>('/events/').valueChanges();
     this.events = this._db.list<event>('/events/').valueChanges();
     this.competitionclassObs = this._db.object<competitionclass>('/competitionclass/').valueChanges();
     this.competitionclassesObs = this._db.list<competitionclass>('/competitionclass/').valueChanges();
-    this.competitionclassesObs.subscribe(items => this.competitionclassArray = items.filter(option => option.actual = true))
   }
 
   getEvets() {
@@ -117,7 +114,7 @@ export class EventsService {
   }
 
   getCompetitionClasses(classes: competitionclass[], localcompetition: competition): competitionclass[] {
-    return classes.filter(option => option.competition == localcompetition)
+    return classes.filter(option => option.competition == localcompetition && option.actual == true)
   }
 
   getCompetitionClassesObs() {

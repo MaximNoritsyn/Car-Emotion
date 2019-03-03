@@ -18,7 +18,7 @@ export interface participant {
   person: person,
   imageperson: string,
   car: car,
-  datacer: datacar,
+  datacar: datacar,
   team: team,
   isDecibelLeague: boolean,
   isDecibelBattle: boolean,
@@ -34,24 +34,20 @@ export interface participant {
 }
 
 export interface datacar {
-  idcar: string,
+  id: string,
   idevent: string,
   image: string,
   subsize: number,
   subcount: number,
   nameamplifiler: string,
   front: string
-
 }
 
 //https://schema.org/Car
 export interface car {
   id: string,
   model: string,
-  alternateName: string,
-  datacar: datacar,
-  history: datacar[],
-  points: point[]
+  alternateName: string
 }
 
 export interface season{

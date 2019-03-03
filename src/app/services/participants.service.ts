@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 
-import {car, competitionclass, datacar, event, participant, person, point, team} from '../interfaces/app.interface';
-import {elementStart} from '@angular/core/src/render3';
+import {car, competitionclass, datacar, participant, person, point, team} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
 
 
@@ -20,15 +19,27 @@ export class ParticipantsService {
   private currentPerson: Observable<person>;
   private persons: Observable<person[]>;
 
+  private currentCar: Observable<car>;
+  private cars: Observable<car[]>;
+  private idcurrentCar: string;
+
+  private currentdatacar: Observable<datacar>;
+  private datascar: Observable<datacar[]>;
+
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
               private _EventsService: EventsService,
               private _auth: AuthService) {
+    this.idcurrentCar = "";
     this.participants = this._db.list<participant>('/events/' + this.idcurrentevent + '/competitors').valueChanges();
     this.currentParticipant = this._db.object<participant>('/events/' + this.idcurrentevent + '/competitors').valueChanges();
     this.currentPerson = this._db.object<person>('/persons/').valueChanges();
     this.persons = this._db.list<person>('/persons/').valueChanges();
+    this.currentCar = this._db.object<car>('/cars/').valueChanges();
+    this.cars = this._db.list<car>('/cars/').valueChanges();
+    this.currentdatacar = this._db.object<datacar>('/cars/'+ this.idcurrentCar + '/datacar').valueChanges();
+    this.datascar = this._db.list<datacar>('/cars/'+ this.idcurrentCar + '/datacar').valueChanges();
   }
 
   getParticipants() {
@@ -52,7 +63,7 @@ export class ParticipantsService {
       this._db.list('/persons/').push(participant.person).then((snapshot) => {
           this._db.object('/persons/' + snapshot.key).update({"id": snapshot.key});
           participant.person.id = snapshot.key;
-          this.writeParticipant(participant)
+          this.writeCar(participant)
         }
       )}
     else {
@@ -60,9 +71,8 @@ export class ParticipantsService {
         participant.person.datainput = participant.datainput;
         this._db.object('/persons/' + participant.person.id).update(participant.person)
       };
-      this.writeParticipant(participant);
+      this.writeCar(participant);
     }
-
   }
 
   writeParticipant(participant: participant) {
@@ -74,7 +84,6 @@ export class ParticipantsService {
     else {
       this._db.object('/events/' + this.idcurrentevent + '/competitors/' + participant.id).update(participant)
     }
-
   }
 
   getParticipant(id: string) {
@@ -91,15 +100,17 @@ export class ParticipantsService {
   }
 
   getnewParticipantclass() {
-    let localperson = this.getnewPerson();
-    let localidevent = this.idcurrentevent;
+    let _person = this.getnewPerson();
+    let _idevent = this.idcurrentevent;
+    let _car = this.getnewCar();
+    let _datacar = this.getnewDataCar();
     return new class implements participant {
       id: string = "";
-      idevent: string = localidevent;
-      person: person = localperson;
+      idevent: string = _idevent;
+      person: person = _person;
       imageperson: string = "";
-      car: car;
-      datacer: datacar;
+      car: car = _car;
+      datacar: datacar = _datacar;
       team: team;
       isDecibelLeague: boolean = false;
       isDecibelBattle: boolean = false;
@@ -115,15 +126,68 @@ export class ParticipantsService {
     }
     }
 
-    getnewPerson() {
-      return new class implements person {
-        city: string = "";
-        email: string = "";
-        familyName: string = "";
-        id: string = "";
-        name: string = "";
-        datainput: Date = new Date();
-        telephone: string = "";
-      }
+  getnewPerson() {
+    return new class implements person {
+      city: string = "";
+      email: string = "";
+      familyName: string = "";
+      id: string = "";
+      name: string = "";
+      datainput: Date = new Date();
+      telephone: string = "";
     }
+  }
+
+  getnewCar() {
+    return new class implements car {
+      id: string = "";
+      model: string = "";
+      alternateName: string = ""
+    }
+  }
+
+  getnewDataCar() {
+    return new class implements datacar {
+      id: string = "";
+      idevent: string = "";
+      image: string = "";
+      subsize: number = 0;
+      subcount: number = 0;
+      nameamplifiler: string = "";
+      front: string = "";
+      datainput: Date = new Date()
+    }
+  }
+
+  getCars() {
+    return this.cars;
+  }
+
+  writeDataCar(participant: participant) {
+    if (participant.datacar.id == '') {
+      this._db.list('/cars/' + participant.car.id + '/datacar/').push(participant.datacar).then((snapshot) => {
+          this._db.object('/cars/' + participant.car.id + '/datacar/' + snapshot.key).update({"id": snapshot.key});
+          participant.datacar.id = snapshot.key;
+          this.writeParticipant(participant)
+        }
+      )}
+    else {
+      this._db.object('/cars/' + participant.car.id + '/datacar/' + participant.datacar.id).update(participant.datacar);
+      this.writeParticipant(participant);
+    }
+  }
+
+  writeCar(participant: participant) {
+    if (participant.car.id == '') {
+      this._db.list('/cars/').push(participant.person).then((snapshot) => {
+          this._db.object('/cars/' + snapshot.key).update({"id": snapshot.key});
+          participant.car.id = snapshot.key;
+          this.writeDataCar(participant)
+        }
+      )}
+    else {
+      this.writeDataCar(participant);
+    }
+
+  }
 }
