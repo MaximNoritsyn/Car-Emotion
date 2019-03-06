@@ -1,7 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './views/login/login.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
 import {ParticipantComponent} from './views/participants/participant/participant.component';
 import {ParticipantsComponent} from './views/participants/participants.component';
 import {EventsComponent} from './views/events/events.component';
@@ -18,10 +17,11 @@ const appRoutes: Routes = [
         [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
           {path: 'competitionclass', component: CompetitionclassComponent}]},
     {path: 'season/:idseason', component: SeasonComponent},
-    {path: 'event/', component: EventComponent},
+    {path: 'event', component: EventComponent},
     {path: 'event/:idevent', component: EventComponent, children:
         [{path: '', component: ParticipantsComponent}]},
     {path: 'participant/:idevent/:idParticipant', component: ParticipantComponent},
+    {path: 'participant/:idevent', component: ParticipantComponent},
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

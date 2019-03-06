@@ -40,7 +40,13 @@
     "classDecibelLeague": "Клас в Decibel League",
     "classDecibelBattle": "Клас в Decibel Battle",
     "classDecibelVolume": "Клас в Decibel Volume",
-    "classDecibelShow": "Клас в Decibel Show"
+    "classDecibelShow": "Клас в Decibel Show",
+    "subsize": "Размір сабвуфера",
+    "subcount": "Кількість сабвуферов",
+    "nameamplifiler": "Підсилювач",
+    "front": "Фронтова акустика",
+    "model": "Модель авто",
+    "alternateName": "Нік авто"
   },
   "events": {
     "editseason": "Змінити",

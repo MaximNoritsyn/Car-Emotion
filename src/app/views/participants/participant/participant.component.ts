@@ -17,9 +17,7 @@ import {EventsService} from '../../../services/events.service';
 export class ParticipantComponent implements OnInit {
 
   private currentParticipant: participant;
-  private ParticipantObs: Observable<participant>;
   private idevent: string;
-  private searchperson: string;
   private persons: person[] = [];
   private FilteredPersons: Observable<person[]>;
   private personsControl = new FormControl();
@@ -62,15 +60,16 @@ export class ParticipantComponent implements OnInit {
       this._ParticipantsService.setidcurrenevent(this.idevent);
       if (params["idParticipant"] !== null && params["idParticipant"] !== undefined)
         {
-          this.ParticipantObs = this._ParticipantsService.getParticipant(params["idParticipant"]);
-          this.ParticipantObs.subscribe(item => {this.currentParticipant = item; console.log(this.currentParticipant)})
+          this._ParticipantsService.getParticipant(params["idParticipant"]).subscribe(item =>
+            this.currentParticipant = item)
         };
     }
     )
   }
 
     setParticipant() {
-    this._ParticipantsService.setParticipant(this.currentParticipant)
+    this.router.navigate(['/event/' + this.idevent]);
+    this._ParticipantsService.setParticipant(this.currentParticipant);
   }
 
   private _filterperson(name: string): person[] {

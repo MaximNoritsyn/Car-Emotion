@@ -12,7 +12,6 @@ import {EventsService} from './events.service';
 @Injectable()
 export class ParticipantsService {
 
-  private currentParticipant: Observable<participant>;
   private participants: Observable<participant[]>;
   private idcurrentevent: string;
 
@@ -33,7 +32,6 @@ export class ParticipantsService {
               private _auth: AuthService) {
     this.idcurrentCar = "";
     this.participants = this._db.list<participant>('/events/' + this.idcurrentevent + '/competitors').valueChanges();
-    this.currentParticipant = this._db.object<participant>('/events/' + this.idcurrentevent + '/competitors').valueChanges();
     this.currentPerson = this._db.object<person>('/persons/').valueChanges();
     this.persons = this._db.list<person>('/persons/').valueChanges();
     this.currentCar = this._db.object<car>('/cars/').valueChanges();
@@ -47,48 +45,89 @@ export class ParticipantsService {
     return this.participants
   }
 
-  setParticipant(participant: participant) {
-    let localevent = this._EventsService.getEvent(this.idcurrentevent);
-    localevent.subscribe(item => {
-      participant.datainput = item.startDate;
-      this.writePerson(participant);
-    })
-
-
+  setParticipant(_participant: participant) {
+    let localevent = this._EventsService.getEventOnce(this.idcurrentevent);
+    localevent.then(item => {
+      if (item.val() !== null) {
+        _participant.datainput = item.val().startDate;
+      console.log("setParticipant");
+      this.writePerson(_participant);}
+    }
+    )
   }
 
-  writePerson(participant: participant) {
-    if (participant.person.id == '') {
-      participant.person.datainput = participant.datainput;
-      this._db.list('/persons/').push(participant.person).then((snapshot) => {
-          this._db.object('/persons/' + snapshot.key).update({"id": snapshot.key});
-          participant.person.id = snapshot.key;
-          this.writeCar(participant)
+  writePerson(_participant: participant) {
+    console.log("writePerson");
+    let _key = _participant.person.id;
+    if (_key == '') {
+      _participant.person.datainput = _participant.datainput;
+        _key = this._db.list('/persons/').push(_participant.person).key;
+        this._db.object('/persons/' + _key).update({"id": _key});
+        _participant.person.id = _key;
+        console.log("writePerson = 0");
         }
-      )}
     else {
-      if (participant.person.datainput <= participant.datainput) {
-        participant.person.datainput = participant.datainput;
-        this._db.object('/persons/' + participant.person.id).update(participant.person)
+      if (_participant.person.datainput <= _participant.datainput) {
+        _participant.person.datainput = _participant.datainput;
+        this._db.object('/persons/' + _key).update(_participant.person)
       };
-      this.writeCar(participant);
+      console.log("writePerson not empty");
     }
+    this.writeCar(_participant)
   }
 
-  writeParticipant(participant: participant) {
-    if (participant.id == "") {
-      this._db.list('/events/' + this.idcurrentevent + '/competitors/').push(participant).then((snapshot) => {
-        this._db.object('/events/' + this.idcurrentevent + '/competitors/' + snapshot.key).update({"id": snapshot.key})
-      });
+  writeCar(_participant: participant) {
+    console.log("writeCar");
+    let _key = _participant.car.id;
+    if (_key == '') {
+      _key = this._db.list('/cars/').push(_participant.car).key;
+          this._db.object('/cars/' + _key).update({"id": _key});
+          _participant.car.id = _key;
+          console.log("writeCar = 0");
+        }
+    else {
+      console.log("writeCar not empty");
+      this._db.object('/cars/' + _key).update(_participant.car);
+
+    }
+    this.writeDataCar(_participant);
+  }
+
+  writeDataCar(_participant: participant) {
+    console.log("writeDataCar");
+    _participant.datacar.idevent = _participant.idevent;
+    let _key = _participant.datacar.id;
+    if (_key == '') {
+      _key = this._db.list('/cars/' + _participant.car.id + '/datacar/').push(_participant.datacar).key;
+          this._db.object('/cars/' + _participant.car.id + '/datacar/' + _key).update({"id": _key});
+          _participant.datacar.id = _key;
+          console.log("writeDataCar = 0");
+        }
+    else {
+      console.log("writeDataCar not empty");
+      this._db.object('/cars/' + _participant.car.id + '/datacar/' + _key).update(_participant.datacar);
+    }
+    this.writeParticipant(_participant);
+  }
+
+  writeParticipant(_participant: participant) {
+    console.log("writeParticipant");
+    let _key = _participant.id;
+    if (_key == "") {
+      console.log("What happened??????????");
+      console.log(_participant);
+      let _key = this._db.list('/events/' + this.idcurrentevent + '/competitors/').push(_participant).key;
+      this._db.object('/events/' + this.idcurrentevent + '/competitors/' + _key).update({"id": _key});
+      _participant.id = _key;
     }
     else {
-      this._db.object('/events/' + this.idcurrentevent + '/competitors/' + participant.id).update(participant)
+      console.log("writeParticipant not emptyt");
+      this._db.object('/events/' + this.idcurrentevent + '/competitors/' + _key).update(_participant);
     }
   }
 
   getParticipant(id: string) {
-    this.currentParticipant = this._db.object<participant>('/events/' + this.idcurrentevent + '/competitors/' + id).valueChanges();
-    return this.currentParticipant;
+    return this._db.object<participant>('/events/' + this.idcurrentevent + '/competitors/' + id).valueChanges();
   }
 
   getPersons() {
@@ -163,31 +202,5 @@ export class ParticipantsService {
     return this.cars;
   }
 
-  writeDataCar(participant: participant) {
-    if (participant.datacar.id == '') {
-      this._db.list('/cars/' + participant.car.id + '/datacar/').push(participant.datacar).then((snapshot) => {
-          this._db.object('/cars/' + participant.car.id + '/datacar/' + snapshot.key).update({"id": snapshot.key});
-          participant.datacar.id = snapshot.key;
-          this.writeParticipant(participant)
-        }
-      )}
-    else {
-      this._db.object('/cars/' + participant.car.id + '/datacar/' + participant.datacar.id).update(participant.datacar);
-      this.writeParticipant(participant);
-    }
-  }
 
-  writeCar(participant: participant) {
-    if (participant.car.id == '') {
-      this._db.list('/cars/').push(participant.person).then((snapshot) => {
-          this._db.object('/cars/' + snapshot.key).update({"id": snapshot.key});
-          participant.car.id = snapshot.key;
-          this.writeDataCar(participant)
-        }
-      )}
-    else {
-      this.writeDataCar(participant);
-    }
-
-  }
 }

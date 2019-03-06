@@ -40,7 +40,13 @@
     "classDecibelLeague": "Класс в Decibel League",
     "classDecibelBattle": "Класс в Decibel Battle",
     "classDecibelVolume": "Класс в Decibel Volume",
-    "classDecibelShow": "Класс в Decibel Show"
+    "classDecibelShow": "Класс в Decibel Show",
+    "subsize": "Размер сабвуфера",
+    "subcount": "Количество сабвуферов",
+    "nameamplifiler": "Усилитель",
+    "front": "Фронтовая акустика",
+    "model": "Модель авто",
+    "alternateName": "Ник авто"
   },
   "events": {
     "editseason": "Изменить",

@@ -45,13 +45,70 @@
   </div>
   <div class="form-group">
     <label >{{ 'participant.city' | translate }}</label>
-    <input type="city"
+    <input
            class="form-control"
            [(ngModel)]="currentParticipant.person.city"
            name="person.city"
            placeholder="City"
            required>
   </div>
+
+  <div class="form-group">
+    <label >{{ 'participant.model' | translate }}</label>
+    <input
+           class="form-control"
+           [(ngModel)]="currentParticipant.car.model"
+           name="car.model"
+           placeholder="Model"
+           required>
+  </div>
+  <div class="form-group">
+    <label >{{ 'participant.alternateName' | translate }}</label>
+    <input
+           class="form-control"
+           [(ngModel)]="currentParticipant.car.alternateName"
+           name="car.alternateName"
+           placeholder="Nickname"
+           required>
+  </div>
+  <div class="form-group">
+    <label >{{ 'participant.subsize' | translate }}</label>
+    <input
+           class="form-control"
+           [(ngModel)]="currentParticipant.datacar.subsize"
+           name="datacar.subsize"
+           placeholder="Subsize"
+           required>
+  </div>
+  <div class="form-group">
+    <label >{{ 'participant.subcount' | translate }}</label>
+    <input
+           class="form-control"
+           [(ngModel)]="currentParticipant.datacar.subcount"
+           name="datacar.subcount"
+           placeholder="Subcount"
+           required>
+  </div>
+  <div class="form-group">
+    <label >{{ 'participant.nameamplifiler' | translate }}</label>
+    <input
+      class="form-control"
+      [(ngModel)]="currentParticipant.datacar.nameamplifiler"
+      name="datacar.nameamplifiler"
+      placeholder="Amplifiler"
+      required>
+  </div>
+  <div class="form-group">
+    <label >{{ 'participant.front' | translate }}</label>
+    <input
+      class="form-control"
+      [(ngModel)]="currentParticipant.datacar.front"
+      name="datacar.front"
+      placeholder="Front"
+      required>
+  </div>
+
+
   <div class="form-group">
     <div class="form-check">
       <label class="form-check-label" for="isDecibelLeague">

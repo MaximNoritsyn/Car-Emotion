@@ -40,7 +40,13 @@
     "classDecibelLeague": "Class in Decibel League",
     "classDecibelBattle": "Class in Decibel Battle",
     "classDecibelVolume": "Class in Decibel Volume",
-    "classDecibelShow": "Class in Decibel Show"
+    "classDecibelShow": "Class in Decibel Show",
+    "subsize": "Size of Sub",
+    "subcount": "Count of Sub",
+    "nameamplifiler": "Amplifiler",
+    "front": "Front acoustics",
+    "model": "Model auto",
+    "alternateName": "Nickname auto"
   },
   "events": {
     "editseason": "Edit season",

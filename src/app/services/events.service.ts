@@ -48,6 +48,10 @@ export class EventsService {
     return this.currentevent;
   }
 
+  getEventOnce(id: string) {
+    return this._db.object<event>('/events/' + id).query.once("value");
+  }
+
   setEvent(event: event) {
     if (event.id == "") {
       this._db.list('/events/').push(event).then((snapshot) => {
