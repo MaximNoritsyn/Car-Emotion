@@ -64,17 +64,14 @@ export interface event{
   location: string,
   eventStatus: eventstatus,
   organizer: string,
-  startDate: Date,
-  competitors: participant[]
-  //points: point[],
+  startDate: Date
 }
 
 // SportTeam https://schema.org/SportsTeam
 export interface team{
+  id: string,
   legalName: string,
-  logo: string,
-  athlete: participant[],
-  points: point[]
+  logo: string
 }
 
 export interface result{

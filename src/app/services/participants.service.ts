@@ -31,7 +31,7 @@ export class ParticipantsService {
               private _EventsService: EventsService,
               private _auth: AuthService) {
     this.idcurrentCar = "";
-    this.participants = this._db.list<participant>('/events/' + this.idcurrentevent + '/competitors').valueChanges();
+    this.participants = this._db.list<participant>('/events/' + this.idcurrentevent + '/participants').valueChanges();
     this.currentPerson = this._db.object<person>('/persons/').valueChanges();
     this.persons = this._db.list<person>('/persons/').valueChanges();
     this.currentCar = this._db.object<car>('/cars/').valueChanges();
@@ -50,43 +50,36 @@ export class ParticipantsService {
     localevent.then(item => {
       if (item.val() !== null) {
         _participant.datainput = item.val().startDate;
-      console.log("setParticipant");
       this.writePerson(_participant);}
     }
     )
   }
 
   writePerson(_participant: participant) {
-    console.log("writePerson");
     let _key = _participant.person.id;
     if (_key == '') {
       _participant.person.datainput = _participant.datainput;
         _key = this._db.list('/persons/').push(_participant.person).key;
         this._db.object('/persons/' + _key).update({"id": _key});
         _participant.person.id = _key;
-        console.log("writePerson = 0");
         }
     else {
       if (_participant.person.datainput <= _participant.datainput) {
         _participant.person.datainput = _participant.datainput;
         this._db.object('/persons/' + _key).update(_participant.person)
-      };
-      console.log("writePerson not empty");
+      };console.log("writePerson not empty");
     }
     this.writeCar(_participant)
   }
 
   writeCar(_participant: participant) {
-    console.log("writeCar");
     let _key = _participant.car.id;
     if (_key == '') {
       _key = this._db.list('/cars/').push(_participant.car).key;
           this._db.object('/cars/' + _key).update({"id": _key});
           _participant.car.id = _key;
-          console.log("writeCar = 0");
-        }
+          }
     else {
-      console.log("writeCar not empty");
       this._db.object('/cars/' + _key).update(_participant.car);
 
     }
@@ -94,34 +87,27 @@ export class ParticipantsService {
   }
 
   writeDataCar(_participant: participant) {
-    console.log("writeDataCar");
     _participant.datacar.idevent = _participant.idevent;
     let _key = _participant.datacar.id;
     if (_key == '') {
       _key = this._db.list('/cars/' + _participant.car.id + '/datacar/').push(_participant.datacar).key;
           this._db.object('/cars/' + _participant.car.id + '/datacar/' + _key).update({"id": _key});
           _participant.datacar.id = _key;
-          console.log("writeDataCar = 0");
-        }
+          }
     else {
-      console.log("writeDataCar not empty");
       this._db.object('/cars/' + _participant.car.id + '/datacar/' + _key).update(_participant.datacar);
     }
     this.writeParticipant(_participant);
   }
 
   writeParticipant(_participant: participant) {
-    console.log("writeParticipant");
     let _key = _participant.id;
     if (_key == "") {
-      console.log("What happened??????????");
-      console.log(_participant);
       let _key = this._db.list('/events/' + this.idcurrentevent + '/competitors/').push(_participant).key;
       this._db.object('/events/' + this.idcurrentevent + '/competitors/' + _key).update({"id": _key});
       _participant.id = _key;
     }
     else {
-      console.log("writeParticipant not emptyt");
       this._db.object('/events/' + this.idcurrentevent + '/competitors/' + _key).update(_participant);
     }
   }

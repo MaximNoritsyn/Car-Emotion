@@ -33,6 +33,7 @@ import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angula
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AdminboardComponent } from './views/adminboard/adminboard.component';
 import { CompetitionclassComponent } from './views/adminboard/competitionclass/competitionclass.component';
+import { TeamComponent } from './views/team/team.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -49,7 +50,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventsComponent,
     EventComponent,
     AdminboardComponent,
-    CompetitionclassComponent
+    CompetitionclassComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

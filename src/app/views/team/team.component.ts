@@ -1,0 +1,45 @@
+import { Component, OnInit } from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ParticipantsService} from '../../services/participants.service';
+import {Translate_Service} from '../../services/translate.service';
+import {EventsService} from '../../services/events.service';
+import {team} from '../../interfaces/app.interface';
+
+@Component({
+  selector: 'app-team',
+  templateUrl: './team.component.html',
+  styleUrls: ['./team.component.css']
+})
+export class TeamComponent implements OnInit {
+
+  idseason: string;
+  currentteam: team;
+
+  constructor(private _auth: AuthService,
+              private router: Router,
+              private activeRoute: ActivatedRoute,
+              private translate_service: Translate_Service,
+              private _EventsService: EventsService) {  }
+
+
+  ngOnInit() {
+    this.activeRoute.params.subscribe((params: Params) =>
+    {
+      this.idseason = params["idseason"];
+      this.currentteam = this._EventsService.getNewTeam();
+      if (params["idteam"] !== null && params["idteam"] !== undefined)
+      {
+        this._EventsService.getTeam(this.idseason, params["idteam"]).subscribe(item =>
+          this.currentteam = item)
+      };
+    })
+  }
+
+  setTeam() {
+
+    this.router.navigate(['/season/' + this.idseason]);
+    this._EventsService.setTeam(this.idseason, this.currentteam);
+  }
+
+}

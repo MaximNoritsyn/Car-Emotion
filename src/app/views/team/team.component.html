@@ -1,0 +1,16 @@
+<form name="teamform" method="post" #formCtrl="ngForm">
+<div class="form-group">
+  <label>{{ 'participant.name' | translate }}</label>
+  <input class="form-control"
+         [(ngModel)]="currentteam.legalName"
+         name="currentteam.legalName"
+         placeholder="Name"
+         required>
+</div>
+<hr>
+<div class="form-group">
+  <button type="buton" class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="setTeam()">
+    {{ 'add' | translate }}
+  </button>
+</div>
+</form>
