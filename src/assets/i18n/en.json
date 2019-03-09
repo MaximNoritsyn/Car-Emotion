@@ -33,6 +33,7 @@
     "email": "email",
     "telephone": "telephone",
     "city": "city",
+    "team": "Team",
     "isDecibelLeague": "Involved in Decibel League",
     "isDecibelBattle": "Involved in Decibel Battle",
     "isDecibelVolume": "Involved in Decibel Volume",

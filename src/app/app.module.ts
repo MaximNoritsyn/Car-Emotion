@@ -34,6 +34,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AdminboardComponent } from './views/adminboard/adminboard.component';
 import { CompetitionclassComponent } from './views/adminboard/competitionclass/competitionclass.component';
 import { TeamComponent } from './views/team/team.component';
+import { PersonsComponent } from './views/persons/persons.component';
+import { PersonComponent } from './views/persons/person/person.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,7 +53,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventComponent,
     AdminboardComponent,
     CompetitionclassComponent,
-    TeamComponent
+    TeamComponent,
+    PersonsComponent,
+    PersonComponent
   ],
   imports: [
     BrowserModule,

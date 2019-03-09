@@ -16,7 +16,6 @@ export class EventsComponent implements OnInit {
 
   seasonsObs: Observable<season[]>;
   seasons: season[];
-  currentseasonObs: Observable<season>;
   currentseason: season;
   eventsObs: Observable<event[]>;
   events: event[];
@@ -40,7 +39,7 @@ export class EventsComponent implements OnInit {
 
 
     //event
-    this.eventsObs = this._EventsService.getEvets();
+    this.eventsObs = this._EventsService.getEvents();
     this.fillevents();
 
   }
@@ -58,22 +57,13 @@ export class EventsComponent implements OnInit {
 
   fillevents() {
     this.eventsObs.subscribe( items => {
-
-        if (items !== null && (this.currentseason !== undefined && this.currentseason.id !== ""))
-        {
-          let idseaseon = this.currentseason.id;
-          let localevents: event[] = [];
-          items.forEach(function (event) {
-              if (event.season.id == idseaseon) {
-                localevents.push(event)
-              }
-            }
-          )
-          this.events = localevents;
+        if (items !== null && (this.currentseason !== undefined && this.currentseason.id !== "")) {
+          this.events = items.filter(options => options.season.id == this.currentseason.id)
         }
-      }
-    )
-
+          else {
+            this.events = items;
+          }
+        })
   }
 
 

@@ -120,6 +120,10 @@ export class ParticipantsService {
     return this.persons;
   }
 
+  getPerson(id: string) {
+    return this._db.object<person>('/persons/' + id).valueChanges();
+  }
+
   setidcurrenevent(id: string) {
     this.idcurrentevent = id;
   }
@@ -188,5 +192,8 @@ export class ParticipantsService {
     return this.cars;
   }
 
+  getDataCarOnce(idcar:string) {
+    return this._db.list<datacar>('/cars/'+ idcar + '/datacar').query.once("value")
+  }
 
 }

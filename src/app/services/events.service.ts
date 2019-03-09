@@ -41,7 +41,7 @@ export class EventsService {
     this.competitionclassesObs = this._db.list<competitionclass>('/competitionclass/').valueChanges();
   }
 
-  getEvets() {
+  getEvents() {
     return this.events;
   }
 
@@ -152,8 +152,7 @@ export class EventsService {
   }
 
   getTeam(idseason: string, id:string) {
-    this.currentteam = this._db.object<team>('/seasons/' + idseason + '/teams/' + id).valueChanges();
-    return this.currentteam;
+    return this._db.object<team>('/seasons/' + idseason + '/teams/' + id).valueChanges();
   }
 
   getTeams(idseason: string) {

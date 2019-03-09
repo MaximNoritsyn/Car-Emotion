@@ -9,6 +9,8 @@ import {EventComponent} from './views/events/event/event.component';
 import {AdminboardComponent} from './views/adminboard/adminboard.component';
 import {CompetitionclassComponent} from './views/adminboard/competitionclass/competitionclass.component';
 import {TeamComponent} from './views/team/team.component';
+import {PersonsComponent} from './views/persons/persons.component';
+import {PersonComponent} from './views/persons/person/person.component';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -25,6 +27,8 @@ const appRoutes: Routes = [
     {path: 'participant/:idevent', component: ParticipantComponent},
     {path: 'team/:idseason/:idteam', component: TeamComponent},
     {path: 'team/:idseason', component: TeamComponent},
+    {path: 'person/:idperson', component: PersonComponent},
+    {path: 'persons', component: PersonsComponent},
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

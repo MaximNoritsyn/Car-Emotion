@@ -1,7 +1,7 @@
 <form name="participantform" method="post" #formCtrl="ngForm" xmlns="http://www.w3.org/1999/html">
 
   <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Search" aria-label="Search" matInput [formControl]="personsControl" [matAutocomplete]="auto">
+    <input type="text" placeholder="Search people" aria-label="Search people" matInput [formControl]="personsControl" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson">
       <mat-option *ngFor="let person of FilteredPersons | async" [value]="person">
         {{person.familyName}} - {{person.name}}
@@ -53,6 +53,23 @@
            required>
   </div>
 
+  <label>{{ 'participant.team' | translate }}</label>
+  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.team" allow-clear="true"
+          [ngModelOptions]="{standalone: true}">
+
+    <option *ngFor="let key of teams" [ngValue]="key">
+      {{key.legalName}}
+    </option>
+  </select>
+
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Search car" aria-label="Search car" matInput [formControl]="carsControl" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCar">
+      <mat-option *ngFor="let car of FilteredCars | async" [value]="car">
+        {{car.model}} - {{car.alternateName}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
   <div class="form-group">
     <label >{{ 'participant.model' | translate }}</label>
     <input
@@ -118,9 +135,10 @@
       </label>
     </div>
   </div>
-  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelLeague"
+  <label>{{ 'participant.classDecibelLeague' | translate }}</label>
+  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelLeague"
           [ngModelOptions]="{standalone: true}">
-    <label>{{ 'participant.classDecibelLeague' | translate }}</label>
+
     <option *ngFor="let key of arrayclassDecibelLeague" [ngValue]="key">
       {{key.name}}
     </option>
@@ -135,9 +153,10 @@
       </label>
     </div>
   </div>
-  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelBattle"
+  <label>{{ 'participant.classDecibelBattle' | translate }}</label>
+  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelBattle"
           [ngModelOptions]="{standalone: true}">
-    <label>{{ 'participant.classDecibelBattle' | translate }}</label>
+
     <option *ngFor="let key of arrayclassDecibelBattle" [ngValue]="key">
       {{key.name}}
     </option>
@@ -152,9 +171,10 @@
       </label>
     </div>
   </div>
-  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelVolume"
+  <label>{{ 'participant.classDecibelVolume' | translate }}</label>
+  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelVolume"
           [ngModelOptions]="{standalone: true}">
-    <label>{{ 'participant.classDecibelVolume' | translate }}</label>
+
     <option *ngFor="let key of arrayclassDecibelVolume" [ngValue]="key">
       {{key.name}}
     </option>
@@ -169,9 +189,10 @@
       </label>
     </div>
   </div>
-  <select class="form-control" [compareWith]="selectedclass" [(ngModel)]="currentParticipant.classDecibelShow"
+  <label>{{ 'participant.classDecibelShow' | translate }}</label>
+  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelShow"
           [ngModelOptions]="{standalone: true}">
-    <label>{{ 'participant.classDecibelShow' | translate }}</label>
+
     <option *ngFor="let key of arrayclassDecibelShow" [ngValue]="key">
       {{key.name}}
     </option>

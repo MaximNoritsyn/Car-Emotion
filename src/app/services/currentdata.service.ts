@@ -19,7 +19,7 @@ export class CurrentdataService {
     )
   }
 
-  getseason() {
+  getseason(): season {
     return this.currentseason;
   }
 
