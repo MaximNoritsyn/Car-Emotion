@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {ParticipantsService} from '../../services/participants.service';
 import {Translate_Service} from '../../services/translate.service';
 import {EventsService} from '../../services/events.service';
 import {team} from '../../interfaces/app.interface';
@@ -37,9 +36,8 @@ export class TeamComponent implements OnInit {
   }
 
   setTeam() {
-
-    this.router.navigate(['/season/' + this.idseason]);
     this._EventsService.setTeam(this.idseason, this.currentteam);
+    this.router.navigate(['/season/' + this.idseason]);
   }
 
 }

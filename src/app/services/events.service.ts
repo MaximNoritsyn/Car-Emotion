@@ -120,9 +120,9 @@ export class EventsService {
 
   getNewTeam() {
     return new class implements team {
-      id: string;
-      legalName: string;
-      logo: string
+      id: string = "";
+      legalName: string = "";
+      logo: string = ""
     }
   }
 

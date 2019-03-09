@@ -1,3 +1,13 @@
+
+  <H4>{{ 'season.seasons' | translate }}</H4>
+  <div class="list-group">
+    <a class="list-group-item active" [routerLink]="['/season/']">
+      {{ 'season.addseason' | translate }}
+    </a>
+    <a *ngFor="let season of seasons" class="list-group-item list-group-item-action"
+       [routerLink]="['/season/' + season.id]"
+    >{{season.name}}</a>
+  </div>
 <div>
   <H4>{{ 'competitionclasses.classes' | translate }}</H4>
   <div class="list-group">

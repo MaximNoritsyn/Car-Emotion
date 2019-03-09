@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {competitionclass} from '../../interfaces/app.interface';
-import {EventsService} from '../../services/events.service';
-import {ParticipantsService} from '../../services/participants.service';
+import {Router} from '@angular/router';
+import {competitionclass, season} from '../../interfaces/app.interface';
+import {EventsService} from '../../services/events.service'
 import {Translate_Service} from '../../services/translate.service';
 
 @Component({
@@ -13,7 +12,8 @@ import {Translate_Service} from '../../services/translate.service';
 })
 export class AdminboardComponent implements OnInit {
 
-  private CompetitionClasses: competitionclass[]
+  private CompetitionClasses: competitionclass[];
+  private seasons: season[];
 
   constructor(private _auth: AuthService,
               private router: Router,
@@ -22,6 +22,7 @@ export class AdminboardComponent implements OnInit {
 
   ngOnInit() {
     this._EventsService.getCompetitionClassesObs().subscribe(items => this.CompetitionClasses = items)
+    this._EventsService.getSeasons().subscribe(items => this.seasons = items);
 
   }
 

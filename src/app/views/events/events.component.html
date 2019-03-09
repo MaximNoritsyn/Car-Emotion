@@ -5,12 +5,6 @@
     {{season.name}}
   </option>
 </select></label>
-<button class="btn btn-primary btn-block"
-        [routerLink]="['/season/' + currentseason.id]"
->{{ 'events.editseason' | translate }}</button>
-<button class="btn btn-primary btn-block"
-        [routerLink]="['/season']"
->{{ 'events.addseason' | translate }}</button>
 <H4>События</H4>
 <div class="list-group">
   <a class="list-group-item active" [routerLink]="['/event']">

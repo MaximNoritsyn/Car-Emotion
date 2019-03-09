@@ -1,6 +1,6 @@
 <form name="teamform" method="post" #formCtrl="ngForm">
 <div class="form-group">
-  <label>{{ 'participant.name' | translate }}</label>
+  <label>{{ 'team.legalName' | translate }}</label>
   <input class="form-control"
          [(ngModel)]="currentteam.legalName"
          name="currentteam.legalName"
@@ -10,7 +10,7 @@
 <hr>
 <div class="form-group">
   <button type="buton" class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="setTeam()">
-    {{ 'add' | translate }}
+    {{ 'team.save' | translate }}
   </button>
 </div>
 </form>

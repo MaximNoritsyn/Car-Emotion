@@ -3,7 +3,7 @@ import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {EventsService} from '../../../services/events.service';
 import {Observable} from 'rxjs/Rx';
-import {season} from '../../../interfaces/app.interface';
+import {season, team} from '../../../interfaces/app.interface';
 import {CurrentdataService} from '../../../services/currentdata.service';
 
 @Component({
@@ -13,8 +13,9 @@ import {CurrentdataService} from '../../../services/currentdata.service';
 })
 export class SeasonComponent implements OnInit {
 
-  currentseason: season;
+  private currentseason: season;
   private season: Observable<season>;
+  private teams: team[];
 
   constructor(private _auth: AuthService,
               private router: Router,
@@ -30,6 +31,8 @@ export class SeasonComponent implements OnInit {
       {
         this.season = this._EventsService.getSeason(params["idseason"]);
         this.season.subscribe(item => {this.currentseason = item});
+        this._EventsService.getTeams(params["idseason"]).subscribe( items =>
+        this.teams = items)
       }
     }
     )

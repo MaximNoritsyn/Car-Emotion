@@ -54,10 +54,18 @@
     "addevent": "Add new event"
   },
   "season": {
+    "seasons": "Seasons",
+    "addseason": "Add new season",
     "name": "Name of season",
     "date": "Date",
     "save": "Save",
     "setcurrent": "Set current season for users"
+  },
+  "team": {
+    "teams": "Teams of season",
+    "addnewteam": "Add new team",
+    "legalName": "Name of the team",
+    "save": "Save the team"
   },
   "eventsstatus": {
     "inplan": "Planning",

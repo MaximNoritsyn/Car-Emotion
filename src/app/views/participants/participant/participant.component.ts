@@ -68,8 +68,9 @@ export class ParticipantComponent implements OnInit {
   }
 
     setParticipant() {
-    this.router.navigate(['/event/' + this.idevent]);
-    this._ParticipantsService.setParticipant(this.currentParticipant);
+      this._ParticipantsService.setParticipant(this.currentParticipant);
+      this.router.navigate(['/event/' + this.idevent]);
+
   }
 
   private _filterperson(name: string): person[] {

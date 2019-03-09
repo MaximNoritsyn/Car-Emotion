@@ -9,4 +9,15 @@
   </div>
   <button class="btn btn-primary btn-block" type="edit" (click)="setSeason()">{{ 'season.save' | translate }}</button>
   <button class="btn btn-primary btn-block" type="edit" (click)="setcurrentSeason()">{{ 'season.setcurrent' | translate }}</button>
+  <div>
+    <H4>{{ 'team.teams' | translate }}</H4>
+    <div class="list-group">
+      <a class="list-group-item active" [routerLink]="['/team/' + this.currentseason.id]">
+        {{ 'team.addnewteam' | translate }}
+      </a>
+      <a *ngFor="let team of teams" class="list-group-item list-group-item-action"
+         [routerLink]="'/team/' + this.currentseason.id + '/' + team.id"
+      >{{team.legalName}}</a>
+    </div>
+  </div>
 </form>

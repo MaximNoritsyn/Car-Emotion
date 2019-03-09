@@ -13,10 +13,10 @@ import {TeamComponent} from './views/team/team.component';
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
-    {path: 'season', component: SeasonComponent},
     {path: 'adminboard', component: AdminboardComponent, children:
         [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
           {path: 'competitionclass', component: CompetitionclassComponent}]},
+    {path: 'season', component: SeasonComponent},
     {path: 'season/:idseason', component: SeasonComponent},
     {path: 'event', component: EventComponent},
     {path: 'event/:idevent', component: EventComponent, children:
