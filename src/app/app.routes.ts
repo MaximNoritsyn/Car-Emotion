@@ -11,6 +11,8 @@ import {CompetitionclassComponent} from './views/adminboard/competitionclass/com
 import {TeamComponent} from './views/team/team.component';
 import {PersonsComponent} from './views/persons/persons.component';
 import {PersonComponent} from './views/persons/person/person.component';
+import {CurrentresultComponent} from './views/dashboard/currentresult/currentresult.component';
+import {DashboardComponent} from './views/dashboard/dashboard.component';
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -29,6 +31,8 @@ const appRoutes: Routes = [
     {path: 'team/:idseason', component: TeamComponent},
     {path: 'person/:idperson', component: PersonComponent},
     {path: 'persons', component: PersonsComponent},
+    {path: '', component: DashboardComponent, children:
+      [{path: '', component: CurrentresultComponent}]},
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

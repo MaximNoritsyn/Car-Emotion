@@ -38,6 +38,7 @@ import { PersonsComponent } from './views/persons/persons.component';
 import { PersonComponent } from './views/persons/person/person.component';
 import { ResultsComponent } from './views/results/results.component';
 import { ResultComponent } from './views/results/result/result.component';
+import { CurrentresultComponent } from './views/dashboard/currentresult/currentresult.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -59,7 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PersonsComponent,
     PersonComponent,
     ResultsComponent,
-    ResultComponent
+    ResultComponent,
+    CurrentresultComponent
   ],
   imports: [
     BrowserModule,
