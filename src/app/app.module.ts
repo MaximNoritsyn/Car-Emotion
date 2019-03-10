@@ -36,6 +36,8 @@ import { CompetitionclassComponent } from './views/adminboard/competitionclass/c
 import { TeamComponent } from './views/team/team.component';
 import { PersonsComponent } from './views/persons/persons.component';
 import { PersonComponent } from './views/persons/person/person.component';
+import { ResultsComponent } from './views/results/results.component';
+import { ResultComponent } from './views/results/result/result.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -55,7 +57,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     CompetitionclassComponent,
     TeamComponent,
     PersonsComponent,
-    PersonComponent
+    PersonComponent,
+    ResultsComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
