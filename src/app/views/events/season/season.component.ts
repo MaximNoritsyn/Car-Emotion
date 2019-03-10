@@ -5,6 +5,7 @@ import {EventsService} from '../../../services/events.service';
 import {Observable} from 'rxjs/Rx';
 import {season, team} from '../../../interfaces/app.interface';
 import {CurrentdataService} from '../../../services/currentdata.service';
+import {FactoryService} from '../../../services/factory.service';
 
 @Component({
   selector: 'app-season',
@@ -21,10 +22,11 @@ export class SeasonComponent implements OnInit {
               private router: Router,
               private activeRoute: ActivatedRoute,
               private _CurrentdataService: CurrentdataService,
-              private _EventsService: EventsService) { }
+              private _EventsService: EventsService,
+              private _FactoryService: FactoryService) { }
 
   ngOnInit() {
-    this.currentseason = this._EventsService.getnewSeason();
+    this.currentseason = this._FactoryService.getnewSeason();
     this.activeRoute.params.subscribe((params: Params) =>
     {
       if ((params["idseason"] == null && params["idseason"] == undefined) == false)

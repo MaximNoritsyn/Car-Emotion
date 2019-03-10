@@ -4,6 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Translate_Service} from '../../services/translate.service';
 import {EventsService} from '../../services/events.service';
 import {team} from '../../interfaces/app.interface';
+import {FactoryService} from '../../services/factory.service';
 
 @Component({
   selector: 'app-team',
@@ -19,14 +20,15 @@ export class TeamComponent implements OnInit {
               private router: Router,
               private activeRoute: ActivatedRoute,
               private translate_service: Translate_Service,
-              private _EventsService: EventsService) {  }
+              private _EventsService: EventsService,
+              private _FactoryService: FactoryService) {  }
 
 
   ngOnInit() {
     this.activeRoute.params.subscribe((params: Params) =>
     {
       this.idseason = params["idseason"];
-      this.currentteam = this._EventsService.getNewTeam();
+      this.currentteam = this._FactoryService.getNewTeam();
       if (params["idteam"] !== null && params["idteam"] !== undefined)
       {
         this._EventsService.getTeam(this.idseason, params["idteam"]).subscribe(item =>

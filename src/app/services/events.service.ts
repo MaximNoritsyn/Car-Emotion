@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {competition, competitionclass, event, eventstatus, participant, season, team} from '../interfaces/app.interface';
+import {CurrentdataService} from './currentdata.service';
 
 
 export const arraystatuses: eventstatus[] = [];
@@ -31,6 +32,7 @@ export class EventsService {
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
+              private _CurrentdataService: CurrentdataService,
               private _auth: AuthService) {
     this.currentseason = this._db.object<season>('/seasons/').valueChanges();
     this.seasons = this._db.list<season>('/seasons/').valueChanges();
@@ -57,10 +59,13 @@ export class EventsService {
   setEvent(event: event) {
     if (event.id == "") {
       this._db.list('/events/').push(event).then((snapshot) => {
-        this._db.object('/events/' + snapshot.key).update({"id": snapshot.key})
+        this._db.object('/events/' + snapshot.key).update({"id": snapshot.key});
+        event.id = snapshot.key;
+        this._CurrentdataService.setEvent(snapshot);
       });
     } else {
-      this._db.object('/events/' + event.id).update(event)
+      this._db.object('/events/' + event.id).update(event);
+      this._CurrentdataService.setEvent(event);
     }
   }
 
@@ -81,48 +86,6 @@ export class EventsService {
     }
     else {
       this._db.object('/seasons/' + season.id).update(season)
-    }
-  }
-
-  getnewSeason(): season {
-    return new class implements season {
-      id: string = "";
-      name: string = "";
-      date: Date = new Date()
-    }
-  }
-
-  getnewEvent(): event {
-    return new class implements event {
-      id: string = "";
-      name: string = "";
-      season: season = new class implements season {
-        id: string = "";
-        name: string = "";
-        date: Date = new Date()
-      };
-      location: string = "";
-      eventStatus: eventstatus = eventstatus.inplan;
-      organizer: string = "Car Emotion";
-      startDate: Date = new Date()
-    }
-  }
-
-  getNewCompetitionClass() {
-    return new class implements competitionclass {
-      id: string = "";
-      competition: competition;
-      name: string = "";
-      actual: boolean = false;
-      comment: string = ""
-    }
-  }
-
-  getNewTeam() {
-    return new class implements team {
-      id: string = "";
-      legalName: string = "";
-      logo: string = ""
     }
   }
 

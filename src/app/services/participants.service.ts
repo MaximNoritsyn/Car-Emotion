@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AngularFireDatabase} from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 
-import {car, competitionclass, datacar, participant, person, point, team} from '../interfaces/app.interface';
+import {car, datacar, participant, person} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
 
 
@@ -126,66 +126,6 @@ export class ParticipantsService {
 
   setidcurrenevent(id: string) {
     this.idcurrentevent = id;
-  }
-
-  getnewParticipantclass() {
-    let _person = this.getnewPerson();
-    let _idevent = this.idcurrentevent;
-    let _car = this.getnewCar();
-    let _datacar = this.getnewDataCar();
-    return new class implements participant {
-      id: string = "";
-      idevent: string = _idevent;
-      person: person = _person;
-      imageperson: string = "";
-      car: car = _car;
-      datacar: datacar = _datacar;
-      team: team;
-      isDecibelLeague: boolean = false;
-      isDecibelBattle: boolean = false;
-      isDecibelVolume: boolean = false;
-      isDecibelShow: boolean = false;
-      classDecibelLeague: competitionclass;
-      classDecibelBattle: competitionclass;
-      classDecibelVolume: competitionclass;
-      classDecibelShow: competitionclass;
-      registered: boolean = false;
-      datainput: Date = new Date();
-      points: point[]
-    }
-    }
-
-  getnewPerson() {
-    return new class implements person {
-      city: string = "";
-      email: string = "";
-      familyName: string = "";
-      id: string = "";
-      name: string = "";
-      datainput: Date = new Date();
-      telephone: string = "";
-    }
-  }
-
-  getnewCar() {
-    return new class implements car {
-      id: string = "";
-      model: string = "";
-      alternateName: string = ""
-    }
-  }
-
-  getnewDataCar() {
-    return new class implements datacar {
-      id: string = "";
-      idevent: string = "";
-      image: string = "";
-      subsize: number = 0;
-      subcount: number = 0;
-      nameamplifiler: string = "";
-      front: string = "";
-      datainput: Date = new Date()
-    }
   }
 
   getCars() {

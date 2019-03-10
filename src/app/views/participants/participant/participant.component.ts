@@ -9,6 +9,7 @@ import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {EventsService} from '../../../services/events.service';
 import {CurrentdataService} from '../../../services/currentdata.service';
+import {FactoryService} from '../../../services/factory.service';
 
 @Component({
   selector: 'app-participant',
@@ -41,6 +42,7 @@ export class ParticipantComponent implements OnInit {
               private _ParticipantsService: ParticipantsService,
               private translate_service: Translate_Service,
               private _CurrentdataService: CurrentdataService,
+              private _FactoryService: FactoryService,
               private _EventsService: EventsService)
   {}
 
@@ -73,7 +75,7 @@ export class ParticipantComponent implements OnInit {
         )
       );
 
-    this.currentParticipant = this._ParticipantsService.getnewParticipantclass();
+    this.currentParticipant = this._FactoryService.getnewParticipantclass(this.idevent);
     this.activeRoute.params.subscribe((params: Params) =>
     {
       this.idevent = params["idevent"];
@@ -81,11 +83,21 @@ export class ParticipantComponent implements OnInit {
       if (params["idParticipant"] !== null && params["idParticipant"] !== undefined)
         {
           this._ParticipantsService.getParticipant(params["idParticipant"]).subscribe(item =>
-            {this.currentParticipant = item; console.log(this.currentParticipant.team)})
+            {this.currentParticipant = item;})
         };
     }
     );
-    this._EventsService.getTeams(this._CurrentdataService.getseason().id).subscribe( items => this.teams = items);
+    if (this._CurrentdataService.getseason().id =="") {
+      this._CurrentdataService.getseasonOnce().then( item => {
+        console.log(item);
+        this._EventsService.getTeams(item.val().id).subscribe( items => this.teams = items);
+        }
+      )
+    }
+    else {
+      this._EventsService.getTeams(this._CurrentdataService.getseason().id).subscribe( items => this.teams = items);
+    }
+
   }
 
     setParticipant() {

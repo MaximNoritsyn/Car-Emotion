@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CurrentdataService} from '../../../services/currentdata.service';
 import {arraystatuses, EventsService} from '../../../services/events.service';
 import {ParticipantsService} from '../../../services/participants.service';
+import {FactoryService} from '../../../services/factory.service';
 
 @Component({
   selector: 'app-event',
@@ -26,10 +27,11 @@ export class EventComponent implements OnInit {
               private activeRoute: ActivatedRoute,
               private _ParticipantsService: ParticipantsService,
               private _CurrentdataService: CurrentdataService,
+              private _FactoryService: FactoryService,
               private _EventsService: EventsService) { }
 
   ngOnInit() {
-    this.currentevent = this._EventsService.getnewEvent();
+    this.currentevent = this._FactoryService.getnewEvent();
     this._ParticipantsService.setidcurrenevent(this.currentevent.id)
     this.activeRoute.params.subscribe((params: Params) =>
       {

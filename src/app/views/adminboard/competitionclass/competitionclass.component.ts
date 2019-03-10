@@ -4,6 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {arraycompetition, EventsService} from '../../../services/events.service';
 import {Translate_Service} from '../../../services/translate.service';
 import {competition, competitionclass} from '../../../interfaces/app.interface';
+import {FactoryService} from '../../../services/factory.service';
 
 @Component({
   selector: 'app-competitionclass',
@@ -19,12 +20,13 @@ export class CompetitionclassComponent implements OnInit {
               private router: Router,
               private _EventsService: EventsService,
               private activeRoute: ActivatedRoute,
-              private translate_service: Translate_Service) {
+              private translate_service: Translate_Service,
+              private _FactoryService: FactoryService) {
 
   }
 
   ngOnInit() {
-    this.currentClass = this._EventsService.getNewCompetitionClass();
+    this.currentClass = this._FactoryService.getNewCompetitionClass();
     this.activeRoute.params.subscribe((params: Params) =>
     { if (params["idclass"] !== null && params["idclass"] !== undefined)
       {
