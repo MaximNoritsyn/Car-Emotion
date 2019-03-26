@@ -3,7 +3,6 @@ import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ParticipantsService} from '../../../services/participants.service';
 import {person} from '../../../interfaces/app.interface';
-import {EventsService} from '../../../services/events.service';
 import {FactoryService} from '../../../services/factory.service';
 
 @Component({

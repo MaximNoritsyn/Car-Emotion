@@ -6,19 +6,6 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import {competition, competitionclass, event, eventstatus, participant, season, team} from '../interfaces/app.interface';
 import {CurrentdataService} from './currentdata.service';
 
-
-export const arraystatuses: eventstatus[] = [];
-arraystatuses.push(eventstatus.inplan);
-arraystatuses.push(eventstatus.begun);
-arraystatuses.push(eventstatus.finish);
-arraystatuses.push(eventstatus.canceled);
-
-export const arraycompetition: competition[] = [];
-arraycompetition.push(competition.DecibelBattle);
-arraycompetition.push(competition.DecibelLeague);
-arraycompetition.push(competition.DecibelShow);
-arraycompetition.push(competition.DecibelVolume);
-
 @Injectable()
 export class EventsService {
 
@@ -115,21 +102,21 @@ export class EventsService {
   }
 
   getTeam(idseason: string, id:string) {
-    return this._db.object<team>('/seasons/' + idseason + '/teams/' + id).valueChanges();
+    return this._db.object<team>('/teams/' + idseason + '/list/' + id).valueChanges();
   }
 
   getTeams(idseason: string) {
-    return this._db.list<team>('/seasons/' + idseason + '/teams/').valueChanges();
+    return this._db.list<team>('/teams/' + idseason + '/list/').valueChanges();
   }
 
   setTeam(idseason: string, _team:team) {
     if (_team.id == "") {
-      this._db.list('/seasons/' + idseason + '/teams/').push(_team).then((snapshot) => {
-        this._db.object('/seasons/' + idseason + '/teams/' + snapshot.key).update({"id": snapshot.key})
+      this._db.list('/teams/' + idseason + '/list/').push(_team).then((snapshot) => {
+        this._db.object('/teams/' + idseason + '/list/' + snapshot.key).update({"id": snapshot.key})
       });
     }
     else {
-      this._db.object('/seasons/' + idseason + '/teams/' + _team.id).update(_team)
+      this._db.object('/teams/' + idseason + '/list/' + _team.id).update(_team)
     }
   }
 }

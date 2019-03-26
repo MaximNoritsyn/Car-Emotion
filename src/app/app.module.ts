@@ -39,6 +39,9 @@ import { PersonComponent } from './views/persons/person/person.component';
 import { ResultsComponent } from './views/results/results.component';
 import { ResultComponent } from './views/results/result/result.component';
 import { CurrentresultComponent } from './views/dashboard/currentresult/currentresult.component';
+import {FactoryService} from './services/factory.service';
+import {ResultsService} from './services/results.service';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -76,6 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatAutocompleteModule,
     BrowserAnimationsModule,
+    DragDropModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -85,7 +89,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     }
     )
   ],
-  providers: [AuthService, AuthGuard, ParticipantsService, Translate_Service, EventsService, CurrentdataService],
+  providers: [
+    AuthService,
+    AuthGuard,
+    ParticipantsService,
+    Translate_Service,
+    EventsService,
+    CurrentdataService,
+    FactoryService,
+    ResultsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

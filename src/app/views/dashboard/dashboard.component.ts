@@ -14,10 +14,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  log() {
-    this.authService.getuser();
-  }
-
 
 
 }

@@ -4,9 +4,9 @@ import {Observable} from 'rxjs/Rx';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {CurrentdataService} from '../../../services/currentdata.service';
-import {arraystatuses, EventsService} from '../../../services/events.service';
+import {EventsService} from '../../../services/events.service';
 import {ParticipantsService} from '../../../services/participants.service';
-import {FactoryService} from '../../../services/factory.service';
+import {arraystatuses, FactoryService} from '../../../services/factory.service';
 
 @Component({
   selector: 'app-event',

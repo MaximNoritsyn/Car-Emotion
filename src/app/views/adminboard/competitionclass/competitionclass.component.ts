@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {arraycompetition, EventsService} from '../../../services/events.service';
+import {EventsService} from '../../../services/events.service';
 import {Translate_Service} from '../../../services/translate.service';
 import {competition, competitionclass} from '../../../interfaces/app.interface';
-import {FactoryService} from '../../../services/factory.service';
+import {arraycompetition, FactoryService} from '../../../services/factory.service';
 
 @Component({
   selector: 'app-competitionclass',

@@ -4,8 +4,8 @@
     <input class="form-control" [(ngModel)]="currentClass.name" name="competitionclasses.location" placeholder="Название класса" required>
   </div>
 
+  <label>{{ 'competitionclasses.competition' | translate }}</label>
   <select class="form-control" [compareWith]="selectedcompetition" [(ngModel)]="currentClass.competition" [ngModelOptions]="{standalone: true}">
-    <label>{{ 'competitionclasses.competition' | translate }}</label>
     <option *ngFor="let key of arrayCompetitons" [ngValue]="key">
       {{key}}
     </option>

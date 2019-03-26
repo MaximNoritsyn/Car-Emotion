@@ -89,7 +89,6 @@ export class ParticipantComponent implements OnInit {
     );
     if (this._CurrentdataService.getseason().id =="") {
       this._CurrentdataService.getseasonOnce().then( item => {
-        console.log(item);
         this._EventsService.getTeams(item.val().id).subscribe( items => this.teams = items);
         }
       )
@@ -101,6 +100,7 @@ export class ParticipantComponent implements OnInit {
   }
 
     setParticipant() {
+      this.currentParticipant.idevent = this.idevent;
       this._ParticipantsService.setParticipant(this.currentParticipant);
       this.router.navigate(['/event/' + this.idevent]);
 

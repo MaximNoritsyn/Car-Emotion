@@ -79,6 +79,7 @@ export interface result{
   competition: competition,
   class: competitionclass,
   idperson: string,
+  idparticipant: string,
   idcar: string,
   idevent: string,
   idseason: string,

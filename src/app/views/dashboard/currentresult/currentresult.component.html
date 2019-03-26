@@ -1,3 +1,94 @@
-<p>
-  currentresult works!
-</p>
+<div class="form-group col-md-4">
+  <label>{{ 'currentresult.name' | translate }}</label>
+  <input class="form-control" disabled = true
+         [(ngModel)]="currentevent.name"
+         name="currentevent.name"
+         required>
+</div>
+<div class="form-group col-md-4">
+  <label>{{ 'currentresult.competition' | translate }}</label>
+  <select class="form-control" [compareWith]="selectedCompetition" [ngModel]="currentcompetition"
+        (ngModelChange)="onChangecompetition($event)">
+    <option *ngFor="let key of arrayCompetitons" [ngValue]="key">
+      {{key}}
+    </option>
+  </select>
+</div>
+<div class="form-group col-md-4">
+  <label>{{ 'currentresult.class' | translate }} {{currentcompetition}}</label>
+  <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="currentcompetitionclass"
+        (ngModelChange)="onChangecompetitionClass($event)">
+    <option *ngFor="let key of arrayCompetitonsClass" [ngValue]="key">
+      {{key.name}}
+    </option>
+  </select>
+</div>
+<button class="btn btn-primary btn-block" (click)="ClearResults()">{{ 'currentresult.clearresults' | translate }}</button>
+<hr>
+
+<div class="form-row">
+  <div class="form-group col-md-4">
+    <div >
+      <label>{{ 'currentresult.result1' | translate }}</label>
+      <div class="form-control" cdkDropList #result1="cdkDropList" id="result1"
+           [cdkDropListData]="currentparticipant1"
+           [cdkDropListConnectedTo]="[participantTurn1, result2]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
+        {{currentparticipant1[0].person.name}}
+      </div>
+      <input class="form-control"
+         [(ngModel)]="currentresult1.front"
+         name="currentresult1.front"
+         required>
+    </div>
+  </div>
+  <div class="form-group col-md-4">
+    <div >
+      <label>{{ 'currentresult.result2' | translate }}</label>
+      <div class="form-control" cdkDropList #result2="cdkDropList" id="result2"
+           [cdkDropListData]="currentparticipant2"
+           [cdkDropListConnectedTo]="[participantTurn2, result1]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
+        {{currentparticipant2[0].person.name}}
+      </div>
+      <input class="form-control"
+         [(ngModel)]="currentresult2.front"
+         name="currentresult1.front"
+         required>
+    </div>
+  </div>
+</div>
+
+<div class="form-group col-md-4">
+  <label>{{ 'currentresult.allparticipants' | translate }}</label>
+  <div class="list-group"
+       cdkDropList #participantList="cdkDropList" id="participants"
+       [cdkDropListData]="participants"
+       [cdkDropListConnectedTo]="[participantTurn1, participantTurn2]" (cdkDropListDropped)="onDropparticipants($event)">
+    <div *ngFor="let participant of participants" class="list-group-item list-group-item-action"
+         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
+    >{{participant.person.name}} - {{participant.person.familyName}}</div>
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-group col-md-4" cdkDropList #participantTurn1="cdkDropList" id="participantTurn1"
+       [cdkDropListData]="turn1"
+       [cdkDropListConnectedTo]="[participantList, participantTurn2, result1]" (cdkDropListDropped)="onDrop($event)">
+    <label>{{ 'currentresult.turn1' | translate }}</label>
+    <div class="list-group">
+      <div *ngFor="let participant of turn1" class="list-group-item list-group-item-action"
+         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
+      >{{participant.person.name}} - {{participant.person.familyName}}</div>
+    </div>
+  </div>
+  <div class="form-group col-md-4" cdkDropList #participantTurn2="cdkDropList" id="participantTurn2"
+       [cdkDropListData]="turn2"
+       [cdkDropListConnectedTo]="[participantList, participantTurn1, result2]" (cdkDropListDropped)="onDrop($event)">
+    <label>{{ 'currentresult.turn2' | translate }}</label>
+    <div class="list-group">
+      <div *ngFor="let participant of turn2" class="list-group-item list-group-item-action"
+         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
+      >{{participant.person.name}} - {{participant.person.familyName}}</div>
+    </div>
+  </div>
+</div>
+

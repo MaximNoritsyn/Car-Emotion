@@ -8,14 +8,27 @@ import {
   eventstatus,
   participant,
   person,
-  point,
+  point, result,
   season,
   team
 } from '../interfaces/app.interface';
 
+export const arraystatuses: eventstatus[] = [];
+arraystatuses.push(eventstatus.inplan);
+arraystatuses.push(eventstatus.begun);
+arraystatuses.push(eventstatus.finish);
+arraystatuses.push(eventstatus.canceled);
+
+export const arraycompetition: competition[] = [];
+arraycompetition.push(competition.DecibelBattle);
+arraycompetition.push(competition.DecibelLeague);
+arraycompetition.push(competition.DecibelShow);
+arraycompetition.push(competition.DecibelVolume);
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class FactoryService {
 
   constructor() { }
@@ -122,5 +135,25 @@ export class FactoryService {
       logo: string = ""
     }
   }
+
+  getNewResult() {
+    let _class = this.getNewCompetitionClass();
+    return new class implements result {
+      id: string = "";
+      competition: competition;
+      class: competitionclass = _class;
+      idperson: string = "";
+      idparticipant: string = "";
+      idcar: string = "";
+      idevent: string = "";
+      idseason: string = "";
+      front: number = 0;
+      sub: number = 0;
+      result: number = 0
+      outputpower: string = ""
+      checkin: boolean = false
+    }
+
+    }
 
 }
