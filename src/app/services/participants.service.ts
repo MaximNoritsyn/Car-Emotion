@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AngularFireDatabase} from 'angularfire2/database';
-import { AuthService } from '../services/auth.service';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {AngularFireDatabase} from 'angularfire2/database';
+import {AuthService} from '../services/auth.service';
 
-import {car, datacar, participant, person} from '../interfaces/app.interface';
+import {car, competition, competitionclass, datacar, participant, person, point, result} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
 import {CurrentdataService} from './currentdata.service';
-
+import {FactoryService} from './factory.service';
+import {query} from '@angular/animations';
 
 
 @Injectable()
@@ -31,6 +32,7 @@ export class ParticipantsService {
               private router: Router,
               private _EventsService: EventsService,
               private _CurrentdataService: CurrentdataService,
+              private _FactoryService: FactoryService,
               private _auth: AuthService) {
     this._CurrentdataService.getEvent().subscribe(item => {if (item !== null) this.idcurrentevent = item.id})
     this.idcurrentCar = "";
@@ -115,10 +117,13 @@ export class ParticipantsService {
       let _key = this._db.list('/participants/' + this.idcurrentevent + '/all/').push(_participant).key;
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _key).update({"id": _key});
       _participant.id = _key;
+      this.generatePointsForParticipants(_participant);
     }
     else {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _key).update(_participant);
+      this.generatePointsForParticipants(_participant);
     }
+
   }
 
   getParticipant(id: string) {
@@ -143,6 +148,132 @@ export class ParticipantsService {
 
   getDataCarOnce(idcar:string) {
     return this._db.list<datacar>('/cars/'+ idcar + '/datacar').query.once("value")
+  }
+
+  generatePointsForParticipants(_participant: participant) {
+    if (_participant.registered) {
+      if (_participant.isDecibelShow && _participant.pointDecibelShow == undefined) {
+        let _point = this._FactoryService.getNewPoint(competition.DecibelShow, _participant.classDecibelShow);
+        this.generatePoint(_point, _participant, competition.DecibelShow);
+      };
+
+      if (_participant.isDecibelLeague && _participant.pointDecibelLeague == undefined) {
+        let _point = this._FactoryService.getNewPoint(competition.DecibelLeague, _participant.classDecibelLeague);
+        this.generatePoint(_point, _participant, competition.DecibelLeague);
+      };
+
+      if (_participant.isDecibelVolume && _participant.pointDecibelVolume == undefined) {
+        let _point = this._FactoryService.getNewPoint(competition.DecibelVolume, _participant.classDecibelVolume);
+        this.generatePoint(_point, _participant, competition.DecibelVolume);
+      };
+
+      if (_participant.isDecibelBattle && _participant.pointDecibelBattle == undefined) {
+        let _point = this._FactoryService.getNewPoint(competition.DecibelBattle, _participant.classDecibelBattle);
+        this.generatePoint(_point, _participant, competition.DecibelBattle);
+      };
+
+    }
+  }
+
+  generatePoint(_point: point, _participant: participant, _competition: competition) {
+    _point.idevent = _participant.idevent;
+    if (_participant.car == undefined) {
+      _point.idcar = "";
+    }
+    else {
+      _point.idcar = _participant.car.id;
+    }
+    if (_participant.team == undefined) {
+      _point.idteam = "";
+    }
+    else {
+      _point.idteam = _participant.team.id;
+    }
+    if (_participant.person == undefined) {
+      _point.idperson = "";
+    }
+    else {
+      _point.idperson = _participant.person.id;
+    }
+
+    let _key = this._db.list<point>('/points/').push(_point).key;
+    this._db.object<point>('/points/' + _key).update({"id": _key});
+    _point.id = _key;
+    if (_competition == competition.DecibelShow) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelShow': _point});
+    }
+    else if (_competition == competition.DecibelLeague) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelLeague': _point});
+    }
+    else if (_competition == competition.DecibelVolume) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelVolume': _point});
+    }
+    else if (_competition == competition.DecibelBattle) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelBattle': _point});
+    }
+
+  }
+
+  setResult(_result: result, _participant: participant, _class: competitionclass) {
+
+    _result.idparticipant = _participant.id;
+    _result.idevent = _participant.idevent;
+    _result.class = _class;
+    if (_participant.car == undefined) {
+      _result.idcar = "";
+    }
+    else {
+      _result.idcar = _participant.car.id;
+    }
+    /*if (_participant.team == undefined) {
+      _result.idteam = "";
+    }
+    else {
+      _result.idteam = _participant.team.id;
+    }*/
+    if (_participant.person == undefined) {
+      _result.idperson = "";
+    }
+    else {
+      _result.idperson = _participant.person.id;
+    }
+
+    _result.result = 0;
+    if (_result.checkin) {
+      _result.result = _result.front;
+       if (_result.competition == competition.DecibelShow) {
+        _result.result = _result.front + _result.sub;
+      }
+    }
+
+    if (_result.id == '') {
+      let _key = this._db.list<result>('/results/').push(_result).key;
+      this._db.object<result>('/results/' + _key).update({"id": _key});
+      this.changePointsPlace(_result);
+    }
+    else {
+      this._db.object<result>('/results/' + _result.id).set(_result);
+      this.changePointsPlace(_result);
+    }
+  }
+
+  changePointsPlace(_result: result) {
+    /*this._db.list<point>('/points/',{
+      query: {
+        orderByChild: 'endangered_family_weight',
+        equalTo: 'bird_10_false'
+      })*/
+    /*this._db.list<point>('/points/').query.once("value").then(
+      snapshot => {
+        let _pointsofclass: point[] = snapshot.val();
+        console.log(_pointsofclass);*/
+        /*let _array1 = Array.prototype.filter(_pointsofclass,function (point) {
+          return (point.class.id.indexOf(_result.class.id) === 0 && point.competition.indexOf(_result.competition) === 0 &&
+          point.idevent.indexOf(_result.idevent) === 0);
+        });
+        console.log(_array1);*/
+      /*}
+    );*/
   }
 
 }

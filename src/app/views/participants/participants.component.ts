@@ -27,8 +27,7 @@ export class ParticipantsComponent implements OnInit {
     {
       this.idevent = params["idevent"];
       this._ParticipantsService.setidcurrenevent(this.idevent);
-      this.participantsObs = this._ParticipantsService.getParticipants();
-      this.participantsObs.subscribe(items => {
+      this._ParticipantsService.getParticipants().subscribe(items => {
         this.participants = items;
       })
     })

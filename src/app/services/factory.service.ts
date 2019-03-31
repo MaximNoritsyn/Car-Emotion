@@ -55,6 +55,10 @@ export class FactoryService {
       classDecibelBattle: competitionclass;
       classDecibelVolume: competitionclass;
       classDecibelShow: competitionclass;
+      pointDecibelLeague: point = null;
+      pointDecibelBattle: point = null;
+      pointDecibelVolume: point = null;
+      pointDecibelShow: point = null;
       registered: boolean = false;
       datainput: Date = new Date();
       points: point[]
@@ -154,6 +158,23 @@ export class FactoryService {
       checkin: boolean = false
     }
 
+    }
+
+    getNewPoint(competition: competition, competitionclass: competitionclass) {
+      return new class implements point {
+        id: string = "";
+        //idparticipant: string = "";
+        idteam: string = "";
+        idperson: string = "";
+        idcar: string = "";
+        idevent: string = "";
+        idseason: string = "";
+        competition: competition;
+        class: competitionclass;
+        bestresult: number = 0;
+        point: number = 0;
+        place: number = 99
+      }
     }
 
 }

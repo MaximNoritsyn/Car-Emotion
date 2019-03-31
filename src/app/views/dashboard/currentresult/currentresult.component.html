@@ -23,11 +23,12 @@
     </option>
   </select>
 </div>
-<button class="btn btn-primary btn-block" (click)="ClearResults()">{{ 'currentresult.clearresults' | translate }}</button>
+
 <hr>
 
 <div class="form-row">
   <div class="form-group col-md-4">
+    <button class="btn btn-primary btn-block" (click)="SaveResults()">{{ 'currentresult.saveresults' | translate }}</button>
     <div >
       <label>{{ 'currentresult.result1' | translate }}</label>
       <div class="form-control" cdkDropList #result1="cdkDropList" id="result1"
@@ -35,13 +36,42 @@
            [cdkDropListConnectedTo]="[participantTurn1, result2]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
         {{currentparticipant1[0].person.name}}
       </div>
-      <input class="form-control"
-         [(ngModel)]="currentresult1.front"
-         name="currentresult1.front"
-         required>
+      <div class="form-row">
+        <label>{{ 'currentresult.front' | translate }}</label>
+        <input class="form-control" [disabled]="this.currentparticipant1[0].id == ''"
+               [(ngModel)]="currentresult1.front"
+               name="currentresult1.front" (change)="changeresult(1)"
+               required>
+      </div>
+      <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
+             [(ngModel)]="currentresult1.sub"
+             name="currentresult1.sub" (change)="changeresult(1)"
+             required>
+      <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
+             [(ngModel)]="currentresult1.outputpower"
+             name="currentresult1.outputpower" (change)="changeresult(1)"
+             required>
+      <label class="form-check-label" for="checkin1">
+        <input type="checkbox" class="form-check-input" id="checkin1" name="currentresult1.checkin" (change)="changeresult(1)"
+               [(ngModel)]="currentresult1.checkin">
+        {{ 'currentresult.checkin' | translate }}
+      </label>
+    </div>
+
+    <hr>
+    <div class="form-group btn-block" cdkDropList #participantTurn1="cdkDropList" id="participantTurn1"
+         [cdkDropListData]="turn1"
+         [cdkDropListConnectedTo]="[participantList, participantTurn2, result1]" (cdkDropListDropped)="onDrop($event)">
+      <label>{{ 'currentresult.turn1' | translate }}</label>
+      <div class="list-group">
+        <div *ngFor="let participant of turn1" class="list-group-item list-group-item-action"
+             [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
+        >{{participant.person.name}} - {{participant.person.familyName}}</div>
+      </div>
     </div>
   </div>
   <div class="form-group col-md-4">
+    <button class="btn btn-warning btn-block" (click)="ClearResults()">{{ 'currentresult.clearresults' | translate }}</button>
     <div >
       <label>{{ 'currentresult.result2' | translate }}</label>
       <div class="form-control" cdkDropList #result2="cdkDropList" id="result2"
@@ -49,11 +79,40 @@
            [cdkDropListConnectedTo]="[participantTurn2, result1]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
         {{currentparticipant2[0].person.name}}
       </div>
-      <input class="form-control"
-         [(ngModel)]="currentresult2.front"
-         name="currentresult1.front"
-         required>
+      <div class="form-row">
+        <label>{{ 'currentresult.front' | translate }}</label>
+        <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
+               [(ngModel)]="currentresult2.front"
+               name="currentresult1.front" (change)="changeresult(2)"
+               required>
+      </div>
+      <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
+             [(ngModel)]="currentresult2.sub"
+             name="currentresult1.sub" (change)="changeresult(2)"
+             required>
+      <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
+             [(ngModel)]="currentresult2.outputpower"
+             name="currentresult1.outputpower" (change)="changeresult(2)"
+             required>
+      <label class="form-check-label" for="checkin2">
+        <input type="checkbox" class="form-check-input" id="checkin2" name="currentresult2.checkin" (change)="changeresult(2)"
+               [(ngModel)]="currentresult2.checkin">
+        {{ 'currentresult.checkin' | translate }}
+      </label>
     </div>
+
+    <hr>
+    <div class="form-group btn-block" cdkDropList #participantTurn2="cdkDropList" id="participantTurn2"
+         [cdkDropListData]="turn2"
+         [cdkDropListConnectedTo]="[participantList, participantTurn1, result2]" (cdkDropListDropped)="onDrop($event)">
+      <label>{{ 'currentresult.turn2' | translate }}</label>
+      <div class="list-group">
+        <div *ngFor="let participant of turn2" class="list-group-item list-group-item-action"
+             [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
+        >{{participant.person.name}} - {{participant.person.familyName}}</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -69,26 +128,4 @@
   </div>
 </div>
 
-<div class="form-row">
-  <div class="form-group col-md-4" cdkDropList #participantTurn1="cdkDropList" id="participantTurn1"
-       [cdkDropListData]="turn1"
-       [cdkDropListConnectedTo]="[participantList, participantTurn2, result1]" (cdkDropListDropped)="onDrop($event)">
-    <label>{{ 'currentresult.turn1' | translate }}</label>
-    <div class="list-group">
-      <div *ngFor="let participant of turn1" class="list-group-item list-group-item-action"
-         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
-      >{{participant.person.name}} - {{participant.person.familyName}}</div>
-    </div>
-  </div>
-  <div class="form-group col-md-4" cdkDropList #participantTurn2="cdkDropList" id="participantTurn2"
-       [cdkDropListData]="turn2"
-       [cdkDropListConnectedTo]="[participantList, participantTurn1, result2]" (cdkDropListDropped)="onDrop($event)">
-    <label>{{ 'currentresult.turn2' | translate }}</label>
-    <div class="list-group">
-      <div *ngFor="let participant of turn2" class="list-group-item list-group-item-action"
-         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
-      >{{participant.person.name}} - {{participant.person.familyName}}</div>
-    </div>
-  </div>
-</div>
 

@@ -40,7 +40,6 @@ import { ResultsComponent } from './views/results/results.component';
 import { ResultComponent } from './views/results/result/result.component';
 import { CurrentresultComponent } from './views/dashboard/currentresult/currentresult.component';
 import {FactoryService} from './services/factory.service';
-import {ResultsService} from './services/results.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -96,8 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     Translate_Service,
     EventsService,
     CurrentdataService,
-    FactoryService,
-    ResultsService
+    FactoryService
   ],
   bootstrap: [AppComponent]
 })

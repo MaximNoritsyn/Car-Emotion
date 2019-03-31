@@ -54,7 +54,7 @@
   </div>
 
   <label>{{ 'participant.team' | translate }}</label>
-  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.team" allow-clear="true"
+  <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.team" allow-clear="true"
           [ngModelOptions]="{standalone: true}">
 
     <option *ngFor="let key of teams" [ngValue]="key">
@@ -136,7 +136,7 @@
     </div>
   </div>
   <label>{{ 'participant.classDecibelLeague' | translate }}</label>
-  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelLeague"
+  <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelLeague"
           [ngModelOptions]="{standalone: true}">
 
     <option *ngFor="let key of arrayclassDecibelLeague" [ngValue]="key">
@@ -154,7 +154,7 @@
     </div>
   </div>
   <label>{{ 'participant.classDecibelBattle' | translate }}</label>
-  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelBattle"
+  <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelBattle"
           [ngModelOptions]="{standalone: true}">
 
     <option *ngFor="let key of arrayclassDecibelBattle" [ngValue]="key">
@@ -172,7 +172,7 @@
     </div>
   </div>
   <label>{{ 'participant.classDecibelVolume' | translate }}</label>
-  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelVolume"
+  <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelVolume"
           [ngModelOptions]="{standalone: true}">
 
     <option *ngFor="let key of arrayclassDecibelVolume" [ngValue]="key">
@@ -190,13 +190,23 @@
     </div>
   </div>
   <label>{{ 'participant.classDecibelShow' | translate }}</label>
-  <select class="form-control" [compareWith]="selected" [(ngModel)]="currentParticipant.classDecibelShow"
+  <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelShow"
           [ngModelOptions]="{standalone: true}">
 
     <option *ngFor="let key of arrayclassDecibelShow" [ngValue]="key">
       {{key.name}}
     </option>
   </select>
+
+  <div class="form-group">
+    <div class="form-check">
+      <label class="form-check-label" for="isDecibelShow">
+        <input type="checkbox" class="form-check-input" id="registered" name="currentParticipant.registered"
+               [(ngModel)]="currentParticipant.registered">
+        {{ 'participant.registered' | translate }}
+      </label>
+    </div>
+  </div>
 
   <hr>
   <div class="form-group">

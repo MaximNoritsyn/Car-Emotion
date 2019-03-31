@@ -28,6 +28,10 @@ export interface participant {
   classDecibelBattle: competitionclass,
   classDecibelVolume: competitionclass,
   classDecibelShow: competitionclass,
+  pointDecibelLeague: point,
+  pointDecibelBattle: point,
+  pointDecibelVolume: point,
+  pointDecibelShow: point,
   registered: boolean,
   datainput: Date,
   points: point[]
@@ -92,7 +96,7 @@ export interface result{
 
 export interface point {
   id: string,
-  idparticipant: string,
+  //idparticipant: string,
   idteam: string,
   idperson: string,
   idcar: string,
@@ -100,7 +104,6 @@ export interface point {
   idseason: string,
   competition: competition,
   class: competitionclass,
-  results: result[],
   bestresult: number,
   point: number,
   place: number

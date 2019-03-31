@@ -158,4 +158,13 @@ export class ParticipantComponent implements OnInit {
     return classel == currentclassel;
   }
 
+  selectedid(classel, currentclassel) {
+    if (classel == undefined || currentclassel == undefined) {
+      return false;
+    }
+
+
+    return classel.id == currentclassel.id;
+  }
+
 }

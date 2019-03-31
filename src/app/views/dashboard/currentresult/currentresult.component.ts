@@ -7,6 +7,7 @@ import {competition, competitionclass, event, participant, result} from '../../.
 import {arraycompetition, FactoryService} from '../../../services/factory.service';
 import {ParticipantsService} from '../../../services/participants.service';
 import {CdkDragDrop, CdkDrag, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
   selector: 'app-currentresult',
@@ -22,7 +23,6 @@ export class CurrentresultComponent implements OnInit {
   private arrayCompetitonsClass: competitionclass[];
 
   private clearparticipant: participant;
-  private clearresult: result;
 
   private currentresult1: result;
   private currentresult2: result;
@@ -79,6 +79,8 @@ export class CurrentresultComponent implements OnInit {
       this.currentparticipant2.pop();
       this.currentparticipant2.push(items)
     }});
+    this._CurrentdataService.getCurrentResult1().subscribe(item => this.currentresult1 = item);
+    this._CurrentdataService.getCurrentResult2().subscribe(item => this.currentresult2 = item);
   }
 
   selectedCompetition(competitionel, currentcompetitionel) {
@@ -125,6 +127,11 @@ export class CurrentresultComponent implements OnInit {
       this.setAnyTurn(event.previousContainer);
     }
     else if (event.previousContainer.id == "result1" || event.previousContainer.id == "result2") {
+      if ((event.previousContainer.id == "result1" && this.currentresult1.front !== 0) ||
+        (event.previousContainer.id == "result2" && this.currentresult2.front !== 0))
+      {
+        return;
+      }
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
@@ -165,7 +172,7 @@ export class CurrentresultComponent implements OnInit {
 
   onDropresult(event: CdkDragDrop<participant[]>) {
     if(event.previousContainer === event.container) {
-      // nothng to do
+      // nothng t o do
     }
     if (event.previousContainer.id == "participantTurn1" || event.previousContainer.id == "participantTurn2") {
       if (event.container.data[0].id == "")
@@ -190,12 +197,35 @@ export class CurrentresultComponent implements OnInit {
   }
 
   ClearResults() {
-
     this._CurrentdataService.setCurrentParticipant1(this.clearparticipant);
     this._CurrentdataService.setCurrentParticipant2(this.clearparticipant);
-    /*this._CurrentdataService.setCurrentResult1(this.clearresult);
-    this._CurrentdataService.setCurrentResult2(this.clearresult);*/
+    this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
+    this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
 
+  }
+
+  SaveResults() {
+    if(this.currentresult1.front > 0) {
+      this._ParticipantsService.setResult(this.currentresult1, this.currentparticipant1[0], this.currentcompetitionclass);
+    };
+    if(this.currentresult2.front > 0) {
+      this._ParticipantsService.setResult(this.currentresult2, this.currentparticipant2[0], this.currentcompetitionclass);
+    };
+    this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
+    this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
+  }
+
+  disbledresults(_currentparticipant: participant[]) {
+    return _currentparticipant[0].id == '';
+  }
+
+  changeresult(_number: number) {
+    if (_number == 1) {
+      this._CurrentdataService.setCurrentResult1(this.currentresult1);
+    }
+    else if (_number == 2) {
+      this._CurrentdataService.setCurrentResult2(this.currentresult2);
+    }
   }
 
 }
