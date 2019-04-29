@@ -7,6 +7,6 @@
     </a>
     <a *ngFor="let participant of participants" class="list-group-item list-group-item-action"
       [routerLink]="['/participant/' + this.idevent + '/' + participant.id]"
-    >{{participant.person.name}}</a>
+    >{{participant.person.name}} - {{participant.person.familyName}}</a>
   </div>
 </div>

@@ -74,6 +74,22 @@
     "finish": "Finished",
     "canceled": "Canceled"
   },
+  "currentresult": {
+    "season": "Season",
+    "competition": "Competition",
+    "class": "Class of ",
+    "result1": "Result left",
+    "result2": "Result right",
+    "front": "Front",
+    "sub": "Sub",
+    "outputpower": "Output Power",
+    "checkin": "Check in",
+    "turn1": "Left turn",
+    "turn2": "Right turn",
+    "allparticipants": "All participants",
+    "saveresults": "Save results",
+    "clearresults": "Clear results"
+  },
   "persons": {
     "persons": "Participants"
   }

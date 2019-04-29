@@ -8,7 +8,6 @@ import {car, competition, competitionclass, datacar, participant, person, point,
 import {EventsService} from './events.service';
 import {CurrentdataService} from './currentdata.service';
 import {FactoryService} from './factory.service';
-import {query} from '@angular/animations';
 
 
 @Injectable()
@@ -219,6 +218,7 @@ export class ParticipantsService {
     _result.idparticipant = _participant.id;
     _result.idevent = _participant.idevent;
     _result.class = _class;
+    _result.idclass = _class.id;
     if (_participant.car == undefined) {
       _result.idcar = "";
     }
@@ -246,34 +246,37 @@ export class ParticipantsService {
       }
     }
 
+    if (_class.competition == competition.DecibelVolume) {
+      _result.idpoint = _participant.pointDecibelVolume.id
+    }
+    else if (_class.competition == competition.DecibelBattle) {
+      _result.idpoint = _participant.pointDecibelBattle.id
+    }
+    else if (_class.competition == competition.DecibelLeague) {
+      _result.idpoint = _participant.pointDecibelLeague.id;
+    }
+    else if (_class.competition == competition.DecibelShow) {
+      _result.idpoint = _participant.pointDecibelShow.id;
+    }
+
     if (_result.id == '') {
       let _key = this._db.list<result>('/results/').push(_result).key;
-      this._db.object<result>('/results/' + _key).update({"id": _key});
-      this.changePointsPlace(_result);
+      this._db.object<result>('/results/' + _key).update({"id": _key}).then(
+        snapshot => this.setBestResulttoPoint(_result)
+      );
+
     }
     else {
-      this._db.object<result>('/results/' + _result.id).set(_result);
-      this.changePointsPlace(_result);
+      this._db.object<result>('/results/' + _result.id).set(_result).then(
+        snapshot => this.setBestResulttoPoint(_result)
+      );
+
     }
   }
 
-  changePointsPlace(_result: result) {
-    /*this._db.list<point>('/points/',{
-      query: {
-        orderByChild: 'endangered_family_weight',
-        equalTo: 'bird_10_false'
-      })*/
-    /*this._db.list<point>('/points/').query.once("value").then(
-      snapshot => {
-        let _pointsofclass: point[] = snapshot.val();
-        console.log(_pointsofclass);*/
-        /*let _array1 = Array.prototype.filter(_pointsofclass,function (point) {
-          return (point.class.id.indexOf(_result.class.id) === 0 && point.competition.indexOf(_result.competition) === 0 &&
-          point.idevent.indexOf(_result.idevent) === 0);
-        });
-        console.log(_array1);*/
-      /*}
-    );*/
+  setBestResulttoPoint(_result: result) {
+
+
   }
 
 }

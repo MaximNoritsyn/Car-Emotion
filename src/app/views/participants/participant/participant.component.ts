@@ -64,7 +64,8 @@ export class ParticipantComponent implements OnInit {
     this.FilteredPersons = this.personsControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? this._filterperson(value) : this._setPersonToParticipant(value)
+        map(value => {return typeof value === 'string' ? this._filterperson(value) : this._setPersonToParticipant(value)
+        }
         )
       );
 
@@ -108,7 +109,6 @@ export class ParticipantComponent implements OnInit {
 
   private _filterperson(name: string): person[] {
     const filterValue = name.toLowerCase();
-
     return this.persons.filter(option =>
       option.name.toLowerCase().indexOf(filterValue) === 0 || option.familyName.toLowerCase().indexOf(filterValue) === 0
       || option.telephone.toLowerCase().indexOf(filterValue) === 0

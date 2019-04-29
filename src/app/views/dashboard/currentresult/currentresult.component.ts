@@ -211,8 +211,8 @@ export class CurrentresultComponent implements OnInit {
     if(this.currentresult2.front > 0) {
       this._ParticipantsService.setResult(this.currentresult2, this.currentparticipant2[0], this.currentcompetitionclass);
     };
-    this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
-    this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
+    //this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
+    //this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
   }
 
   disbledresults(_currentparticipant: participant[]) {

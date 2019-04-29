@@ -82,6 +82,8 @@ export interface result{
   id: string,
   competition: competition,
   class: competitionclass,
+  idclass: string,
+  idpoint: string,
   idperson: string,
   idparticipant: string,
   idcar: string,
@@ -104,6 +106,7 @@ export interface point {
   idseason: string,
   competition: competition,
   class: competitionclass,
+  idclass: string,
   bestresult: number,
   point: number,
   place: number

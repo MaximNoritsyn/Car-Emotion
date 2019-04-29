@@ -73,6 +73,22 @@
     "finish": "Завершен",
     "canceled": "Отменён"
   },
+  "currentresult": {
+    "season": "Сезон",
+    "competition": "Соревнование",
+    "class": "Класс в ",
+    "result1": "Результат слева",
+    "result2": "Результат справа",
+    "front": "Фронт",
+    "sub": "Саб",
+    "outputpower": "Выходная мощность",
+    "checkin": "Зачётный",
+    "turn1": "Левая очередь",
+    "turn2": "Правая очередь",
+    "allparticipants": "Все участники",
+    "saveresults": "Сохранить результаты",
+    "clearresults": "Выехали участники"
+  },
   "persons": {
     "persons": "Участники"
   }

@@ -1,8 +1,9 @@
-<form name="participantform" method="post" #formCtrl="ngForm" xmlns="http://www.w3.org/1999/html">
+<form name="participantform" method="post" #formCtrl="ngForm">
 
   <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Search people" aria-label="Search people" matInput [formControl]="personsControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPerson">
+    <input type="text" placeholder="Search people" aria-label="Search people" matInput [formControl]="personsControl" [matAutocomplete]="autopeaple">
+
+    <mat-autocomplete #autopeaple="matAutocomplete" [displayWith]="displayPerson">
       <mat-option *ngFor="let person of FilteredPersons | async" [value]="person">
         {{person.familyName}} - {{person.name}}
       </mat-option>
@@ -63,8 +64,8 @@
   </select>
 
   <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Search car" aria-label="Search car" matInput [formControl]="carsControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCar">
+    <input type="text" placeholder="Search car" aria-label="Search car" matInput [formControl]="carsControl" [matAutocomplete]="autocar">
+    <mat-autocomplete #autocar="matAutocomplete" [displayWith]="displayCar">
       <mat-option *ngFor="let car of FilteredCars | async" [value]="car">
         {{car.model}} - {{car.alternateName}}
       </mat-option>

@@ -141,11 +141,13 @@ export class FactoryService {
   }
 
   getNewResult() {
-    let _class = this.getNewCompetitionClass();
+    let _competitionclass = this.getNewCompetitionClass();
     return new class implements result {
       id: string = "";
       competition: competition;
-      class: competitionclass = _class;
+      class: competitionclass = _competitionclass;
+      idclass: string = _competitionclass.id;
+      idpoint: string = "";
       idperson: string = "";
       idparticipant: string = "";
       idcar: string = "";
@@ -160,7 +162,7 @@ export class FactoryService {
 
     }
 
-    getNewPoint(competition: competition, competitionclass: competitionclass) {
+    getNewPoint(_competition: competition, _competitionclass: competitionclass) {
       return new class implements point {
         id: string = "";
         //idparticipant: string = "";
@@ -169,8 +171,9 @@ export class FactoryService {
         idcar: string = "";
         idevent: string = "";
         idseason: string = "";
-        competition: competition;
-        class: competitionclass;
+        competition: competition = _competition;
+        class: competitionclass = _competitionclass;
+        idclass: string = _competitionclass.id;
         bestresult: number = 0;
         point: number = 0;
         place: number = 99

@@ -73,6 +73,22 @@
     "finish": "Завершився",
     "canceled": "Відмінився"
   },
+  "currentresult": {
+    "season": "Сезон",
+    "competition": "Змагання",
+    "class": "Класс в ",
+    "result1": "Результат зліва",
+    "result2": "Результат справа",
+    "front": "Фронт",
+    "sub": "Саб",
+    "outputpower": "Вихідна потужність",
+    "checkin": "Заліковий",
+    "turn1": "Ліва черга",
+    "turn2": "Правя черга",
+    "allparticipants": "Всі учасники",
+    "saveresults": "Зберегти результати",
+    "clearresults": "Виїхали учасники"
+  },
   "persons": {
   "persons": "Учасники"
   }
