@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {Router} from '@angular/router';
 import {CurrentdataService} from '../../../services/currentdata.service';
@@ -6,8 +6,7 @@ import {EventsService} from '../../../services/events.service';
 import {competition, competitionclass, event, participant, result} from '../../../interfaces/app.interface';
 import {arraycompetition, FactoryService} from '../../../services/factory.service';
 import {ParticipantsService} from '../../../services/participants.service';
-import {CdkDragDrop, CdkDrag, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-currentresult',
@@ -52,11 +51,28 @@ export class CurrentresultComponent implements OnInit {
     this._CurrentdataService.getEvent().subscribe(item => {
       this.currentevent = item;
       this._ParticipantsService.setidcurrenevent(this.currentevent.id);
-      this._ParticipantsService.getParticipants().subscribe(items => {this.participants = items});
+      this._CurrentdataService.getCompetitionClass().subscribe(item => {
+        this.currentcompetitionclass = item;
+        this._ParticipantsService.getParticipants().subscribe(curparticipants => {
+            this.participants = curparticipants.filter(curparticipant => {
+              if (this.currentcompetitionclass.competition == competition.DecibelShow) {
+                return curparticipant.classDecibelShow.id == this.currentcompetitionclass.id
+              } else if (this.currentcompetitionclass.competition == competition.DecibelLeague) {
+                return curparticipant.classDecibelLeague.id == this.currentcompetitionclass.id
+              } else if (this.currentcompetitionclass.competition == competition.DecibelBattle) {
+                return curparticipant.classDecibelBattle.id == this.currentcompetitionclass.id
+              } else if (this.currentcompetitionclass.competition == competition.DecibelVolume) {
+                return curparticipant.classDecibelVolume.id == this.currentcompetitionclass.id
+              }
+              return false
+            })
+          }
+        );
+      });
     });
     this._CurrentdataService.getCompetition().subscribe(item => {this.currentcompetition = item});
 
-    this._CurrentdataService.getCompetitionClass().subscribe(item => {this.currentcompetitionclass = item});
+
 
     this._EventsService.getCompetitionClassesObs().subscribe(items => {
       this.arrayCompetitonsClass = this._EventsService.getCompetitionClasses(items, this.currentcompetition);
@@ -211,8 +227,8 @@ export class CurrentresultComponent implements OnInit {
     if(this.currentresult2.front > 0) {
       this._ParticipantsService.setResult(this.currentresult2, this.currentparticipant2[0], this.currentcompetitionclass);
     };
-    //this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
-    //this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
+    this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
+    this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
   }
 
   disbledresults(_currentparticipant: participant[]) {

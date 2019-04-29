@@ -49,11 +49,6 @@ export class ParticipantsService {
     return this.participants
   }
 
-  getParticipantsByClass() {
-    this.participants = this._db.list<participant>('/participants/' + this.idcurrentevent + '/all').valueChanges();
-    return this.participants
-  }
-
   setParticipant(_participant: participant) {
     let localevent = this._EventsService.getEventOnce(this.idcurrentevent);
     localevent.then(item => {
