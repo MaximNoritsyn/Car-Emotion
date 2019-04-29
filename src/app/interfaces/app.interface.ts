@@ -98,7 +98,7 @@ export interface result{
 
 export interface point {
   id: string,
-  //idparticipant: string,
+  idparticipant: string,
   idteam: string,
   idperson: string,
   idcar: string,

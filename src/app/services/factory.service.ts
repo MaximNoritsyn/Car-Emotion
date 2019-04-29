@@ -165,7 +165,7 @@ export class FactoryService {
     getNewPoint(_competition: competition, _competitionclass: competitionclass) {
       return new class implements point {
         id: string = "";
-        //idparticipant: string = "";
+        idparticipant: string = "";
         idteam: string = "";
         idperson: string = "";
         idcar: string = "";

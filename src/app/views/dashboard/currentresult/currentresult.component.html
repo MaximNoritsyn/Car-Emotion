@@ -34,7 +34,7 @@
       <div class="form-control" cdkDropList #result1="cdkDropList" id="result1"
            [cdkDropListData]="currentparticipant1"
            [cdkDropListConnectedTo]="[participantTurn1, result2]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
-        {{currentparticipant1[0].person.name}}
+        {{currentparticipant1[0].person.name}} - {{currentparticipant1[0].person.familyName}}
       </div>
       <div class="form-row">
         <label>{{ 'currentresult.front' | translate }}</label>
@@ -72,12 +72,12 @@
   </div>
   <div class="form-group col-md-4">
     <button class="btn btn-warning btn-block" (click)="ClearResults()">{{ 'currentresult.clearresults' | translate }}</button>
-    <div >
+    <div>
       <label>{{ 'currentresult.result2' | translate }}</label>
       <div class="form-control" cdkDropList #result2="cdkDropList" id="result2"
            [cdkDropListData]="currentparticipant2"
            [cdkDropListConnectedTo]="[participantTurn2, result1]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
-        {{currentparticipant2[0].person.name}}
+        {{currentparticipant2[0].person.name}} - {{currentparticipant2[0].person.familyName}}
       </div>
       <div class="form-row">
         <label>{{ 'currentresult.front' | translate }}</label>
@@ -123,8 +123,9 @@
        [cdkDropListData]="participants"
        [cdkDropListConnectedTo]="[participantTurn1, participantTurn2]" (cdkDropListDropped)="onDropparticipants($event)">
     <div *ngFor="let participant of participants" class="list-group-item list-group-item-action"
-         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag
-    >{{participant.person.name}} - {{participant.person.familyName}}</div>
+         [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag>
+      {{participant.person.name}} - {{participant.person.familyName}} : {{this.bestResultcurrentclass(participant)}}
+    </div>
   </div>
 </div>
 

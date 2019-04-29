@@ -228,4 +228,20 @@ export class CurrentresultComponent implements OnInit {
     }
   }
 
+  bestResultcurrentclass(_participant: participant): number {
+    if (this.currentcompetitionclass.competition == competition.DecibelVolume) {
+      return _participant.pointDecibelVolume.bestresult;
+    }
+    else if (this.currentcompetitionclass.competition == competition.DecibelBattle) {
+      return _participant.pointDecibelBattle.bestresult;
+    }
+    else if (this.currentcompetitionclass.competition == competition.DecibelLeague) {
+      return _participant.pointDecibelLeague.bestresult;
+    }
+    else if (this.currentcompetitionclass.competition == competition.DecibelShow) {
+      return _participant.pointDecibelShow.bestresult;
+    }
+    return 0;
+  }
+
 }
