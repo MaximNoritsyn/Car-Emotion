@@ -47,7 +47,10 @@
     "nameamplifiler": "Усилитель",
     "front": "Фронтовая акустика",
     "model": "Модель авто",
-    "alternateName": "Ник авто"
+    "alternateName": "Ник авто",
+    "isnewperson": "Новый участник чемпионата",
+    "isnewcar": "Новая машина в чемпионате",
+    "registered": "Зарегестрирован"
   },
   "events": {
     "editseason": "Изменить",

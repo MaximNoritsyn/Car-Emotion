@@ -4,7 +4,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ParticipantsService} from '../../../services/participants.service';
 import {Translate_Service} from '../../../services/translate.service';
 import {Observable} from 'rxjs/Rx';
-import {car, competition, competitionclass, datacar, participant, person, team} from '../../../interfaces/app.interface';
+import {car, competition, competitionclass, participant, person, team} from '../../../interfaces/app.interface';
 import {FormControl} from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
 import {EventsService} from '../../../services/events.service';
@@ -20,6 +20,8 @@ export class ParticipantComponent implements OnInit {
 
   private currentParticipant: participant;
   private idevent: string;
+  private newperson: boolean = false;
+  private newcar: boolean = false;
 
   private persons: person[] = [];
   private FilteredPersons: Observable<person[]>;
@@ -53,7 +55,7 @@ export class ParticipantComponent implements OnInit {
       this.arrayclassDecibelLeague = this._EventsService.getCompetitionClasses(items, competition.DecibelLeague);
       this.arrayclassDecibelShow = this._EventsService.getCompetitionClasses(items, competition.DecibelShow);
       this.arrayclassDecibelVolume = this._EventsService.getCompetitionClasses(items, competition.DecibelVolume);
-    })
+    });
 
     this._ParticipantsService.getPersons().subscribe(items =>
       this.persons = items);
@@ -84,8 +86,10 @@ export class ParticipantComponent implements OnInit {
       if (params["idParticipant"] !== null && params["idParticipant"] !== undefined)
         {
           this._ParticipantsService.getParticipant(params["idParticipant"]).subscribe(item =>
-            {this.currentParticipant = item;})
-        };
+            {this.currentParticipant = item;
+            this.newperson = this.currentParticipant.person.id == "";
+            this.newcar = this.currentParticipant.car.id == ""})
+        }
     }
     );
     if (this._CurrentdataService.getseason().id =="") {
@@ -117,7 +121,7 @@ export class ParticipantComponent implements OnInit {
 
   private _setPersonToParticipant(value: person): undefined {
 
-    this.currentParticipant.person = value
+    this.currentParticipant.person = value;
     return null
   }
 
@@ -162,9 +166,39 @@ export class ParticipantComponent implements OnInit {
     if (classel == undefined || currentclassel == undefined) {
       return false;
     }
-
-
     return classel.id == currentclassel.id;
+  }
+
+  AllowSearchPerson() {
+    return !this.currentParticipant.registered && !this.newperson && this._auth.isAdministrator();
+  }
+
+  DisablePerson() {
+    return !(!this.currentParticipant.registered && this.newperson && this._auth.isAdministrator());
+  }
+
+  AllowSearchCar() {
+    return !this.currentParticipant.registered && !this.newcar && this._auth.isAdministrator();
+  }
+
+  DisableCar() {
+    return !(!this.currentParticipant.registered && this.newcar && this._auth.isAdministrator());
+  }
+
+  DisableFields() {
+    return !(!this.currentParticipant.registered && this._auth.isAdministrator());
+  }
+
+  changeNewPerson() {
+    if (this.newperson) {
+      this.currentParticipant.person.id = "";
+    }
+  }
+
+  changeNewCar() {
+    if (this.newcar) {
+      this.currentParticipant.car.id = "";
+    }
   }
 
 }

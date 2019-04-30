@@ -47,7 +47,10 @@
     "nameamplifiler": "Підсилювач",
     "front": "Фронтова акустика",
     "model": "Модель авто",
-    "alternateName": "Нік авто"
+    "alternateName": "Нік авто",
+    "isnewperson": "Новий учасник чемпионату",
+    "isnewcar": "Нова машина в чемпионаті",
+    "registered": "Зареєстрован"
   },
   "events": {
     "editseason": "Змінити",
