@@ -4,10 +4,11 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class Translate_Service {
 
-  title: string = 'ua'
+  title: string = 'ua';
 
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('ua');
+    this.translate.use('ua');
   }
 
   switchLanguage(language: string) {
@@ -15,7 +16,7 @@ export class Translate_Service {
     this.title = language;
   }
 
-  getLanguage(language: string) {
+  getLanguage() {
     return this.translate.currentLang;
   }
 

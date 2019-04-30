@@ -9,15 +9,17 @@
 
 
   <nav class="navbar navbar-default">
-    <ul class="container-fluid">
+    <div class="container-fluid">
       <ul class="nav navbar-nav navbar-header">
-        <li><img class="img-responsive" (click)="switchLanguage('en')" src="assets/images/United-Kingdom.png"></li>
-        <li><img class="img-responsive" (click)="switchLanguage('ru')" src="assets/images/Russia.png"></li>
-        <li><img class="img-responsive" (click)="switchLanguage('ua')" src="assets/images/Ukraine.png"></li>
+        <li><img class="img-responsive" alt="Українська" *ngIf="translate_service.getLanguage() !== 'ua'" (click)="switchLanguage('ua')" src="../assets/images/Ukraine.png"></li>
+        <li><img class="img-responsive" alt="Українська" *ngIf="translate_service.getLanguage() == 'ua'" (click)="switchLanguage('ua')" src="../assets/images/Ukraine24.png"></li>
+        <li><img class="img-responsive" alt="English" *ngIf="translate_service.getLanguage() !== 'en'" (click)="switchLanguage('en')" src="../assets/images/United-Kingdom.png"></li>
+        <li><img class="img-responsive" alt="English" *ngIf="translate_service.getLanguage() == 'en'" (click)="switchLanguage('en')" src="../assets/images/United-Kingdom24.png"></li>
+        <li><img class="img-responsive" alt="Русский" *ngIf="translate_service.getLanguage() !== 'ru'" (click)="switchLanguage('ru')" src="../assets/images/Russia.png"></li>
+        <li><img class="img-responsive" alt="Русский" *ngIf="translate_service.getLanguage() == 'ru'" (click)="switchLanguage('ru')" src="../assets/images/Russia24.png"></li>
       </ul>
-    </ul>
-    <ul class="container-fluid">
-      <div class="form-row">
+    </div>
+    <div class="container-fluid">
       <ul class="nav nav-tabs">
           <li ><a [routerLink]="['']"
                   routerLinkActive="active"
@@ -33,19 +35,14 @@
           <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.AdminBoard' | translate }}</a>
         </li>
 
-        <ul *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">
-          <li [routerLink]="['/login']" routerLinkActive="active-link">
+          <li [routerLink]="['/login']" routerLinkActive="active-link" *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">
             <a>{{ 'navigate.Login' | translate }}</a>
           </li>
-        </ul>
-        <ul  class="nav navbar-nav navbar-right">
-          <li *ngIf="_auth.isLoggedIn()" [routerLink]="['']" (click)="_auth.logout()">
+          <li *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['']" (click)="_auth.logout()">
             <a>{{ 'navigate.Logout' | translate }}</a>
           </li>
-        </ul>
       </ul>
-      </div>
-    </ul>
+    </div>
   </nav>
 
   <router-outlet></router-outlet>
