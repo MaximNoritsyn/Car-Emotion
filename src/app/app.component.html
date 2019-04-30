@@ -3,11 +3,7 @@
   <title>{{ 'Title' | translate }}</title>
 </head>
 <div class="container">
-
-
   <!-- Static navbar -->
-
-
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <ul class="nav navbar-nav navbar-header">
@@ -21,30 +17,28 @@
     </div>
     <div class="container-fluid">
       <ul class="nav nav-tabs">
-          <li ><a [routerLink]="['']"
-                  routerLinkActive="active"
-                  [routerLinkActiveOptions]="{exact: true}">{{ 'navigate.Main' | translate }}</a>
-          </li>
-          <li >
-            <a [routerLink]="['/persons']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Persons' | translate }}</a>
-          </li>
-          <li >
-            <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
-          </li>
+        <li ><a [routerLink]="['']"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">{{ 'navigate.Main' | translate }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/persons']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Persons' | translate }}</a>
+        </li>
+        <li>
+          <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
+        </li>
         <li *ngIf="_auth.isAdministrator()" >
           <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.AdminBoard' | translate }}</a>
         </li>
-
-          <li [routerLink]="['/login']" routerLinkActive="active-link" *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">
-            <a>{{ 'navigate.Login' | translate }}</a>
-          </li>
-          <li *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['']" (click)="_auth.logout()">
-            <a>{{ 'navigate.Logout' | translate }}</a>
-          </li>
+        <li [routerLink]="['/login']" routerLinkActive="active-link" *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">
+          <a>{{ 'navigate.Login' | translate }}</a>
+        </li>
+        <li *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['']" (click)="_auth.logout()">
+          <a>{{ 'navigate.Logout' | translate }}</a>
+        </li>
       </ul>
     </div>
   </nav>
-
   <router-outlet></router-outlet>
 </div>
 </html>
