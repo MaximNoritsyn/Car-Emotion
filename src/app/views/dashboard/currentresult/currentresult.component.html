@@ -1,58 +1,77 @@
 <div class="form-group col-md-4">
-  <label>{{ 'currentresult.season' | translate }}</label>
+  <label for="season">{{ 'currentresult.season' | translate }}</label>
   <input class="form-control" disabled = true
+         is="season"
          [(ngModel)]="currentevent.name"
          name="currentevent.name"
          required>
 </div>
 <div class="form-group col-md-4">
-  <label>{{ 'currentresult.competition' | translate }}</label>
+  <label for="currentcompetition">{{ 'currentresult.competition' | translate }}</label>
   <select class="form-control" [compareWith]="selectedCompetition" [ngModel]="currentcompetition"
-        (ngModelChange)="onChangecompetition($event)">
+          id="currentcompetition"
+          [disabled]="!_auth.isAdministrator()"
+          (ngModelChange)="onChangecompetition($event)">
     <option *ngFor="let key of arrayCompetitons" [ngValue]="key">
       {{key}}
     </option>
   </select>
 </div>
 <div class="form-group col-md-4">
-  <label>{{ 'currentresult.class' | translate }} {{currentcompetition}}</label>
+  <label for="currentcompetitionclass">{{ 'currentresult.class' | translate }} {{currentcompetition}}</label>
   <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="currentcompetitionclass"
-        (ngModelChange)="onChangecompetitionClass($event)">
+          id="currentcompetitionclass"
+          [disabled]="!_auth.isAdministrator()"
+          (ngModelChange)="onChangecompetitionClass($event)">
     <option *ngFor="let key of arrayCompetitonsClass" [ngValue]="key">
       {{key.name}}
     </option>
   </select>
 </div>
-
 <hr>
-
+<div class="form-row col-md-12">
+  <h1 class="text-center">
+    {{ 'currentresult.header' | translate }}
+  </h1>
+</div>
 <div class="form-row">
-  <div class="form-group col-md-4">
-    <button class="btn btn-primary btn-block" (click)="SaveResults()">{{ 'currentresult.saveresults' | translate }}</button>
+  <div class="form-group col-md-4 left">
     <div >
-      <label>{{ 'currentresult.result1' | translate }}</label>
+      <label for="result1">{{ 'currentresult.result1' | translate }}</label>
       <div class="form-control" cdkDropList #result1="cdkDropList" id="result1"
            [cdkDropListData]="currentparticipant1"
            [cdkDropListConnectedTo]="[participantTurn1, result2]" (cdkDropListDropped)="onDropresult($event)" cdkDrag>
         {{currentparticipant1[0].person.name}} - {{currentparticipant1[0].person.familyName}}
       </div>
       <div class="form-row">
-        <label>{{ 'currentresult.front' | translate }}</label>
-        <input class="form-control" [disabled]="this.currentparticipant1[0].id == ''"
+        <label for="result1front" *ngIf="!IsDecibelShow()">{{ 'currentresult.result' | translate }}</label>
+        <label for="result1front" *ngIf="IsDecibelShow()">{{ 'currentresult.front' | translate }}</label>
+        <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
+               id="result1front"
                [(ngModel)]="currentresult1.front"
                name="currentresult1.front" (change)="changeresult(1)"
                required>
       </div>
-      <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
-             [(ngModel)]="currentresult1.sub"
-             name="currentresult1.sub" (change)="changeresult(1)"
-             required>
-      <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
-             [(ngModel)]="currentresult1.outputpower"
-             name="currentresult1.outputpower" (change)="changeresult(1)"
-             required>
+      <div *ngIf="IsDecibelShow()">
+        <label for="result1sub">{{ 'currentresult.sub' | translate }}</label>
+        <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
+               [(ngModel)]="currentresult1.sub"
+               id="result1sub"
+               name="currentresult1.sub" (change)="changeresult(1)"
+               required>
+      </div>
+      <div>
+        <label for="result1outputpower">{{ 'currentresult.outputpower' | translate }}</label>
+        <input class="form-control" [disabled]="disbledresults(this.currentparticipant1)"
+               id="result1outputpower"
+               [(ngModel)]="currentresult1.outputpower"
+               name="currentresult1.outputpower" (change)="changeresult(1)"
+               required>
+      </div>
       <label class="form-check-label" for="checkin1">
-        <input type="checkbox" class="form-check-input" id="checkin1" name="currentresult1.checkin" (change)="changeresult(1)"
+        <input type="checkbox" class="form-check-input" id="checkin1" name="currentresult1.checkin"
+               [disabled]="!_auth.isAdministrator()"
+               (change)="changeresult(1)"
                [(ngModel)]="currentresult1.checkin">
         {{ 'currentresult.checkin' | translate }}
       </label>
@@ -71,7 +90,6 @@
     </div>
   </div>
   <div class="form-group col-md-4">
-    <button class="btn btn-warning btn-block" (click)="ClearResults()">{{ 'currentresult.clearresults' | translate }}</button>
     <div>
       <label>{{ 'currentresult.result2' | translate }}</label>
       <div class="form-control" cdkDropList #result2="cdkDropList" id="result2"
@@ -80,27 +98,38 @@
         {{currentparticipant2[0].person.name}} - {{currentparticipant2[0].person.familyName}}
       </div>
       <div class="form-row">
-        <label>{{ 'currentresult.front' | translate }}</label>
+        <label for="result2front" *ngIf="!IsDecibelShow()">{{ 'currentresult.result' | translate }}</label>
+        <label for="result2front" *ngIf="IsDecibelShow()">{{ 'currentresult.front' | translate }}</label>
         <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
+               id="result2front"
                [(ngModel)]="currentresult2.front"
                name="currentresult1.front" (change)="changeresult(2)"
                required>
       </div>
-      <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
-             [(ngModel)]="currentresult2.sub"
-             name="currentresult1.sub" (change)="changeresult(2)"
-             required>
-      <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
-             [(ngModel)]="currentresult2.outputpower"
-             name="currentresult1.outputpower" (change)="changeresult(2)"
-             required>
+      <div *ngIf="IsDecibelShow()">
+        <label for="result2sub">{{ 'currentresult.sub' | translate }}</label>
+        <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
+               id="result2sub"
+               [(ngModel)]="currentresult2.sub"
+               name="currentresult1.sub" (change)="changeresult(2)"
+               required>
+      </div>
+      <div>
+        <label for="result2outputpower">{{ 'currentresult.outputpower' | translate }}</label>
+        <input class="form-control" [disabled]="disbledresults(this.currentparticipant2)"
+               id="result2outputpower"
+               [(ngModel)]="currentresult2.outputpower"
+               name="currentresult1.outputpower" (change)="changeresult(2)"
+               required>
+      </div>
       <label class="form-check-label" for="checkin2">
-        <input type="checkbox" class="form-check-input" id="checkin2" name="currentresult2.checkin" (change)="changeresult(2)"
+        <input type="checkbox" class="form-check-input" id="checkin2" name="currentresult2.checkin"
+               [disabled]="!_auth.isAdministrator()"
+               (change)="changeresult(2)"
                [(ngModel)]="currentresult2.checkin">
         {{ 'currentresult.checkin' | translate }}
       </label>
     </div>
-
     <hr>
     <div class="form-group btn-block" cdkDropList #participantTurn2="cdkDropList" id="participantTurn2"
          [cdkDropListData]="turn2"
@@ -112,11 +141,17 @@
         >{{participant.person.name}} - {{participant.person.familyName}}</div>
       </div>
     </div>
-
   </div>
 </div>
 
 <div class="form-group col-md-4">
+  <button class="btn btn-primary btn-block" (click)="SaveResults()" *ngIf="_auth.isAdministrator()">
+    {{ 'currentresult.saveresults' | translate }}
+  </button>
+  <button class="btn btn-warning btn-block" (click)="ClearResults()" *ngIf="_auth.isAdministrator()">
+    {{ 'currentresult.clearresults' | translate }}
+  </button>
+  <hr *ngIf="_auth.isAdministrator()">
   <label>{{ 'currentresult.allparticipants' | translate }}</label>
   <div class="list-group"
        cdkDropList #participantList="cdkDropList" id="participants"
@@ -124,7 +159,7 @@
        [cdkDropListConnectedTo]="[participantTurn1, participantTurn2]" (cdkDropListDropped)="onDropparticipants($event)">
     <div *ngFor="let participant of participants" class="list-group-item list-group-item-action"
          [routerLink]="['/participant/' + this.currentevent.id + '/' + participant.id]" cdkDrag>
-      {{participant.person.name}} - {{participant.person.familyName}} : {{this.bestResultcurrentclass(participant)}}
+      {{participant.person.name}} - {{participant.person.familyName}} : {{bestResultcurrentclass(participant)}}
     </div>
   </div>
 </div>

@@ -85,13 +85,15 @@
     "result2": "Result right",
     "front": "Front",
     "sub": "Sub",
+    "result": "Result",
     "outputpower": "Output Power",
     "checkin": "Check in",
     "turn1": "Left turn",
     "turn2": "Right turn",
     "allparticipants": "All participants",
     "saveresults": "Save results",
-    "clearresults": "Clear results"
+    "clearresults": "Clear results",
+    "header": "Current competition area"
   },
   "persons": {
     "persons": "Participants"

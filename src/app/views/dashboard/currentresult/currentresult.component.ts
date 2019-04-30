@@ -33,7 +33,7 @@ export class CurrentresultComponent implements OnInit {
   private turn1: participant[] = [];
   private turn2: participant[] = [];
 
-  constructor(private authService: AuthService,
+  constructor(private _auth: AuthService,
               private router: Router,
               private _CurrentdataService: CurrentdataService,
               private _EventsService: EventsService,
@@ -105,7 +105,7 @@ export class CurrentresultComponent implements OnInit {
 
   selectedCompetitionClass(competitionel, currentcompetitionel) {
     let value: boolean;
-    if (currentcompetitionel == null) { value = false} else {value = competitionel.id === currentcompetitionel.id};
+    if (currentcompetitionel == null) { value = false} else {value = competitionel.id === currentcompetitionel.id}
     return value;
   }
 
@@ -115,7 +115,7 @@ export class CurrentresultComponent implements OnInit {
     this.arrayCompetitonsClass = [];
     this._EventsService.getCompetitionClassesObs().subscribe(items => {
       this.arrayCompetitonsClass = this._EventsService.getCompetitionClasses(items, this.currentcompetition);
-    })
+    });
     this._CurrentdataService.setCompetition(_event);
   }
 
@@ -124,14 +124,15 @@ export class CurrentresultComponent implements OnInit {
   }
 
   onDrop(event: CdkDragDrop<participant[]>) {
-    if(event.previousContainer === event.container) {
+    if (!this._auth.isAdministrator()) {}
+    else if(event.previousContainer === event.container) {
       moveItemInArray(event.container.data,
         event.previousIndex,
         event.currentIndex);
       this.setAnyTurn(event.container);
     }
     else if (event.previousContainer.id == "participants") {
-      event.container.data.push(event.previousContainer.data[event.previousIndex])
+      event.container.data.push(event.previousContainer.data[event.previousIndex]);
       this.setAnyTurn(event.container);
     }
     else if (event.previousContainer.id == "participantTurn1" || event.previousContainer.id == "participantTurn2") {
@@ -162,7 +163,8 @@ export class CurrentresultComponent implements OnInit {
   }
 
   onDropparticipants(event: CdkDragDrop<participant[]>) {
-    if(event.previousContainer !== event.container) {
+    if (!this._auth.isAdministrator()) {}
+    else if(event.previousContainer !== event.container) {
       if (event.previousIndex > -1)
       {
         event.previousContainer.data.splice(event.previousIndex, 1);
@@ -187,14 +189,14 @@ export class CurrentresultComponent implements OnInit {
   }
 
   onDropresult(event: CdkDragDrop<participant[]>) {
-    if(event.previousContainer === event.container) {
+    if(event.previousContainer === event.container || !this._auth.isAdministrator()) {
       // nothng t o do
     }
     if (event.previousContainer.id == "participantTurn1" || event.previousContainer.id == "participantTurn2") {
       if (event.container.data[0].id == "")
         {event.container.data.pop()}
       else
-        {return};
+        {return}
       transferArrayItem(event.previousContainer.data,
         event.container.data,
         event.previousIndex,
@@ -223,16 +225,16 @@ export class CurrentresultComponent implements OnInit {
   SaveResults() {
     if(this.currentresult1.front > 0) {
       this._ParticipantsService.setResult(this.currentresult1, this.currentparticipant1[0], this.currentcompetitionclass);
-    };
+    }
     if(this.currentresult2.front > 0) {
       this._ParticipantsService.setResult(this.currentresult2, this.currentparticipant2[0], this.currentcompetitionclass);
-    };
+    }
     this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
     this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());
   }
 
   disbledresults(_currentparticipant: participant[]) {
-    return _currentparticipant[0].id == '';
+    return _currentparticipant[0].id == '' || !this._auth.isAdministrator();
   }
 
   changeresult(_number: number) {
@@ -260,4 +262,7 @@ export class CurrentresultComponent implements OnInit {
     return 0;
   }
 
+  IsDecibelShow() {
+    return this.currentcompetition == competition.DecibelShow;
+  }
 }
