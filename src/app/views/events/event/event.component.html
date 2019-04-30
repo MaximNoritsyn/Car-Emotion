@@ -1,26 +1,26 @@
 <form name="eventform" method="post" #formCtrl="ngForm">
   <div class="form-group">
     <label>{{ 'season.name' | translate }}</label>
-    <input class="form-control" [(ngModel)]="currentevent.name" name="currentevent.name" placeholder="Название этапа" required>
+    <input class="form-control" [disabled]="!_auth.isAdministrator()" [(ngModel)]="currentevent.name" name="currentevent.name" placeholder="Название этапа" required>
   </div>
-  <select class="form-control" [compareWith]="selectedseason" [(ngModel)]="currentevent.season" [ngModelOptions]="{standalone: true}">
+  <select class="form-control" [disabled]="!_auth.isAdministrator()" [compareWith]="selectedseason" [(ngModel)]="currentevent.season" [ngModelOptions]="{standalone: true}">
     <option *ngFor="let season of seasons" [ngValue]="season">
       {{season.name}}
     </option>
   </select>
   <div class="form-group">
     <label>{{ 'season.name' | translate }}</label>
-    <input class="form-control" [(ngModel)]="currentevent.location" name="currentevent.location" placeholder="Город этапа" required>
+    <input class="form-control" [disabled]="!_auth.isAdministrator()" [(ngModel)]="currentevent.location" name="currentevent.location" placeholder="Город этапа" required>
   </div>
   <div class="form-group">
     <label>{{ 'season.date' | translate }}</label>
-    <input type="date" [ngModel]="currentevent.startDate | date:'yyyy-MM-dd'" (ngModelChange)="currentevent.startDate = $event" name="currentevent.startDate" placeholder="Дата этапа" required>
+    <input type="date" [disabled]="!_auth.isAdministrator()" [ngModel]="currentevent.startDate | date:'yyyy-MM-dd'" (ngModelChange)="currentevent.startDate = $event" name="currentevent.startDate" placeholder="Дата этапа" required>
   </div>
-  <select class="form-control" [compareWith]="selectedstatus" [(ngModel)]="currentevent.eventStatus" [ngModelOptions]="{standalone: true}">
+  <select class="form-control" [disabled]="!_auth.isAdministrator()" [compareWith]="selectedstatus" [(ngModel)]="currentevent.eventStatus" [ngModelOptions]="{standalone: true}">
     <option *ngFor="let key of arraystatuseslocal" [ngValue]="key">
       {{ 'eventsstatus.' + eventstatus[key] | translate }}
     </option>
   </select>
-  <button class="btn btn-primary btn-block" type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>
+  <button class="btn btn-primary btn-block" *ngIf="_auth.isAdministrator()" type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>
 </form>
 <router-outlet></router-outlet>

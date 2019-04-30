@@ -19,7 +19,7 @@ export class EventsComponent implements OnInit {
   eventsObs: Observable<event[]>;
   events: event[];
 
-  constructor(private authService: AuthService,
+  constructor(private _auth: AuthService,
               private router: Router,
               private _CurrentdataService: CurrentdataService,
               private _EventsService: EventsService) {}

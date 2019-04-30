@@ -29,17 +29,17 @@
           <li >
             <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
           </li>
-        <li *ngIf="authService.isAdministrator()" >
+        <li *ngIf="_auth.isAdministrator()" >
           <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.AdminBoard' | translate }}</a>
         </li>
 
-        <ul *ngIf="!authService.isLoggedIn()" class="nav navbar-nav navbar-right">
+        <ul *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">
           <li [routerLink]="['/login']" routerLinkActive="active-link">
             <a>{{ 'navigate.Login' | translate }}</a>
           </li>
         </ul>
         <ul  class="nav navbar-nav navbar-right">
-          <li *ngIf="authService.isLoggedIn()" [routerLink]="['']" (click)="authService.logout()">
+          <li *ngIf="_auth.isLoggedIn()" [routerLink]="['']" (click)="_auth.logout()">
             <a>{{ 'navigate.Logout' | translate }}</a>
           </li>
         </ul>

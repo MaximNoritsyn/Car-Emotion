@@ -2,7 +2,7 @@
 <div>
   <H4>{{ 'participants.participants' | translate }}</H4>
   <div class="list-group">
-    <a class="list-group-item active" [routerLink]="['/participant/' + this.idevent]">
+    <a class="list-group-item active" *ngIf="_auth.isAdministrator()" [routerLink]="['/participant/' + this.idevent]">
       {{ 'participants.addnewparticipant' | translate }}
     </a>
     <a *ngFor="let participant of participants" class="list-group-item list-group-item-action"

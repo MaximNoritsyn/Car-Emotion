@@ -16,7 +16,7 @@ export class ParticipantsComponent implements OnInit {
   participants: participant[];
   idevent: string = "";
 
-  constructor(private authService: AuthService,
+  constructor(private _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private _ParticipantsService: ParticipantsService) { }
