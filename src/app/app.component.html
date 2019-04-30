@@ -6,13 +6,18 @@
 
 
   <!-- Static navbar -->
+
+
   <nav class="navbar navbar-default">
-    <ul >
-      <button (click)="switchLanguage('en')">en</button>
-      <button (click)="switchLanguage('ru')">ru</button>
-      <button (click)="switchLanguage('ua')">ua</button>
+    <ul class="container-fluid">
+      <ul class="nav navbar-nav navbar-header">
+        <li><img class="img-responsive" (click)="switchLanguage('en')" src="assets/images/United-Kingdom.png"></li>
+        <li><img class="img-responsive" (click)="switchLanguage('ru')" src="assets/images/Russia.png"></li>
+        <li><img class="img-responsive" (click)="switchLanguage('ua')" src="assets/images/Ukraine.png"></li>
+      </ul>
     </ul>
     <ul class="container-fluid">
+      <div class="form-row">
       <ul class="nav nav-tabs">
           <li ><a [routerLink]="['']"
                   routerLinkActive="active"
@@ -24,7 +29,7 @@
           <li >
             <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
           </li>
-        <li >
+        <li *ngIf="authService.isAdministrator()" >
           <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.AdminBoard' | translate }}</a>
         </li>
 
@@ -39,6 +44,7 @@
           </li>
         </ul>
       </ul>
+      </div>
     </ul>
   </nav>
 

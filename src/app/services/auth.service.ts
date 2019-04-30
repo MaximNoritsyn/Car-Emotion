@@ -88,6 +88,14 @@ export class AuthService {
     }
   }
 
+  isAdministrator() {
+    if (this.userDetails == null ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   logout() {
     this._firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));

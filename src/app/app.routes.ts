@@ -13,11 +13,13 @@ import {PersonsComponent} from './views/persons/persons.component';
 import {PersonComponent} from './views/persons/person/person.component';
 import {CurrentresultComponent} from './views/dashboard/currentresult/currentresult.component';
 import {DashboardComponent} from './views/dashboard/dashboard.component';
+import { AuthGuard } from './services/auth-guard.service';
+
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'events', component: EventsComponent},
-    {path: 'adminboard', component: AdminboardComponent, children:
+    {path: 'adminboard', canActivate: [AuthGuard], component: AdminboardComponent, children:
         [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
           {path: 'competitionclass', component: CompetitionclassComponent}]},
     {path: 'season', component: SeasonComponent},
