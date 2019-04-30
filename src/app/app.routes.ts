@@ -22,8 +22,8 @@ const appRoutes: Routes = [
     {path: 'adminboard', canActivate: [AuthGuard], component: AdminboardComponent, children:
         [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
           {path: 'competitionclass', component: CompetitionclassComponent}]},
-    {path: 'season', component: SeasonComponent},
-    {path: 'season/:idseason', component: SeasonComponent},
+    {path: 'season', canActivate: [AuthGuard], component: SeasonComponent},
+    {path: 'season/:idseason', canActivate: [AuthGuard], component: SeasonComponent},
     {path: 'event', component: EventComponent},
     {path: 'event/:idevent', component: EventComponent, children:
         [{path: '', component: ParticipantsComponent}]},
