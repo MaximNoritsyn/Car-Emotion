@@ -12,10 +12,10 @@ import {Translate_Service} from '../../services/translate.service';
 })
 export class AdminboardComponent implements OnInit {
 
-  private CompetitionClasses: competitionclass[];
-  private seasons: season[];
+  public CompetitionClasses: competitionclass[];
+  public seasons: season[];
 
-  constructor(private _auth: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router,
               private _EventsService: EventsService,
               private translate_service: Translate_Service) { }

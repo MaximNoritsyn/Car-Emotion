@@ -18,7 +18,7 @@ import {FactoryService} from '../../../services/factory.service';
 })
 export class ParticipantComponent implements OnInit {
 
-  private currentParticipant: participant;
+  public currentParticipant: participant;
   private idevent: string;
   private newperson: boolean = false;
   private newcar: boolean = false;
@@ -36,9 +36,9 @@ export class ParticipantComponent implements OnInit {
   private arrayclassDecibelShow: competitionclass[];
   private arrayclassDecibelVolume: competitionclass[];
 
-  private teams: team[];
+  public teams: team[];
 
-  constructor(private _auth: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private _ParticipantsService: ParticipantsService,

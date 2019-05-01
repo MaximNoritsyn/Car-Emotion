@@ -14,11 +14,11 @@ import {FactoryService} from '../../../services/factory.service';
 })
 export class SeasonComponent implements OnInit {
 
-  private currentseason: season;
+  public currentseason: season;
   private season: Observable<season>;
-  private teams: team[];
+  public teams: team[];
 
-  constructor(private _auth: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private _CurrentdataService: CurrentdataService,

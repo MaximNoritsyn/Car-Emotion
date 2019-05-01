@@ -13,8 +13,8 @@ import {arraycompetition, FactoryService} from '../../../services/factory.servic
 })
 export class CompetitionclassComponent implements OnInit {
 
-  private currentClass: competitionclass;
-  private arrayCompetitons: competition[] = arraycompetition;
+  public currentClass: competitionclass;
+  public arrayCompetitons: competition[] = arraycompetition;
 
   constructor(private _auth: AuthService,
               private router: Router,

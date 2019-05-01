@@ -22,7 +22,7 @@ export class EventComponent implements OnInit {
   arraystatuseslocal: eventstatus[] = arraystatuses;
   eventstatus = eventstatus;
 
-  constructor(private _auth: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private _ParticipantsService: ParticipantsService,

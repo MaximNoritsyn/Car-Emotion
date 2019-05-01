@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(public _auth: AuthService,
               private router: Router,
-              private translate_service: Translate_Service,
+              public translate_service: Translate_Service,
               private _CurrentdataService: CurrentdataService) { }
 
   switchLanguage(language: string) {

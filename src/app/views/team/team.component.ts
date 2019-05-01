@@ -16,7 +16,7 @@ export class TeamComponent implements OnInit {
   idseason: string;
   currentteam: team;
 
-  constructor(private _auth: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
               private translate_service: Translate_Service,

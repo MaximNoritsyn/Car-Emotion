@@ -15,25 +15,25 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 })
 export class CurrentresultComponent implements OnInit {
 
-  private currentevent: event;
-  private currentcompetition: competition;
-  private currentcompetitionclass: competitionclass;
-  private arrayCompetitons: competition[] = arraycompetition;
-  private arrayCompetitonsClass: competitionclass[];
+  public currentevent: event;
+  public currentcompetition: competition;
+  public currentcompetitionclass: competitionclass;
+  public arrayCompetitons: competition[] = arraycompetition;
+  public arrayCompetitonsClass: competitionclass[];
 
-  private clearparticipant: participant;
+  public clearparticipant: participant;
 
-  private currentresult1: result;
-  private currentresult2: result;
+  public currentresult1: result;
+  public currentresult2: result;
 
-  private currentparticipant1: participant[] = [];
-  private currentparticipant2: participant[] = [];
+  public currentparticipant1: participant[] = [];
+  public currentparticipant2: participant[] = [];
 
-  private participants: participant[];
-  private turn1: participant[] = [];
-  private turn2: participant[] = [];
+  public participants: participant[];
+  public turn1: participant[] = [];
+  public turn2: participant[] = [];
 
-  constructor(private _auth: AuthService,
+  constructor(public _auth: AuthService,
               private router: Router,
               private _CurrentdataService: CurrentdataService,
               private _EventsService: EventsService,
