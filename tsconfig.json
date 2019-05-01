@@ -17,6 +17,11 @@
       "es2016",
       "dom"
     ],
+    "noImplicitAny": true,
+    "removeComments": true,
     "module": "es2015"
+  },
+  "awesomeTypescriptLoaderOptions": {
+    /* ... */
   }
 }

@@ -34,7 +34,7 @@ export class FactoryService {
   constructor() { }
 
 
-  getnewParticipantclass(idcurrentevent) {
+  getnewParticipantclass(idcurrentevent: string) {
     let _person = this.getnewPerson();
     let _idevent = idcurrentevent;
     let _car = this.getnewCar();
@@ -155,8 +155,8 @@ export class FactoryService {
       idseason: string = "";
       front: number = 0;
       sub: number = 0;
-      result: number = 0
-      outputpower: string = ""
+      result: number = 0;
+      outputpower: string = "";
       checkin: boolean = false
     }
 

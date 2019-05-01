@@ -32,7 +32,7 @@ export class CompetitionclassComponent implements OnInit {
       {
         this._EventsService.getCompetitionClassObs(params["idclass"]).subscribe(item =>
         {this.currentClass = item})
-      };
+      }
     })
   }
 
@@ -41,7 +41,7 @@ export class CompetitionclassComponent implements OnInit {
     this.router.navigate(['/adminboard'])
   }
 
-  selectedcompetition(competitionel, currentcompetitionel) {
+  selectedcompetition(competitionel: any, currentcompetitionel: any) {
     return competitionel == currentcompetitionel;
   }
 

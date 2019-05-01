@@ -99,17 +99,17 @@ export class CurrentresultComponent implements OnInit {
     this._CurrentdataService.getCurrentResult2().subscribe(item => this.currentresult2 = item);
   }
 
-  selectedCompetition(competitionel, currentcompetitionel) {
+  selectedCompetition(competitionel: any, currentcompetitionel: any) {
     return competitionel == currentcompetitionel;
   }
 
-  selectedCompetitionClass(competitionel, currentcompetitionel) {
+  selectedCompetitionClass(competitionel: any, currentcompetitionel: any) {
     let value: boolean;
     if (currentcompetitionel == null) { value = false} else {value = competitionel.id === currentcompetitionel.id}
     return value;
   }
 
-  onChangecompetition(_event) {
+  onChangecompetition(_event: any) {
     this.currentcompetition = _event;
     this.currentcompetitionclass = this._FactoryService.getNewCompetitionClass();
     this.arrayCompetitonsClass = [];
@@ -119,7 +119,7 @@ export class CurrentresultComponent implements OnInit {
     this._CurrentdataService.setCompetition(_event);
   }
 
-  onChangecompetitionClass(_event) {
+  onChangecompetitionClass(_event: any) {
     this._CurrentdataService.setCompetitionClass(_event);
   }
 
@@ -173,7 +173,7 @@ export class CurrentresultComponent implements OnInit {
     }
   }
 
-  setAnyTurn(_cont) {
+  setAnyTurn(_cont: any) {
     if (_cont.id == "participantTurn1") {
       this._CurrentdataService.setTurn1(_cont.data);
     }

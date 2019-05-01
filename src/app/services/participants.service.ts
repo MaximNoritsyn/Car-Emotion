@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AngularFireDatabase} from 'angularfire2/database';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from './auth.service';
 
 import {car, competition, competitionclass, datacar, participant, person, point, result} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
@@ -31,9 +31,8 @@ export class ParticipantsService {
               private router: Router,
               private _EventsService: EventsService,
               private _CurrentdataService: CurrentdataService,
-              private _FactoryService: FactoryService,
-              private _auth: AuthService) {
-    this._CurrentdataService.getEvent().subscribe(item => {if (item !== null) this.idcurrentevent = item.id})
+              private _FactoryService: FactoryService) {
+    this._CurrentdataService.getEvent().subscribe(item => {if (item !== null) this.idcurrentevent = item.id});
     this.idcurrentCar = "";
     this.participants = this._db.list<participant>('/participants/' + this.idcurrentevent + '/all').valueChanges();
     this.currentPerson = this._db.object<person>('/persons/').valueChanges();
@@ -72,7 +71,7 @@ export class ParticipantsService {
       if (_participant.person.datainput <= _participant.datainput) {
         _participant.person.datainput = _participant.datainput;
         this._db.object('/persons/' + _key).update(_participant.person)
-      };
+      }
       this.writeCar(_participant);
     }
 
@@ -154,22 +153,22 @@ export class ParticipantsService {
       if (_participant.isDecibelShow && _participant.pointDecibelShow == undefined) {
         let _point = this._FactoryService.getNewPoint(competition.DecibelShow, _participant.classDecibelShow);
         this.generatePoint(_point, _participant, competition.DecibelShow);
-      };
+      }
 
       if (_participant.isDecibelLeague && _participant.pointDecibelLeague == undefined) {
         let _point = this._FactoryService.getNewPoint(competition.DecibelLeague, _participant.classDecibelLeague);
         this.generatePoint(_point, _participant, competition.DecibelLeague);
-      };
+      }
 
       if (_participant.isDecibelVolume && _participant.pointDecibelVolume == undefined) {
         let _point = this._FactoryService.getNewPoint(competition.DecibelVolume, _participant.classDecibelVolume);
         this.generatePoint(_point, _participant, competition.DecibelVolume);
-      };
+      }
 
       if (_participant.isDecibelBattle && _participant.pointDecibelBattle == undefined) {
         let _point = this._FactoryService.getNewPoint(competition.DecibelBattle, _participant.classDecibelBattle);
         this.generatePoint(_point, _participant, competition.DecibelBattle);
-      };
+      }
 
     }
   }
@@ -284,7 +283,7 @@ export class ParticipantsService {
       items.forEach(datapoint => {
         let curResult = datapoint.val();
         bestresult = Math.max(bestresult, curResult['result']);
-        })
+        });
       this._db.object('/points/' + _result.idpoint).update({"bestresult": bestresult}).then(item =>
         this._db.object('/points/' + _result.idpoint).update({"idparticipant": _result.idparticipant}).then(
           item => {
@@ -295,7 +294,7 @@ export class ParticipantsService {
         //
 
       );
-      ;
+
 
 
 
@@ -357,7 +356,7 @@ export class ParticipantsService {
 
 
 
-  bestresult( a, b ) {
+  bestresult( a: point, b: point) {
     if ( a.bestresult > b.bestresult ){
       return -1;
     }

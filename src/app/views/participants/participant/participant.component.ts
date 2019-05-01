@@ -158,11 +158,11 @@ export class ParticipantComponent implements OnInit {
     return car ? car.model + " - " + car.alternateName : undefined;
   }
 
-  selected(classel, currentclassel) {
+  selected(classel: any, currentclassel: any) {
     return classel == currentclassel;
   }
 
-  selectedid(classel, currentclassel) {
+  selectedid(classel: any, currentclassel: any) {
     if (classel == undefined || currentclassel == undefined) {
       return false;
     }

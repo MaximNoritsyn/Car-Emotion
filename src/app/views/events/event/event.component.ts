@@ -32,7 +32,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
     this.currentevent = this._FactoryService.getnewEvent();
-    this._ParticipantsService.setidcurrenevent(this.currentevent.id)
+    this._ParticipantsService.setidcurrenevent(this.currentevent.id);
     this.activeRoute.params.subscribe((params: Params) =>
       {
         if ((params["idevent"] == null && params["idevent"] == undefined) == false)
@@ -44,7 +44,7 @@ export class EventComponent implements OnInit {
           });
         }
       }
-    )
+    );
     //this.currentseason = this._CurrentdataService.getseason();
     this.seasonsObs = this._EventsService.getSeasons();
     this.seasonsObs.subscribe(items => {
@@ -57,11 +57,11 @@ export class EventComponent implements OnInit {
     this._ParticipantsService.setidcurrenevent(this.currentevent.id)
   }
 
-  selectedseason(seasonel, currentseasonel) {
+  selectedseason(seasonel: any, currentseasonel: any) {
     return seasonel.id == currentseasonel.id;
   }
 
-  selectedstatus(statusel, currentstatusel) {
+  selectedstatus(statusel: any, currentstatusel: any) {
     return statusel == currentstatusel;
   }
 

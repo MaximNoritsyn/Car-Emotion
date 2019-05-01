@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import {event, participant, season} from '../../interfaces/app.interface';
+import {event, season} from '../../interfaces/app.interface';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {EventsService} from '../../services/events.service';
@@ -33,7 +33,7 @@ export class EventsComponent implements OnInit {
       this.seasons = items;
       if (this.currentseason.id == "") {
         this.currentseason = this._CurrentdataService.getseason()
-      };
+      }
     });
 
 
@@ -50,7 +50,7 @@ export class EventsComponent implements OnInit {
     this.fillevents();
   }
 
-  selectedseason(seasonel, currentseasonel) {
+  selectedseason(seasonel: any, currentseasonel: any) {
     return seasonel.id == currentseasonel.id;
   }
 

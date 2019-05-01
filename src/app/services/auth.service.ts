@@ -70,47 +70,26 @@ export class AuthService {
     )
   }
 
-  signInRegular(email, password) {
-    const credential = firebase.auth.EmailAuthProvider.credential( email, password );
+  signInRegular(email: string, password: string) {
+    //const credential = firebase.auth.EmailAuthProvider.credential( email, password );
 
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
-  registrateInRegular(email, password) {
+  registrateInRegular(email: string, password: string) {
     return firebase.auth().createUserWithEmailAndPassword( email, password );
   }
 
   isLoggedIn() {
-  if (this.userDetails == null ) {
-      return false;
-    } else {
-      return true;
-    }
+    return !(this.userDetails == null )
   }
 
   isAdministrator() {
-    if (this.userDetails == null ) {
-      return false;
-    } else {
-      return true;
-    }
+    return !(this.userDetails == null )
   }
 
   logout() {
     this._firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));
-  }
-
-  getuser() {
-    console.log(this.userDetails);
-    console.log(this.getIdToken());
-  }
-
-  writeUserData(userId, name, email, imageUrl) {
-    firebase.database().ref('users/' + userId).set({
-      username: name,
-      email: email,
-      profile_picture : imageUrl
-    });
   }
 }
