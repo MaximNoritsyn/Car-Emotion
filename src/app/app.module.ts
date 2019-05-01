@@ -43,7 +43,7 @@ import {FactoryService} from './services/factory.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
 @NgModule({

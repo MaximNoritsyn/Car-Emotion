@@ -1,6 +1,7 @@
 //var webpack = require('webpack');
 var path = require('path');
 //var htmlPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
@@ -27,5 +28,8 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([ { from: 'src/assets/i18n', to: 'assets/i18n' } ])
+  ]
 };
