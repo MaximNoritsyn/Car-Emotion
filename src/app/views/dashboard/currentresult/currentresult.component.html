@@ -1,4 +1,4 @@
-<div class="form-group col-md-4">
+<div class="form-group col-xs-4">
   <label for="season">{{ 'currentresult.season' | translate }}</label>
   <input class="form-control" disabled = true
          is="season"
@@ -6,7 +6,7 @@
          name="currentevent.name"
          required>
 </div>
-<div class="form-group col-md-4">
+<div class="form-group col-xs-4">
   <label for="currentcompetition">{{ 'currentresult.competition' | translate }}</label>
   <select class="form-control" [compareWith]="selectedCompetition" [ngModel]="currentcompetition"
           id="currentcompetition"
@@ -17,7 +17,7 @@
     </option>
   </select>
 </div>
-<div class="form-group col-md-4">
+<div class="form-group col-xs-4">
   <label for="currentcompetitionclass">{{ 'currentresult.class' | translate }} {{currentcompetition}}</label>
   <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="currentcompetitionclass"
           id="currentcompetitionclass"
@@ -35,7 +35,7 @@
   </h1>
 </div>
 <div class="form-row">
-  <div class="form-group col-md-4 left">
+  <div class="form-group col-xs-4 left">
     <div >
       <label for="result1">{{ 'currentresult.result1' | translate }}</label>
       <div class="form-control" cdkDropList #result1="cdkDropList" id="result1"
@@ -89,7 +89,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-4">
     <div>
       <label>{{ 'currentresult.result2' | translate }}</label>
       <div class="form-control" cdkDropList #result2="cdkDropList" id="result2"
@@ -144,7 +144,7 @@
   </div>
 </div>
 
-<div class="form-group col-md-4">
+<div class="form-group col-xs-4">
   <button class="btn btn-primary btn-block" (click)="SaveResults()" *ngIf="_auth.isAdministrator()">
     {{ 'currentresult.saveresults' | translate }}
   </button>

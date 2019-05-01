@@ -1,10 +1,10 @@
 <form name="participantform" method="post" #formCtrl="ngForm">
 
   <div class="row">
-    <div class="form-group col-md-12">
+    <div class="form-group col-xs-12">
       <mat-form-field
         *ngIf="AllowSearchPerson()"
-        class="form-group col-md-4">
+        class="form-group col-xs-6">
         <input type="text" placeholder="Search person" aria-label="Search person" matInput
                [formControl]="personsControl" [matAutocomplete]="autopeaple">
         <mat-autocomplete #autopeaple="matAutocomplete" [displayWith]="displayPerson">
@@ -23,7 +23,7 @@
   </div>
 
   <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-xs-6">
       <label for="name">{{ 'participant.name' | translate }}</label>
       <input class="form-control" [disabled]="DisablePerson()"
              [(ngModel)]="currentParticipant.person.name"
@@ -32,7 +32,7 @@
              id="name"
              required>
     </div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
       <label for="familyName">{{ 'participant.familyName' | translate }}</label>
       <input class="form-control" [disabled]="DisablePerson()"
              [(ngModel)]="currentParticipant.person.familyName"
@@ -43,7 +43,7 @@
   </div>
   </div>
   <div class="row">
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="email">{{ 'participant.email' | translate }}</label>
     <input class="form-control" [disabled]="DisablePerson()"
            [(ngModel)]="currentParticipant.person.email"
@@ -52,7 +52,7 @@
            placeholder="Email"
            required>
   </div>
-  <div class="form-group col-md-3">
+  <div class="form-group col-xs-3">
     <label for="telephone">{{ 'participant.telephone' | translate }}</label>
     <input class="form-control" [disabled]="DisablePerson()"
            [(ngModel)]="currentParticipant.person.telephone"
@@ -63,7 +63,7 @@
   </div>
   </div>
   <div class="row">
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="city">{{ 'participant.city' | translate }}</label>
     <input class="form-control" [disabled]="DisablePerson()"
            [(ngModel)]="currentParticipant.person.city"
@@ -75,7 +75,7 @@
   </div>
   <hr>
   <div class="row">
-    <div class="form-group col-md-8">
+    <div class="form-group col-xs-8">
       <label class="form-group" for="team">{{ 'participant.team' | translate }}</label>
       <select class="form-control" id="team" [compareWith]="selectedid"
               [(ngModel)]="currentParticipant.team"
@@ -90,7 +90,7 @@
   <div class="row">
   <mat-form-field
     *ngIf="AllowSearchCar()"
-                  class="form-group col-md-4">
+                  class="form-group col-xs-6">
     <input type="text" placeholder="Search car" aria-label="Search car" matInput [formControl]="carsControl" [matAutocomplete]="autocar">
     <mat-autocomplete #autocar="matAutocomplete" [displayWith]="displayCar">
       <mat-option *ngFor="let car of FilteredCars | async" [value]="car">
@@ -106,7 +106,7 @@
     </div>
   </div>
   <div class="row">
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="model">{{ 'participant.model' | translate }}</label>
     <input
            class="form-control" [disabled]="DisableCar()"
@@ -116,7 +116,7 @@
            placeholder="Model"
            required>
   </div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="alternateName">{{ 'participant.alternateName' | translate }}</label>
     <input
            class="form-control" [disabled]="DisableCar()"
@@ -128,7 +128,7 @@
   </div>
   </div>
   <div class="row">
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="subsize">{{ 'participant.subsize' | translate }}</label>
     <input
            class="form-control" [disabled]="DisableFields()"
@@ -138,7 +138,7 @@
            id="subsize"
            required>
   </div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="subcount">{{ 'participant.subcount' | translate }}</label>
     <input
            class="form-control" [disabled]="DisableFields()"
@@ -150,7 +150,7 @@
   </div>
   </div>
   <div class="row">
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="nameamplifiler">{{ 'participant.nameamplifiler' | translate }}</label>
     <input
       class="form-control" [disabled]="DisableFields()"
@@ -160,7 +160,7 @@
       placeholder="Amplifiler"
       required>
   </div>
-  <div class="form-group col-md-4">
+  <div class="form-group col-xs-6">
     <label for="front">{{ 'participant.front' | translate }}</label>
     <input
       class="form-control" [disabled]="DisableFields()"
@@ -173,7 +173,7 @@
   </div>
 <hr>
   <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-xs-6">
       <div class="form-check">
         <label class="form-check-label" for="isDecibelLeague">
           <input type="checkbox" class="form-check-input" id="isDecibelLeague" name="currentParticipant.isDecibelLeague"
@@ -183,9 +183,9 @@
         </label>
       </div>
     </div>
-    <div class="form-group col-md-4" *ngIf="currentParticipant.isDecibelLeague">
+    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelLeague">
       <label for="classDecibelLeague">{{ 'participant.classDecibelLeague' | translate }}</label>
-      <select class="form-control col-md-4" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelLeague"
+      <select class="form-control col-xs-6" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelLeague"
               [disabled]="DisableFields()"
               id="classDecibelLeague"
               [ngModelOptions]="{standalone: true}">
@@ -196,7 +196,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-xs-6">
       <div class="form-check">
         <label class="form-check-label" for="isDecibelBattle" >
           <input type="checkbox" class="form-check-input" name="currentParticipant.isDecibelBattle"
@@ -207,7 +207,7 @@
         </label>
       </div>
     </div>
-    <div class="form-group col-md-4" *ngIf="currentParticipant.isDecibelBattle">
+    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelBattle">
       <label for="classDecibelBattle">{{ 'participant.classDecibelBattle' | translate }}</label>
       <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelBattle"
               [disabled]="DisableFields()"
@@ -221,7 +221,7 @@
   </div>
 
   <div class="row">
-    <div class="form-group col-md-4">
+    <div class="form-group col-xs-6">
       <div class="form-check">
         <label class="form-check-label" for="isDecibelVolume">
           <input type="checkbox" class="form-check-input" id="isDecibelVolume" name="currentParticipant.isDecibelVolume"
@@ -231,7 +231,7 @@
         </label>
       </div>
     </div>
-    <div class="form-group col-md-4" *ngIf="currentParticipant.isDecibelVolume">
+    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelVolume">
       <label for="classDecibelVolume">{{ 'participant.classDecibelVolume' | translate }}</label>
       <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelVolume"
               [disabled]="DisableFields()"
@@ -245,7 +245,7 @@
   </div>
 
   <div class="row">
-    <div class="form-group  col-md-4">
+    <div class="form-group  col-xs-6">
       <div class="form-check">
         <label class="form-check-label" for="isDecibelShow">
           <input type="checkbox" class="form-check-input" id="isDecibelShow" name="currentParticipant.isDecibelShow"
@@ -255,7 +255,7 @@
         </label>
       </div>
     </div>
-    <div class="form-group col-md-4" *ngIf="currentParticipant.isDecibelShow">
+    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelShow">
       <label for="classDecibelShow">{{ 'participant.classDecibelShow' | translate }}</label>
       <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelShow"
               [disabled]="DisableFields()"
