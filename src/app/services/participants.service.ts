@@ -291,13 +291,8 @@ export class ParticipantsService {
                 this.updatePointInParticipant(_result.competition, _result.idevent, _result.idparticipant, gettenpoint.val());
           }
             )})
-        //
 
       );
-
-
-
-
       this.sortPlacesInPoint(_result.idevent, _result.class);
   })
 

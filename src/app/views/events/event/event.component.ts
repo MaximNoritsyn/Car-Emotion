@@ -54,7 +54,8 @@ export class EventComponent implements OnInit {
 
   setEvent() {
     this._EventsService.setEvent(this.currentevent);
-    this._ParticipantsService.setidcurrenevent(this.currentevent.id)
+    this._ParticipantsService.setidcurrenevent(this.currentevent.id);
+    this.router.navigate(['/events'])
   }
 
   selectedseason(seasonel: any, currentseasonel: any) {

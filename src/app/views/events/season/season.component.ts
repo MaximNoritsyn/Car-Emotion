@@ -41,7 +41,8 @@ export class SeasonComponent implements OnInit {
   }
 
   setSeason() {
-    this._EventsService.setSeason(this.currentseason)
+    this._EventsService.setSeason(this.currentseason);
+    this.router.navigate(['/adminboard'])
   }
 
   setcurrentSeason() {

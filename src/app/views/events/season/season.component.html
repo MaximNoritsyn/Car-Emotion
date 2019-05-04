@@ -7,9 +7,13 @@
     <label>{{ 'season.date' | translate }}</label>
     <input type="date" [ngModel]="currentseason.date | date:'yyyy-MM-dd'" (ngModelChange)="currentseason.date = $event" name="currentSeason.date" placeholder="Дата сезона" required>
   </div>
-  <button class="btn btn-primary btn-block" type="edit" (click)="setSeason()">{{ 'season.save' | translate }}</button>
-  <button class="btn btn-primary btn-block" type="edit" (click)="setcurrentSeason()">{{ 'season.setcurrent' | translate }}</button>
-  <div>
+  <div clss="row">
+    <button class="btn btn-primary col-xs-5" type="edit" (click)="setSeason()">{{ 'season.save' | translate }}</button>
+    <a class="col-xs-1"></a>
+    <button class="btn btn-primary col-xs-6" type="edit" (click)="setcurrentSeason()">{{ 'season.setcurrent' | translate }}</button>
+  </div>
+  <hr>
+  <div clss="row">
     <H4>{{ 'team.teams' | translate }}</H4>
     <div class="list-group">
       <a class="list-group-item active" [routerLink]="['/team/' + this.currentseason.id]">
