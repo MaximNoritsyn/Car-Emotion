@@ -1,8 +1,8 @@
 <form name="eventform" method="post" #formCtrl="ngForm">
-  <div class="row">
+  <div class="row col-xs-12">
     <div class="form-group col-xs-12">
-      <label>{{ 'season.name' | translate }}</label>
-      <input class="form-control col-xs-12"
+      <label For="name">{{ 'season.name' | translate }}</label>
+      <input id="name" class="form-control col-xs-12"
              [disabled]="!_auth.isAdministrator()"
              [(ngModel)]="currentevent.name"
              name="currentevent.name"
@@ -11,6 +11,7 @@
   </div>
   <div class="row col-xs-12">
     <div class="form-group col-xs-6">
+      <label For="season">{{ 'season.season' | translate }}</label>
       <select id="season" class="form-control"
               [disabled]="!_auth.isAdministrator()"
               [compareWith]="selectedseason"
@@ -31,7 +32,7 @@
              placeholder="Город этапа" required>
     </div>
   </div>
-  <div class="row">
+  <div class="row col-xs-12">
     <div class="form-group col-xs-12">
       <label For="startDate">{{ 'season.date' | translate }}</label>
       <input id="startDate"
@@ -43,20 +44,30 @@
              placeholder="Дата этапа" required>
     </div>
   </div>
-  <div class="row">
-    <select class="form-control"
-            [disabled]="!_auth.isAdministrator()"
-            [compareWith]="selectedstatus"
-            [(ngModel)]="currentevent.eventStatus"
-            [ngModelOptions]="{standalone: true}">
+  <div class="row col-xs-12">
+    <div class="form-group col-xs-12">
+      <select class="form-control"
+              [disabled]="!_auth.isAdministrator()"
+              [compareWith]="selectedstatus"
+              [(ngModel)]="currentevent.eventStatus"
+              [ngModelOptions]="{standalone: true}">
 
-      <option *ngFor="let key of arraystatuseslocal" [ngValue]="key">
-        {{ 'eventsstatus.' + eventstatus[key] | translate }}
-      </option>
+        <option *ngFor="let key of arraystatuseslocal" [ngValue]="key">
+          {{ 'eventsstatus.' + eventstatus[key] | translate }}
+        </option>
 
-    </select>
+      </select>
+    </div>
   </div>
   <hr>
-  <button class="btn btn-primary btn-block col-xs-4" *ngIf="_auth.isAdministrator()" type="edit" (click)="setEvent()">{{ 'season.save' | translate }}</button>
+  <div class="row">
+    <button class="btn btn-primary col-xs-4"
+            *ngIf="_auth.isAdministrator()"
+            (click)="setEvent()">
+      {{ 'season.save' | translate }}
+    </button>
+  </div>
+  <hr>
 </form>
+
 <router-outlet></router-outlet>

@@ -59,6 +59,7 @@
   },
   "season": {
     "seasons": "Seasons",
+    "season": "Season",
     "addseason": "Add new season",
     "name": "Name of season",
     "date": "Date",
