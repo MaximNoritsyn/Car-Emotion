@@ -34,7 +34,7 @@ export class FactoryService {
   constructor() { }
 
 
-  getnewParticipantclass(idcurrentevent: string) {
+  getnewParticipantclass(idcurrentevent: string): participant {
     let _person = this.getnewPerson();
     let _idevent = idcurrentevent;
     let _car = this.getnewCar();

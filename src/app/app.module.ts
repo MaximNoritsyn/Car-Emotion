@@ -41,6 +41,7 @@ import { ResultComponent } from './views/results/result/result.component';
 import { CurrentresultComponent } from './views/dashboard/currentresult/currentresult.component';
 import {FactoryService} from './services/factory.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { PointsComponent } from './views/points/points.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -63,7 +64,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PersonComponent,
     ResultsComponent,
     ResultComponent,
-    CurrentresultComponent
+    CurrentresultComponent,
+    PointsComponent
   ],
   imports: [
     BrowserModule,

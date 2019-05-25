@@ -14,6 +14,7 @@ import {PersonComponent} from './views/persons/person/person.component';
 import {CurrentresultComponent} from './views/dashboard/currentresult/currentresult.component';
 import {DashboardComponent} from './views/dashboard/dashboard.component';
 import { AuthGuard } from './services/auth-guard.service';
+import {PointsComponent} from './views/points/points.component';
 
 
 const appRoutes: Routes = [
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
         [{path: '', component: ParticipantsComponent}]},
     {path: 'participant/:idevent/:idParticipant', component: ParticipantComponent},
     {path: 'participant/:idevent', component: ParticipantComponent},
+    {path: 'points/:idevent', component: PointsComponent},
     {path: 'team/:idseason/:idteam', component: TeamComponent},
     {path: 'team/:idseason', component: TeamComponent},
     {path: 'person/:idperson', component: PersonComponent},

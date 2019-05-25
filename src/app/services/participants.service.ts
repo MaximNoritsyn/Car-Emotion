@@ -349,7 +349,11 @@ export class ParticipantsService {
     }
   }
 
-
+  getPointsOfEvent(idevent: string) {
+    return this._db.list<point>('/points/',
+      ref => (ref.orderByChild('idevent').equalTo(idevent)
+      )).valueChanges();
+  }
 
   bestresult( a: point, b: point) {
     if ( a.bestresult > b.bestresult ){

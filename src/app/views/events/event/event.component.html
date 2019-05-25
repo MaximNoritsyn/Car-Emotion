@@ -60,12 +60,20 @@
     </div>
   </div>
   <hr>
-  <div class="row">
+  <div class="row col-xs-12">
+  <div class="row col-xs-4">
     <button class="btn btn-primary col-xs-4"
             *ngIf="_auth.isAdministrator()"
             (click)="setEvent()">
       {{ 'season.save' | translate }}
     </button>
+  </div>
+  <div class="row col-xs-4">
+    <button class="btn btn-primary col-xs-4"
+            [routerLink]="['/points/' + currentevent.id]">
+      {{ 'Результаты' | translate }}
+    </button>
+  </div>
   </div>
   <hr>
 </form>
