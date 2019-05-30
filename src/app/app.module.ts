@@ -29,7 +29,7 @@ import { EventsComponent } from './views/events/events.component';
 import { EventsService} from './services/events.service';
 import { CurrentdataService } from './services/currentdata.service';
 import { EventComponent } from './views/events/event/event.component';
-import {MatAutocompleteModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatAutocompleteModule, MatFormFieldModule, MatInputModule, MatNativeDateModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AdminboardComponent } from './views/adminboard/adminboard.component';
 import { CompetitionclassComponent } from './views/adminboard/competitionclass/competitionclass.component';
@@ -42,6 +42,7 @@ import { CurrentresultComponent } from './views/dashboard/currentresult/currentr
 import {FactoryService} from './services/factory.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { PointsComponent } from './views/points/points.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -76,6 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
     MatAutocompleteModule,

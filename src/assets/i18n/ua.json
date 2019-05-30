@@ -53,8 +53,8 @@
     "registered": "Зареєстрован"
   },
   "events": {
-    "editseason": "Змінити",
-    "addevent": "Додати новий захід"
+    "addevent": "Додати новий захід",
+    "date": "Дата"
   },
   "season": {
     "seasons": "Усі сезони",

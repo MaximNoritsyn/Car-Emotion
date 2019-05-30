@@ -34,14 +34,14 @@
   </div>
   <div class="row col-xs-12">
     <div class="form-group col-xs-12">
-      <label For="startDate">{{ 'season.date' | translate }}</label>
-      <input id="startDate"
-             class="col-xs-4"
-             [disabled]="!_auth.isAdministrator()"
-             [ngModel]="currentevent.startDate | date:'yyyy-MM-dd'"
-             (ngModelChange)="currentevent.startDate = $event"
-             name="currentevent.startDate"
-             placeholder="Дата этапа" required>
+      <label>{{ 'events.date' | translate }}</label>
+      <mat-form-field class="form-group col-xs-4" >
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date"
+             [(ngModel)]="currentevent.startDate"
+             [ngModelOptions]="{standalone: true}">
+        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
     </div>
   </div>
   <div class="row col-xs-12">
@@ -61,15 +61,15 @@
   </div>
   <hr>
   <div class="row col-xs-12">
-  <div class="row col-xs-4">
-    <button class="btn btn-primary col-xs-4"
+  <div class="row col-xs-6">
+    <button class="btn btn-primary col-xs-6"
             *ngIf="_auth.isAdministrator()"
             (click)="setEvent()">
       {{ 'season.save' | translate }}
     </button>
   </div>
-  <div class="row col-xs-4">
-    <button class="btn btn-primary col-xs-4"
+  <div class="row col-xs-6">
+    <button class="btn btn-primary col-xs-6"
             [routerLink]="['/points/' + currentevent.id]">
       {{ 'Результаты' | translate }}
     </button>

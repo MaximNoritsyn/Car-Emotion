@@ -1,0 +1,11 @@
+<form name="resultsform" method="post" #formCtrl="ngForm">
+
+  <div *ngFor="let competitionclass of copmetitionclasses">
+    <H4>{{competitionclass.name}}</H4>
+    <a *ngFor="let point of getPointwithFilter(competitionclass)">
+       {{point.bestresult}} - {{point.place}}
+    </a>
+    <hr>
+  </div>
+
+</form>

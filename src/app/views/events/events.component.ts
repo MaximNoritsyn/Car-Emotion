@@ -5,6 +5,8 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {EventsService} from '../../services/events.service';
 import {CurrentdataService} from '../../services/currentdata.service';
+import {MatNativeDateModule} from '@angular/material';
+
 
 @Component({
   selector: 'app-events',
@@ -64,6 +66,5 @@ export class EventsComponent implements OnInit {
           }
         })
   }
-
-
 }
+

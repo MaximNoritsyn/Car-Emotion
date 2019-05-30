@@ -53,9 +53,8 @@
     "registered": "Registered"
   },
   "events": {
-    "editseason": "Edit season",
     "addseason": "Add new season",
-    "addevent": "Add new event"
+    "date": "Date"
   },
   "season": {
     "seasons": "Seasons",

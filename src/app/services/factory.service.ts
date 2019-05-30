@@ -163,6 +163,7 @@ export class FactoryService {
     }
 
     getNewPoint(_competition: competition, _competitionclass: competitionclass) {
+      let newclass = this.getNewCompetitionClass();
       return new class implements point {
         id: string = "";
         idparticipant: string = "";
@@ -172,8 +173,8 @@ export class FactoryService {
         idevent: string = "";
         idseason: string = "";
         competition: competition = _competition;
-        class: competitionclass = _competitionclass;
-        idclass: string = _competitionclass.id;
+        idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
+        class: competitionclass = _competitionclass == undefined ? newclass : _competitionclass;
         bestresult: number = 0;
         point: number = 0;
         place: number = 99
