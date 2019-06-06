@@ -6,6 +6,7 @@
     "Persons": "Учасники",
     "Events": "Заходи",
     "AdminBoard": "Налаштування чемпіонату",
+    "currentresultboard": "Майданчик результатов",
     "Login": "Увійти",
     "Logout": "Вийти"
   },
@@ -80,19 +81,13 @@
   "currentresult": {
     "season": "Сезон",
     "competition": "Змагання",
-    "class": "Класс в ",
     "result1": "Результат зліва",
     "result2": "Результат справа",
-    "front": "Фронт",
-    "sub": "Саб",
     "result": "Результат",
     "outputpower": "Вихідна потужність",
     "checkin": "Заліковий",
-    "turn1": "Ліва черга",
-    "turn2": "Правя черга",
-    "allparticipants": "Всі учасники",
     "saveresults": "Зберегти результати",
-    "clearresults": "Виїхали учасники",
+    "clearresults": "Нові учасники",
     "header": "Поточний майданчик змагань"
   },
   "persons": {

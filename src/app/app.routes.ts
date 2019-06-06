@@ -36,7 +36,8 @@ const appRoutes: Routes = [
     {path: 'person/:idperson', component: PersonComponent},
     {path: 'persons', component: PersonsComponent},
     {path: '', component: DashboardComponent, children:
-      [{path: '', component: CurrentresultComponent}]},
+      [{path: '', component: PointsComponent}]},
+    {path: 'currentresultboard', canActivate: [AuthGuard], component: CurrentresultComponent}
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

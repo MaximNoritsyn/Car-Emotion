@@ -6,3 +6,7 @@
   display: inline-block;
   min-height: 20px;
 }
+
+.button {
+  height: 100px;
+}

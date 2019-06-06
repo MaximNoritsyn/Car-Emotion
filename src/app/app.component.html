@@ -29,6 +29,9 @@
           <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
         </li>
         <li *ngIf="_auth.isAdministrator()">
+          <a [routerLink]="['/currentresultboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.currentresultboard' | translate }}</a>
+        </li>
+        <li *ngIf="_auth.isAdministrator()">
           <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.AdminBoard' | translate }}</a>
         </li>
         <li [routerLink]="['/login']" routerLinkActive="active-link" *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">

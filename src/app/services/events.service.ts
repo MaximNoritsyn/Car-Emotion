@@ -77,8 +77,12 @@ export class EventsService {
   }
 
   getCompetitionClasses(classes: competitionclass[], localcompetition: competition): competitionclass[] {
-    return classes.filter(option => option.competition == localcompetition && option.actual == true)
+    if (classes !== undefined) {
+      return classes.filter(option => option.competition == localcompetition && option.actual == true)
+    }
+    return []
   }
+
 
   getCompetitionClassesObs() {
     return this.competitionclassesObs;

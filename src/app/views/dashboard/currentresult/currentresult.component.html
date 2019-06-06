@@ -1,30 +1,24 @@
 <div class="form-group col-xs-4">
   <label for="season">{{ 'currentresult.season' | translate }}</label>
-  <input class="form-control" disabled = true
-         is="season"
-         [(ngModel)]="currentevent.name"
+  <input class="form-control disabled"
+         id="season"
+         [ngModel]="currentevent.season.name"
          name="currentevent.name"
          required>
+</div>
+<div class="form-group col-xs-4">
+  <label for="currentevent">{{ 'currentresult.event' | translate }} {{currentcompetition}}</label>
+  <input class="form-control disabled"
+         id="currentevent"
+         [ngModel]="currentevent.name">
 </div>
 <div class="form-group col-xs-4">
   <label for="currentcompetition">{{ 'currentresult.competition' | translate }}</label>
   <select class="form-control" [compareWith]="selectedCompetition" [ngModel]="currentcompetition"
           id="currentcompetition"
-          [disabled]="!_auth.isAdministrator()"
           (ngModelChange)="onChangecompetition($event)">
     <option *ngFor="let key of arrayCompetitons" [ngValue]="key">
       {{key}}
-    </option>
-  </select>
-</div>
-<div class="form-group col-xs-4">
-  <label for="currentcompetitionclass">{{ 'currentresult.class' | translate }} {{currentcompetition}}</label>
-  <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="currentcompetitionclass"
-          id="currentcompetitionclass"
-          [disabled]="!_auth.isAdministrator()"
-          (ngModelChange)="onChangecompetitionClass($event)">
-    <option *ngFor="let key of arrayCompetitonsClass" [ngValue]="key">
-      {{key.name}}
     </option>
   </select>
 </div>
@@ -34,6 +28,77 @@
     {{ 'currentresult.header' | translate }}
   </h1>
 </div>
+
+<div class="form-row">
+
+  <div class="form-group col-xs-4 left">
+    <mat-form-field
+      class="row">
+      <input class="form-control" type="text" placeholder="Search person" aria-label="Search person" matInput
+             [formControl]="ControlLeft" [matAutocomplete]="autopeapleleft">
+      <mat-autocomplete #autopeapleleft="matAutocomplete" [displayWith]="displayPerson">
+        <mat-option *ngFor="let participant of FilteredPersonsLeft | async" [value]="participant">
+          {{participant.person.familyName}} {{participant.person.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="row">
+      <label for="classleft">{{ 'currentresult.class' | translate }}</label>
+      <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="classleft"
+              id="classleft"
+              (ngModelChange)="onChangecompetitionClass($event, true)">
+        <option *ngFor="let key of arrayCompetitonsClass" [ngValue]="key">
+          {{key.name}}
+        </option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="form-group col-xs-1 left">
+    <hr>
+    <h4>VS</h4>
+  </div>
+
+  <div class="form-group col-xs-4 center-block">
+    <mat-form-field
+      class="row">
+      <input class="form-control" type="text" placeholder="Search person" aria-label="Search person" matInput
+             [formControl]="ControlRight" [matAutocomplete]="autopeapleright">
+      <mat-autocomplete #autopeapleright="matAutocomplete" [displayWith]="displayPerson">
+        <mat-option *ngFor="let participant of FilteredPersonsRight | async" [value]="participant">
+          {{participant.person.familyName}} {{participant.person.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="row">
+      <label for="classrighr">{{ 'currentresult.class' | translate }}</label>
+      <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="classright"
+              id="classrighr"
+              (ngModelChange)="onChangecompetitionClass($event, true)">
+        <option *ngFor="let key of arrayCompetitonsClass" [ngValue]="key">
+          {{key.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group col-xs-3 right">
+    <hr>
+    <hr>
+    <button class="btn btn-primary center-block button" (click)="SaveResults()">
+      {{ 'currentresult.saveresults' | translate }}
+    </button>
+    <hr>
+    <button class="btn btn-warning center-block button" (click)="ClearResults()">
+      {{ 'currentresult.clearresults' | translate }}
+    </button>
+  </div>
+</div>
+
+
+<!--
+
 <div class="form-row">
   <div class="form-group col-xs-4 left">
     <div >
@@ -163,5 +228,6 @@
     </div>
   </div>
 </div>
+-->
 
 

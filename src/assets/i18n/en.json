@@ -6,6 +6,7 @@
     "Persons": "Participants",
     "Events": "Events",
     "AdminBoard": "Setting of Champ",
+    "currentresultboard": "Results area",
     "Login": "Login",
     "Logout": "Logout"
   },
@@ -80,19 +81,13 @@
   "currentresult": {
     "season": "Season",
     "competition": "Competition",
-    "class": "Class of ",
     "result1": "Result left",
     "result2": "Result right",
-    "front": "Front",
-    "sub": "Sub",
     "result": "Result",
     "outputpower": "Output Power",
     "checkin": "Check in",
-    "turn1": "Left turn",
-    "turn2": "Right turn",
-    "allparticipants": "All participants",
     "saveresults": "Save results",
-    "clearresults": "Clear results",
+    "clearresults": "New participants",
     "header": "Current competition area"
   },
   "persons": {
