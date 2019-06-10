@@ -8,7 +8,7 @@ import {
   eventstatus,
   participant,
   person,
-  point, result,
+  result,
   season,
   team
 } from '../interfaces/app.interface';
@@ -37,7 +37,8 @@ export class FactoryService {
   getnewParticipantclass(idcurrentevent: string): participant {
     let _person = this.getnewPerson();
     let _idevent = idcurrentevent;
-    let _car = this.getnewCar();
+    //let _car = this.getnewCar();
+    let _car: car = null;
     let _datacar = this.getnewDataCar();
     return new class implements participant {
       id: string = "";
@@ -55,13 +56,12 @@ export class FactoryService {
       classDecibelBattle: competitionclass;
       classDecibelVolume: competitionclass;
       classDecibelShow: competitionclass;
-      pointDecibelLeague: point = null;
-      pointDecibelBattle: point = null;
-      pointDecibelVolume: point = null;
-      pointDecibelShow: point = null;
+      resultDecibelLeague: result = null;
+      resultDecibelBattle: result = null;
+      resultDecibelVolume: result = null;
+      resultDecibelShow: result = null;
       registered: boolean = false;
-      datainput: Date = new Date();
-      points: point[]
+      datainput: Date = new Date()
     }
   }
 
@@ -140,28 +140,32 @@ export class FactoryService {
     }
   }
 
-  getNewResult() {
-    let _competitionclass = this.getNewCompetitionClass();
+  getNewResult(_competition: competition, _competitionclass: competitionclass) {
+    let _competitionclassempty = this.getNewCompetitionClass();
     return new class implements result {
       id: string = "";
       competition: competition;
-      class: competitionclass = _competitionclass;
-      idclass: string = _competitionclass.id;
+      class: competitionclass = _competitionclass == undefined ? _competitionclassempty : _competitionclass;
+      idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
       idpoint: string = "";
       idperson: string = "";
       idparticipant: string = "";
       idcar: string = "";
       idevent: string = "";
       idseason: string = "";
+      idteam: string = "";
       front: number = 0;
       sub: number = 0;
       result: number = 0;
       outputpower: string = "";
-      checkin: boolean = false
+      checkin: boolean = false;
+      point: number = 0;
+      place: number = 99;
     }
 
     }
 
+/*
     getNewPoint(_competition: competition, _competitionclass: competitionclass) {
       let newclass = this.getNewCompetitionClass();
       return new class implements point {
@@ -180,5 +184,6 @@ export class FactoryService {
         place: number = 99
       }
     }
+*/
 
 }

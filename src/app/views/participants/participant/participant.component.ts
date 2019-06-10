@@ -88,7 +88,7 @@ export class ParticipantComponent implements OnInit {
           this._ParticipantsService.getParticipant(params["idParticipant"]).subscribe(item =>
             {this.currentParticipant = item;
             this.newperson = this.currentParticipant.person.id == "";
-            this.newcar = this.currentParticipant.car.id == ""})
+            /*this.newcar = this.currentParticipant.car.id == ""*/})
         }
     }
     );

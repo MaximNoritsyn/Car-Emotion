@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from './auth.service';
 
-import {car, competition, competitionclass, datacar, participant, person, point, result} from '../interfaces/app.interface';
+import {car, competition, competitionclass, datacar, participant, person, result} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
 import {CurrentdataService} from './currentdata.service';
 import {FactoryService} from './factory.service';
@@ -117,11 +117,11 @@ export class ParticipantsService {
       let _key = this._db.list('/participants/' + this.idcurrentevent + '/all/').push(_participant).key;
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _key).update({"id": _key});
       _participant.id = _key;
-      this.generatePointsForParticipants(_participant);
+      this.generateResultsForParticipants(_participant);
     }
     else {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _key).update(_participant);
-      this.generatePointsForParticipants(_participant);
+      this.generateResultsForParticipants(_participant);
     }
 
   }
@@ -150,103 +150,169 @@ export class ParticipantsService {
     return this._db.list<datacar>('/cars/'+ idcar + '/datacar').query.once("value")
   }
 
-  generatePointsForParticipants(_participant: participant) {
+  generateResultsForParticipants(_participant: participant) {
     if (_participant.registered) {
-      if (_participant.isDecibelShow && _participant.pointDecibelShow == undefined) {
-        let _point = this._FactoryService.getNewPoint(competition.DecibelShow, _participant.classDecibelShow);
-        this.generatePoint(_point, _participant, competition.DecibelShow);
+      if (_participant.isDecibelShow) {
+        let _result = this._FactoryService.getNewResult(competition.DecibelShow, _participant.classDecibelShow);
+        this.generateResult(_result, _participant, competition.DecibelShow);
       }
 
-      if (_participant.isDecibelLeague && _participant.pointDecibelLeague == undefined) {
-        let _point = this._FactoryService.getNewPoint(competition.DecibelLeague, _participant.classDecibelLeague);
-        this.generatePoint(_point, _participant, competition.DecibelLeague);
+      if (_participant.isDecibelLeague) {
+        let _result = this._FactoryService.getNewResult(competition.DecibelLeague, _participant.classDecibelLeague);
+        this.generateResult(_result, _participant, competition.DecibelLeague);
       }
 
-      if (_participant.isDecibelVolume && _participant.pointDecibelVolume == undefined) {
-        let _point = this._FactoryService.getNewPoint(competition.DecibelVolume, _participant.classDecibelVolume);
-        this.generatePoint(_point, _participant, competition.DecibelVolume);
+      if (_participant.isDecibelVolume) {
+        let _result = this._FactoryService.getNewResult(competition.DecibelVolume, _participant.classDecibelVolume);
+        this.generateResult(_result, _participant, competition.DecibelVolume);
       }
 
-      if (_participant.isDecibelBattle && _participant.pointDecibelBattle == undefined) {
-        let _point = this._FactoryService.getNewPoint(competition.DecibelBattle, _participant.classDecibelBattle);
-        this.generatePoint(_point, _participant, competition.DecibelBattle);
+      if (_participant.isDecibelBattle) {
+        let _result = this._FactoryService.getNewResult(competition.DecibelBattle, _participant.classDecibelBattle);
+        this.generateResult(_result, _participant, competition.DecibelBattle);
       }
     }
     else {
-      if (_participant.pointDecibelShow !== undefined) {
-        this.deletePoint(_participant.pointDecibelShow, _participant);
+      if (_participant.resultDecibelShow !== undefined) {
+        this.deleteResult(_participant.resultDecibelShow, _participant);
       }
 
-      if (_participant.pointDecibelLeague !== undefined) {
-        this.deletePoint(_participant.pointDecibelLeague, _participant);
+      if (_participant.resultDecibelLeague !== undefined) {
+        this.deleteResult(_participant.resultDecibelLeague, _participant);
       }
 
-      if (_participant.pointDecibelVolume !== undefined) {
-        this.deletePoint(_participant.pointDecibelVolume, _participant);
+      if (_participant.resultDecibelVolume !== undefined) {
+        this.deleteResult(_participant.resultDecibelVolume, _participant);
       }
 
-      if (_participant.pointDecibelBattle !== undefined) {
-        this.deletePoint(_participant.pointDecibelBattle, _participant);
+      if (_participant.resultDecibelBattle !== undefined) {
+        this.deleteResult(_participant.resultDecibelBattle, _participant);
       }
     }
   }
 
-  generatePoint(_point: point, _participant: participant, _competition: competition) {
-    _point.idevent = _participant.idevent;
+  generateResult(_result: result, _participant: participant, _competition: competition) {
+    _result.idevent = _participant.idevent;
     if (_participant.car == undefined) {
-      _point.idcar = "";
+      _result.idcar = "";
     }
     else {
-      _point.idcar = _participant.car.id;
+      _result.idcar = _participant.car.id;
     }
     if (_participant.team == undefined) {
-      _point.idteam = "";
+      _result.idteam = "";
     }
     else {
-      _point.idteam = _participant.team.id;
+      _result.idteam = _participant.team.id;
     }
     if (_participant.person == undefined) {
-      _point.idperson = "";
+      _result.idperson = "";
     }
     else {
-      _point.idperson = _participant.person.id;
+      _result.idperson = _participant.person.id;
     }
 
-    let _key = this._db.list<point>('/points/').push(_point).key;
-    this._db.object<point>('/points/' + _key).update({"id": _key});
-    _point.id = _key;
+    let _key = this._db.list<result>('/results/').push(_result).key;
+    this._db.object<result>('/results/' + _key).update({"id": _key});
+    _result.id = _key;
     if (_competition == competition.DecibelShow) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelShow': _point});
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelShow': _result});
     }
     else if (_competition == competition.DecibelLeague) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelLeague': _point});
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelLeague': _result});
     }
     else if (_competition == competition.DecibelVolume) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelVolume': _point});
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelVolume': _result});
     }
     else if (_competition == competition.DecibelBattle) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelBattle': _point});
-    }
-
-  }
-
-  deletePoint(_point: point, _participant: participant) {
-    this._db.list<point>('/points/' + _point.id).remove();
-    if (_point.competition == competition.DecibelShow) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelShow': null});
-    }
-    else if (_point.competition == competition.DecibelLeague) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelLeague': null});
-    }
-    else if (_point.competition == competition.DecibelVolume) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelVolume': null});
-    }
-    else if (_point.competition == competition.DecibelBattle) {
-      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'pointDecibelBattle': null});
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelBattle': _result});
     }
   }
 
-  setResult(_result: result, _participant: participant, _class: competitionclass) {
+  deleteResult(_result: result, _participant: participant) {
+    this._db.list<result>('/results/' + _result.id).remove();
+    if (_result.competition == competition.DecibelShow) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelShow': null});
+    }
+    else if (_result.competition == competition.DecibelLeague) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelLeague': null});
+    }
+    else if (_result.competition == competition.DecibelVolume) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelVolume': null});
+    }
+    else if (_result.competition == competition.DecibelBattle) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelBattle': null});
+    }
+  }
+
+  sortResultInPoint(idevent: string, _class: competitionclass): void {
+
+    this._db.list<result>('/results/',
+      ref => (ref.orderByChild('idevent').equalTo(idevent)
+      )).query.once("value").then( resultsval =>
+      {
+        let arrayResults: result[] = [];
+        resultsval.forEach(resultval => {
+          let curresult: result = resultval.val() as result;
+          if (curresult.idclass == _class.id)
+            arrayResults.push(curresult);
+          }
+        );
+
+        arrayResults.sort(this.bestresult);
+
+        let place: number = 1;
+
+        arrayResults.forEach(item => {
+          if (item.result == 0) {
+            item.place =  99;
+          }
+          else {
+            item.place = place;
+            place++;
+          }
+          this._db.object('/results/' + item.id).update({"place": item.place});
+          if (!(item.idparticipant == '' || item.idparticipant == undefined)) {
+            this.updateResultInParticipant(item.competition, item.idevent, item.idparticipant, item);
+          }
+        })
+
+      }
+    )
+  }
+
+  updateResultInParticipant(_competition: competition, idevent: string, idparticipant: string, gettenpoint: result) {
+    if (_competition == competition.DecibelVolume) {
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelVolume': gettenpoint});
+    }
+    else if (_competition == competition.DecibelBattle) {
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelBattle': gettenpoint});
+    }
+    else if (_competition == competition.DecibelLeague) {
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelLeague': gettenpoint});
+    }
+    else if (_competition == competition.DecibelShow) {
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelShow': gettenpoint});
+    }
+  }
+
+  getPointsOfEvent(idevent: string) {
+    return this._db.list<result>('/points/',
+      ref => (ref.orderByChild('idevent').equalTo(idevent)
+      )).valueChanges();
+  }
+
+  bestresult( a: result, b: result) {
+    if ( a.result > b.result ){
+      return -1;
+    }
+    if ( a.result < b.result ){
+      return 1;
+    }
+    return 0;
+  }
+
+  /*  setResult(_result: result, _participant: participant, _class: competitionclass) {
 
     _result.idparticipant = _participant.id;
     _result.idevent = _participant.idevent;
@@ -258,12 +324,12 @@ export class ParticipantsService {
     else {
       _result.idcar = _participant.car.id;
     }
-    /*if (_participant.team == undefined) {
+    /!*if (_participant.team == undefined) {
       _result.idteam = "";
     }
     else {
       _result.idteam = _participant.team.id;
-    }*/
+    }*!/
     if (_participant.person == undefined) {
       _result.idperson = "";
     }
@@ -306,7 +372,6 @@ export class ParticipantsService {
 
     }
   }
-
   setBestResulttoPoint(_result: result): void {
     this._db.list<result>('/results/',
       ref => (ref.orderByChild('idpoint').equalTo(_result.idpoint)
@@ -331,72 +396,5 @@ export class ParticipantsService {
   })
 
   }
-
-  sortPlacesInPoint(idevent: string, _class: competitionclass): void {
-
-    this._db.list<point>('/points/',
-      ref => (ref.orderByChild('idevent').equalTo(idevent)
-      )).query.once("value").then( pointsval =>
-      {
-        let arrayPoints: point[] = [];
-        pointsval.forEach(pointval => {
-          let curpoint: point = pointval.val() as point;
-          if (curpoint.idclass == _class.id)
-            arrayPoints.push(curpoint);
-          }
-        );
-
-        arrayPoints.sort(this.bestresult);
-
-        let place: number = 1;
-
-        arrayPoints.forEach(item => {
-          if (item.bestresult == 0) {
-            item.place =  99;
-          }
-          else {
-            item.place = place;
-            place++;
-          }
-          this._db.object('/points/' + item.id).update({"place": item.place});
-          if (!(item.idparticipant == '' || item.idparticipant == undefined)) {
-            this.updatePointInParticipant(item.competition, item.idevent, item.idparticipant, item);
-          }
-        })
-
-      }
-    )
-  }
-
-  updatePointInParticipant(_competition: competition, idevent: string, idparticipant: string, gettenpoint: point) {
-    if (_competition == competition.DecibelVolume) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelVolume': gettenpoint});
-    }
-    else if (_competition == competition.DecibelBattle) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelBattle': gettenpoint});
-    }
-    else if (_competition == competition.DecibelLeague) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelLeague': gettenpoint});
-    }
-    else if (_competition == competition.DecibelShow) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelShow': gettenpoint});
-    }
-  }
-
-  getPointsOfEvent(idevent: string) {
-    return this._db.list<point>('/points/',
-      ref => (ref.orderByChild('idevent').equalTo(idevent)
-      )).valueChanges();
-  }
-
-  bestresult( a: point, b: point) {
-    if ( a.bestresult > b.bestresult ){
-      return -1;
-    }
-    if ( a.bestresult < b.bestresult ){
-      return 1;
-    }
-    return 0;
-  }
-
+*/
 }

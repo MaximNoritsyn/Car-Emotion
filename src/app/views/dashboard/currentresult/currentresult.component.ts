@@ -65,6 +65,25 @@ export class CurrentresultComponent implements OnInit {
     this._CurrentdataService.getEvent().subscribe(item => {
       this.currentevent = item;
       this._ParticipantsService.setidcurrenevent(this.currentevent.id)
+    });
+    this._CurrentdataService.getCompetition().subscribe(item => {
+      this.currentcompetition = item;
+      this.onChangecompetition(item)
+    });
+    this.FilteredPersonsLeft = this.ControlLeft.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => {return typeof value === 'string' ? this._filterperson(value) : this._setParticipant(true, value)
+          }
+        )
+      );
+    this.FilteredPersonsRight = this.ControlRight.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => {return typeof value === 'string' ? this._filterperson(value) : this._setParticipant(false, value)
+          }
+        )
+      );
       /*this._CurrentdataService.getCompetitionClass().subscribe(item => {
         this.currentcompetitionclass = item;
         this._ParticipantsService.getParticipants().subscribe(curparticipants => {
@@ -88,28 +107,10 @@ export class CurrentresultComponent implements OnInit {
     this.clearparticipant = this._FactoryService.getnewParticipantclass("");
     this.currentparticipant1.push(this.clearparticipant);
     this.currentparticipant2.push(this.clearparticipant);*/
-    });
-    this._CurrentdataService.getCompetition().subscribe(item => {
-      this.currentcompetition = item;
-      this.onChangecompetition(item)
-    });
+
     /*this._EventsService.getCompetitionClassesObs().subscribe(items => {
       this.arrayCompetitonsClass = this._EventsService.getCompetitionClasses(items, this.currentcompetition);
     });*/
-    this.FilteredPersonsLeft = this.ControlLeft.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => {return typeof value === 'string' ? this._filterperson(value) : this._setParticipant(true, value)
-          }
-        )
-      );
-    this.FilteredPersonsRight = this.ControlRight.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => {return typeof value === 'string' ? this._filterperson(value) : this._setParticipant(false, value)
-          }
-        )
-      );
    /* this._CurrentdataService.getTurn1().subscribe(items => this.turn1 = items);
     this._CurrentdataService.getTurn2().subscribe(items => this.turn2 = items);
     this._CurrentdataService.getCurrentParticipant1().subscribe(items => {if (items == null){
@@ -143,9 +144,6 @@ export class CurrentresultComponent implements OnInit {
   }
 
   onChangecompetition(_event: competition) {
-    if (this.currentcompetition == _event) {
-      return
-    }
 
     this.currentcompetition = _event;
     this._ParticipantsService.getParticipants().subscribe(items =>

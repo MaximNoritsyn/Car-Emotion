@@ -28,13 +28,12 @@ export interface participant {
   classDecibelBattle: competitionclass,
   classDecibelVolume: competitionclass,
   classDecibelShow: competitionclass,
-  pointDecibelLeague: point,
-  pointDecibelBattle: point,
-  pointDecibelVolume: point,
-  pointDecibelShow: point,
+  resultDecibelLeague: result,
+  resultDecibelBattle: result,
+  resultDecibelVolume: result,
+  resultDecibelShow: result,
   registered: boolean,
-  datainput: Date,
-  points: point[]
+  datainput: Date
 }
 
 export interface datacar {
@@ -83,20 +82,22 @@ export interface result{
   competition: competition,
   class: competitionclass,
   idclass: string,
-  idpoint: string,
   idperson: string,
   idparticipant: string,
   idcar: string,
   idevent: string,
   idseason: string,
+  idteam: string,
   front: number,
   sub: number,
   result: number,
   outputpower: string,
-  checkin: boolean
+  checkin: boolean,
+  point: number,
+  place: number
 }
 
-export interface point {
+/*export interface point {
   id: string,
   idparticipant: string,
   idteam: string,
@@ -110,7 +111,7 @@ export interface point {
   bestresult: number,
   point: number,
   place: number
-}
+}*/
 
 export enum competition{
   DecibelLeague = "Decibel league",

@@ -41,7 +41,6 @@ import { ResultComponent } from './views/results/result/result.component';
 import { CurrentresultComponent } from './views/dashboard/currentresult/currentresult.component';
 import {FactoryService} from './services/factory.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-import { PointsComponent } from './views/points/points.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -65,8 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PersonComponent,
     ResultsComponent,
     ResultComponent,
-    CurrentresultComponent,
-    PointsComponent
+    CurrentresultComponent
   ],
   imports: [
     BrowserModule,
