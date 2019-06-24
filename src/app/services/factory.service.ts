@@ -147,18 +147,15 @@ export class FactoryService {
       competition: competition;
       class: competitionclass = _competitionclass == undefined ? _competitionclassempty : _competitionclass;
       idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
-      idpoint: string = "";
       idperson: string = "";
       idparticipant: string = "";
       idcar: string = "";
       idevent: string = "";
       idseason: string = "";
       idteam: string = "";
-      front: number = 0;
-      sub: number = 0;
       result: number = 0;
       outputpower: string = "";
-      checkin: boolean = false;
+      checkin: boolean = true;
       point: number = 0;
       place: number = 99;
     }

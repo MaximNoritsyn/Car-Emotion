@@ -53,8 +53,56 @@
       </select>
     </div>
     <div class="row">
-      <label for="classleft">{{ 'currentresult.db' | translate }}</label>
-      <input class="resultlefttop col-xs-4 left" ([ngModel])="resultlefttop.result">
+      <div class="col-xs-5 right ">
+        <label for="resultlefttop">{{ 'currentresult.db' | translate }}</label>
+        <input id="resultlefttop"
+               class="form-control"
+               [ngModel]="resultlefttop.result"
+               (ngModelChange)="resultlefttop.result=+$event; onChangeResults(true)">
+      </div>
+      <div class="col-xs-1 center-block"></div>
+      <div class="col-xs-5 left">
+        <label for="outputlefttop">{{ 'currentresult.wt' | translate }}</label>
+        <input id="outputlefttop"
+               class="form-control"
+               [ngModel]="resultlefttop.outputpower"
+               (ngModelChange)="resultlefttop.outputpower=$event; onChangeResults(true)">
+      </div>
+      <input type="checkbox" class="form-check-input" [ngModel]="resultlefttop.checkin"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="resultlefttop.checkin=$event; onChangeResults(true)">
+    </div>
+    <div class="row">
+      <div class="col-xs-5 right">
+        <label for="resultleft2">{{ 'currentresult.db' | translate }}</label>
+        <input id="resultleft2"
+               class="form-control"
+               [ngModel]="resultleft2.result"
+               (ngModelChange)="resultleft2.result=+$event; onChangeResults(true)">
+      </div>
+      <div class="col-xs-1 center-block"></div>
+      <div class="col-xs-5 left">
+        <label for="outputleft2">{{ 'currentresult.wt' | translate }}</label>
+        <input id="outputleft2"
+               class="form-control"
+               [ngModel]="resultleft2.outputpower"
+               (ngModelChange)="resultleft2.outputpower=$event; onChangeResults(true)">
+      </div>
+      <input type="checkbox" class="form-check-input" [ngModel]="resultleft2.checkin"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="resultleft2.checkin=$event; onChangeResults(true)">
+    </div>
+    <div><h4>{{ 'currentresult.finishresult' | translate }}</h4></div>
+    <div class="row">
+      <div class="col-xs-5 right">
+        <label for="resultcurrentresultleft">{{ 'currentresult.db' | translate }}</label>
+        <input id="resultcurrentresultleft" class="form-control" [ngModel]="currentresultleft.result" [disabled]="true">
+      </div>
+      <div class="col-xs-1 center-block"></div>
+      <div class="col-xs-5 left">
+        <label for="outputcurrentresultleft">{{ 'currentresult.wt' | translate }}</label>
+        <input id="outputcurrentresultleft" class="form-control" [ngModel]="currentresultleft.outputpower" [disabled]="true">
+      </div>
     </div>
 
   </div>
@@ -79,11 +127,63 @@
       <label for="classrighr">{{ 'currentresult.class' | translate }}</label>
       <select class="form-control" [compareWith]="selectedCompetitionClass" [ngModel]="classright"
               id="classrighr"
-              (ngModelChange)="onChangecompetitionClass($event, true)">
+              (ngModelChange)="onChangecompetitionClass($event, false)">
         <option *ngFor="let key of arrayCompetitonsClass" [ngValue]="key">
           {{key.name}}
         </option>
       </select>
+    </div>
+    <div class="row">
+      <div class="col-xs-5 right ">
+        <label for="resultrighttop">{{ 'currentresult.db' | translate }}</label>
+        <input id="resultrighttop"
+               class="form-control"
+               [ngModel]="resultrighttop.result"
+               (ngModelChange)="resultrighttop.result=+$event; onChangeResults(false)">
+      </div>
+      <div class="col-xs-1 center-block"></div>
+      <div class="col-xs-5 left">
+        <label for="outputrighttop">{{ 'currentresult.wt' | translate }}</label>
+        <input id="outputrighttop"
+               class="form-control"
+               [ngModel]="resultrighttop.outputpower"
+               (ngModelChange)="resultrighttop.outputpower=$event; onChangeResults(false)">
+      </div>
+      <input type="checkbox" class="form-check-input" [ngModel]="resultrighttop.checkin"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="resultrighttop.checkin=$event; onChangeResults(false)">
+    </div>
+    <div class="row">
+      <div class="col-xs-5 right">
+        <label for="resultright2">{{ 'currentresult.db' | translate }}</label>
+        <input id="resultright2"
+               class="form-control"
+               [ngModel]="resultright2.result"
+               (ngModelChange)="resultright2.result=+$event; onChangeResults(false)">
+      </div>
+      <div class="col-xs-1 center-block"></div>
+      <div class="col-xs-5 left">
+        <label for="outputright2">{{ 'currentresult.wt' | translate }}</label>
+        <input id="outputright2"
+               class="form-control"
+               [ngModel]="resultright2.outputpower"
+               (ngModelChange)="resultright2.outputpower=$event; onChangeResults(false)">
+      </div>
+      <input type="checkbox" class="form-check-input" [ngModel]="resultright2.checkin"
+             [ngModelOptions]="{standalone: true}"
+             (ngModelChange)="resultright2.checkin=$event; onChangeResults(false)">
+    </div>
+    <div><h4>{{ 'currentresult.finishresult' | translate }}</h4></div>
+    <div class="row">
+      <div class="col-xs-5 right">
+        <label for="resultcurrentresultright">{{ 'currentresult.db' | translate }}</label>
+        <input id="resultcurrentresultright" class="form-control" [ngModel]="currentresultright.result" [disabled]="true">
+      </div>
+      <div class="col-xs-1 center-block"></div>
+      <div class="col-xs-5 left">
+        <label for="outputcurrentresultright">{{ 'currentresult.wt' | translate }}</label>
+        <input id="outputcurrentresultright" class="form-control" [ngModel]="currentresultright.outputpower" [disabled]="true">
+      </div>
     </div>
   </div>
 

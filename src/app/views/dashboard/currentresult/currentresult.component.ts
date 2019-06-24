@@ -40,6 +40,9 @@ export class CurrentresultComponent implements OnInit {
   public resultrighttop: result;
   public resultright2: result;
 
+  public currentresultleft: result;
+  public currentresultright: result;
+
   /*public currentresult1: result;
   public currentresult2: result;
   public clearparticipant: participant;
@@ -59,6 +62,7 @@ export class CurrentresultComponent implements OnInit {
               private _FactoryService: FactoryService) { }
 
   ngOnInit() {
+    this.ClearResults();
     this.classleft = this._FactoryService.getNewCompetitionClass();
     this.classright = this._FactoryService.getNewCompetitionClass();
     this.currentevent = this._FactoryService.getnewEvent();
@@ -68,7 +72,8 @@ export class CurrentresultComponent implements OnInit {
     });
     this._CurrentdataService.getCompetition().subscribe(item => {
       this.currentcompetition = item;
-      this.onChangecompetition(item)
+      this.onChangecompetition(item);
+      this.ClearResults();
     });
     this.FilteredPersonsLeft = this.ControlLeft.valueChanges
       .pipe(
@@ -106,12 +111,12 @@ export class CurrentresultComponent implements OnInit {
     this.currentresult2 = this._FactoryService.getNewResult();
     this.clearparticipant = this._FactoryService.getnewParticipantclass("");
     this.currentparticipant1.push(this.clearparticipant);
-    this.currentparticipant2.push(this.clearparticipant);*/
+    this.currentparticipant2.push(this.clearparticipant);
 
-    /*this._EventsService.getCompetitionClassesObs().subscribe(items => {
+    this._EventsService.getCompetitionClassesObs().subscribe(items => {
       this.arrayCompetitonsClass = this._EventsService.getCompetitionClasses(items, this.currentcompetition);
-    });*/
-   /* this._CurrentdataService.getTurn1().subscribe(items => this.turn1 = items);
+    });
+     this._CurrentdataService.getTurn1().subscribe(items => this.turn1 = items);
     this._CurrentdataService.getTurn2().subscribe(items => this.turn2 = items);
     this._CurrentdataService.getCurrentParticipant1().subscribe(items => {if (items == null){
       this.currentparticipant1.pop();
@@ -216,6 +221,13 @@ export class CurrentresultComponent implements OnInit {
   }
 
   ClearResults() {
+
+    this.resultlefttop = this._FactoryService.getNewResult(this.currentcompetition, this.classleft);
+    this.resultleft2 = this._FactoryService.getNewResult(this.currentcompetition, this.classleft);
+    this.currentresultleft = this._FactoryService.getNewResult(this.currentcompetition, this.classleft);
+    this.currentresultright = this._FactoryService.getNewResult(this.currentcompetition, this.classright);
+    this.resultrighttop = this._FactoryService.getNewResult(this.currentcompetition, this.classright);
+    this.resultright2 = this._FactoryService.getNewResult(this.currentcompetition, this.classright);
     /*this._CurrentdataService.setCurrentParticipant1(this.clearparticipant);
     this._CurrentdataService.setCurrentParticipant2(this.clearparticipant);
     this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
@@ -224,6 +236,9 @@ export class CurrentresultComponent implements OnInit {
   }
 
   SaveResults() {
+    this._ParticipantsService.generateResult(this.currentresultleft, this.participantleft, this.currentcompetition);
+
+    this._ParticipantsService.generateResult(this.currentresultright, this.participantright, this.currentcompetition);
 
     /*if(this.currentresult1.front > 0) {
       this._ParticipantsService.setResult(this.currentresult1, this.currentparticipant1[0], this.currentcompetitionclass);
@@ -253,19 +268,76 @@ export class CurrentresultComponent implements OnInit {
     }
     else {
       if (this.currentcompetition == competition.DecibelLeague) {
-        this.participantright.isDecibelLeague = _event;
+        this.participantright.classDecibelLeague = _event;
       }
       else if (this.currentcompetition == competition.DecibelBattle) {
-        this.participantright.isDecibelBattle = _event;
+        this.participantright.classDecibelBattle = _event;
       }
       else if (this.currentcompetition == competition.DecibelVolume) {
-        this.participantright.isDecibelVolume = _event;
+        this.participantright.classDecibelVolume = _event;
       }
       else if (this.currentcompetition == competition.DecibelShow) {
-        this.participantright.isDecibelShow = _event;
+        this.participantright.classDecibelShow = _event;
       }
       this._ParticipantsService.setParticipant(this.participantright);
     }
+  }
+
+  onChangeResults(left: boolean) {
+    
+    if (left) {
+      if (this.resultlefttop.checkin && this.resultleft2.checkin) {
+        this.currentresultleft.result = Math.max(this.resultlefttop.result, this.resultleft2.result);
+        if (this.currentresultleft.result == this.resultlefttop.result && this.resultlefttop.checkin) {
+          this.currentresultleft.outputpower = this.resultlefttop.outputpower;
+        }
+        else if (this.currentresultleft.result == this.resultleft2.result && this.resultleft2.checkin) {
+          this.currentresultleft.outputpower = this.resultleft2.outputpower;
+        }
+        else {
+          this.currentresultleft.outputpower = "";
+        }
+      }
+      else if (this.resultlefttop.checkin) {
+        this.currentresultleft.result = this.resultlefttop.result;
+        this.currentresultleft.outputpower = this.resultlefttop.outputpower;
+      }
+      else if (this.resultleft2.checkin) {
+        this.currentresultleft.result = this.resultleft2.result;
+        this.currentresultleft.outputpower = this.resultleft2.outputpower;
+      }
+      else {
+        this.currentresultleft.result = 0;
+        this.currentresultleft.outputpower = "";
+      }
+    }
+    else {
+      if (this.resultrighttop.checkin && this.resultright2.checkin) {
+        this.currentresultright.result = Math.max(this.resultrighttop.result, this.resultright2.result);
+        if (this.currentresultright.result == this.resultrighttop.result && this.resultrighttop.checkin) {
+          this.currentresultright.outputpower = this.resultrighttop.outputpower;
+        }
+        else if (this.currentresultright.result == this.resultright2.result && this.resultright2.checkin) {
+          this.currentresultright.outputpower = this.resultright2.outputpower;
+        }
+        else {
+          this.currentresultright.outputpower = "";
+        }
+      }
+      else if (this.resultrighttop.checkin) {
+        this.currentresultright.result = this.resultrighttop.result;
+        this.currentresultright.outputpower = this.resultrighttop.outputpower;
+      }
+      else if (this.resultright2.checkin) {
+        this.currentresultright.result = this.resultright2.result;
+        this.currentresultright.outputpower = this.resultright2.outputpower;
+      }
+      else {
+        this.currentresultright.result = 0;
+        this.currentresultright.outputpower = "";
+      }
+    }
+
   }
 
   /*onDrop(event: CdkDragDrop<participant[]>) {
