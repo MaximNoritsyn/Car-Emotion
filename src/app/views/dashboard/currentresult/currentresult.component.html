@@ -30,7 +30,6 @@
 </div>
 
 <div class="form-row">
-
   <div class="form-group col-xs-4 left">
     <mat-form-field
       class="row">
@@ -53,55 +52,121 @@
       </select>
     </div>
     <div class="row">
-      <div class="col-xs-5 right ">
+      <div *ngIf="currentcompetition == compDecibelShow">
+        <div class="col-xs-4 right ">
+          <label for="frontlefttop">{{ 'currentresult.front' | translate }}</label>
+          <input id="frontlefttop"
+               class="form-control"
+               [ngModel]="resultlefttop.front"
+               (ngModelChange)="resultlefttop.front=+$event; onChangeResults(true, resultlefttop)">
+        </div>
+        <div class="col-xs-4 left" >
+          <label for="sublefttop">{{ 'currentresult.sub' | translate }}</label>
+          <input id="sublefttop"
+               class="form-control"
+               [ngModel]="resultlefttop.sub"
+               (ngModelChange)="resultlefttop.sub=$event; onChangeResults(true, resultlefttop)">
+        </div>
+        <div class="col-xs-3 right " >
+          <label for="resultlefttopshow">{{ 'currentresult.result' | translate }}</label>
+          <input id="resultlefttopshow"
+                 class="form-control"
+                 [disabled]="true"
+                 [ngModel]="resultlefttop.result">
+        </div>
+      </div>
+      <div *ngIf="currentcompetition !== compDecibelShow">
+      <div class="col-xs-5 right " >
         <label for="resultlefttop">{{ 'currentresult.db' | translate }}</label>
         <input id="resultlefttop"
                class="form-control"
                [ngModel]="resultlefttop.result"
-               (ngModelChange)="resultlefttop.result=+$event; onChangeResults(true)">
+               (ngModelChange)="resultlefttop.result=+$event; onChangeResults(true, resultlefttop)">
       </div>
       <div class="col-xs-1 center-block"></div>
-      <div class="col-xs-5 left">
+      <div class="col-xs-5 left" *ngIf="currentcompetition == compDecibelLeague">
         <label for="outputlefttop">{{ 'currentresult.wt' | translate }}</label>
         <input id="outputlefttop"
                class="form-control"
                [ngModel]="resultlefttop.outputpower"
-               (ngModelChange)="resultlefttop.outputpower=$event; onChangeResults(true)">
+               (ngModelChange)="resultlefttop.outputpower=$event; onChangeResults(true, resultlefttop)">
       </div>
+    </div>
       <input type="checkbox" class="form-check-input" [ngModel]="resultlefttop.checkin"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="resultlefttop.checkin=$event; onChangeResults(true)">
+             (ngModelChange)="resultlefttop.checkin=$event; onChangeResults(true, resultlefttop)">
     </div>
     <div class="row">
-      <div class="col-xs-5 right">
-        <label for="resultleft2">{{ 'currentresult.db' | translate }}</label>
-        <input id="resultleft2"
+      <div *ngIf="currentcompetition == compDecibelShow">
+        <div class="col-xs-4 right ">
+          <label for="frontleftleft2">{{ 'currentresult.front' | translate }}</label>
+          <input id="frontleftleft2"
+                 class="form-control"
+                 [ngModel]="resultleft2.front"
+                 (ngModelChange)="resultleft2.front=+$event; onChangeResults(true, resultleft2)">
+        </div>
+        <div class="col-xs-4 left" >
+          <label for="subleftleft2">{{ 'currentresult.sub' | translate }}</label>
+          <input id="subleftleft2"
+                 class="form-control"
+                 [ngModel]="resultleft2.sub"
+                 (ngModelChange)="resultleft2.sub=$event; onChangeResults(true, resultleft2)">
+        </div>
+        <div class="col-xs-3 right " >
+          <label for="resultleftleft2show">{{ 'currentresult.result' | translate }}</label>
+          <input id="resultleftleft2show"
+                 class="form-control disabled"
+                 [disabled]="true"
+                 [ngModel]="resultleft2.result">
+        </div>
+      </div>
+      <div *ngIf="currentcompetition !== compDecibelShow">
+        <div class="col-xs-5 right">
+          <label for="resultleft2">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultleft2"
                class="form-control"
                [ngModel]="resultleft2.result"
-               (ngModelChange)="resultleft2.result=+$event; onChangeResults(true)">
-      </div>
-      <div class="col-xs-1 center-block"></div>
-      <div class="col-xs-5 left">
-        <label for="outputleft2">{{ 'currentresult.wt' | translate }}</label>
-        <input id="outputleft2"
+               (ngModelChange)="resultleft2.result=+$event; onChangeResults(true, resultleft2)">
+        </div>
+        <div class="col-xs-1 center-block"></div>
+        <div class="col-xs-5 left" *ngIf="currentcompetition == compDecibelLeague">
+          <label for="outputleft2">{{ 'currentresult.wt' | translate }}</label>
+          <input id="outputleft2"
                class="form-control"
                [ngModel]="resultleft2.outputpower"
-               (ngModelChange)="resultleft2.outputpower=$event; onChangeResults(true)">
+               (ngModelChange)="resultleft2.outputpower=$event; onChangeResults(true, resultleft2)">
+        </div>
       </div>
       <input type="checkbox" class="form-check-input" [ngModel]="resultleft2.checkin"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="resultleft2.checkin=$event; onChangeResults(true)">
+             (ngModelChange)="resultleft2.checkin=$event; onChangeResults(true, resultleft2)">
     </div>
     <div><h4>{{ 'currentresult.finishresult' | translate }}</h4></div>
     <div class="row">
-      <div class="col-xs-5 right">
-        <label for="resultcurrentresultleft">{{ 'currentresult.db' | translate }}</label>
-        <input id="resultcurrentresultleft" class="form-control" [ngModel]="currentresultleft.result" [disabled]="true">
+      <div *ngIf="currentcompetition == compDecibelShow">
+        <div class="col-xs-4 right">
+          <label for="fronttcurrentresultleftshow">{{ 'currentresult.front' | translate }}</label>
+          <input id="fronttcurrentresultleftshow" class="form-control" [ngModel]="currentresultleft.front" [disabled]="true">
+        </div>
+        <div class="col-xs-4 right">
+          <label for="subtcurrentresultleftshow">{{ 'currentresult.sub' | translate }}</label>
+          <input id="subtcurrentresultleftshow" class="form-control" [ngModel]="currentresultleft.sub" [disabled]="true">
+        </div>
+        <div class="col-xs-4 right">
+          <label for="resultcurrentresultleftshow">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultcurrentresultleftshow" class="form-control" [ngModel]="currentresultleft.result" [disabled]="true">
+        </div>
       </div>
-      <div class="col-xs-1 center-block"></div>
-      <div class="col-xs-5 left">
-        <label for="outputcurrentresultleft">{{ 'currentresult.wt' | translate }}</label>
-        <input id="outputcurrentresultleft" class="form-control" [ngModel]="currentresultleft.outputpower" [disabled]="true">
+      <div *ngIf="currentcompetition !== compDecibelShow">
+        <div class="col-xs-5 right">
+          <label for="resultcurrentresultleft">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultcurrentresultleft" class="form-control" [ngModel]="currentresultleft.result" [disabled]="true">
+        </div>
+        <div class="col-xs-1 center-block"></div>
+        <div class="col-xs-5 left" *ngIf="currentcompetition == compDecibelLeague">
+          <label for="outputcurrentresultleft">{{ 'currentresult.wt' | translate }}</label>
+          <input id="outputcurrentresultleft" class="form-control" [ngModel]="currentresultleft.outputpower" [disabled]="true">
+        </div>
       </div>
     </div>
 
@@ -134,55 +199,121 @@
       </select>
     </div>
     <div class="row">
-      <div class="col-xs-5 right ">
-        <label for="resultrighttop">{{ 'currentresult.db' | translate }}</label>
-        <input id="resultrighttop"
+      <div *ngIf="currentcompetition == compDecibelShow">
+        <div class="col-xs-4 right ">
+          <label for="frontrighttop">{{ 'currentresult.front' | translate }}</label>
+          <input id="frontrighttop"
+                 class="form-control"
+                 [ngModel]="resultrighttop.front"
+                 (ngModelChange)="resultrighttop.front=+$event; onChangeResults(false, resultrighttop)">
+        </div>
+        <div class="col-xs-4 left" >
+          <label for="subrighttop">{{ 'currentresult.sub' | translate }}</label>
+          <input id="subrighttop"
+                 class="form-control"
+                 [ngModel]="resultrighttop.sub"
+                 (ngModelChange)="resultrighttop.sub=$event; onChangeResults(false, resultrighttop)">
+        </div>
+        <div class="col-xs-3 right " >
+          <label for="resultrighttopshow">{{ 'currentresult.result' | translate }}</label>
+          <input id="resultrighttopshow"
+                 class="form-control disabled"
+                 [disabled]="true"
+                 [ngModel]="resultrighttop.result">
+        </div>
+      </div>
+      <div *ngIf="currentcompetition !== compDecibelShow">
+        <div class="col-xs-5 right ">
+          <label for="resultrighttop">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultrighttop"
                class="form-control"
                [ngModel]="resultrighttop.result"
-               (ngModelChange)="resultrighttop.result=+$event; onChangeResults(false)">
-      </div>
-      <div class="col-xs-1 center-block"></div>
-      <div class="col-xs-5 left">
-        <label for="outputrighttop">{{ 'currentresult.wt' | translate }}</label>
-        <input id="outputrighttop"
+               (ngModelChange)="resultrighttop.result=+$event; onChangeResults(false, resultrighttop)">
+        </div>
+        <div class="col-xs-1 center-block"></div>
+        <div class="col-xs-5 left" *ngIf="currentcompetition == compDecibelLeague">
+          <label for="outputrighttop">{{ 'currentresult.wt' | translate }}</label>
+          <input id="outputrighttop"
                class="form-control"
                [ngModel]="resultrighttop.outputpower"
-               (ngModelChange)="resultrighttop.outputpower=$event; onChangeResults(false)">
+               (ngModelChange)="resultrighttop.outputpower=$event; onChangeResults(false, resultrighttop)">
+        </div>
       </div>
       <input type="checkbox" class="form-check-input" [ngModel]="resultrighttop.checkin"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="resultrighttop.checkin=$event; onChangeResults(false)">
+             (ngModelChange)="resultrighttop.checkin=$event; onChangeResults(false, resultrighttop)">
     </div>
     <div class="row">
-      <div class="col-xs-5 right">
-        <label for="resultright2">{{ 'currentresult.db' | translate }}</label>
-        <input id="resultright2"
+      <div *ngIf="currentcompetition == compDecibelShow">
+        <div class="col-xs-4 right ">
+          <label for="frontright2">{{ 'currentresult.front' | translate }}</label>
+          <input id="frontright2"
+                 class="form-control"
+                 [ngModel]="resultright2.front"
+                 (ngModelChange)="resultright2.front=+$event; onChangeResults(false, resultright2)">
+        </div>
+        <div class="col-xs-4 left" >
+          <label for="subright2">{{ 'currentresult.sub' | translate }}</label>
+          <input id="subright2"
+                 class="form-control"
+                 [ngModel]="resultright2.sub"
+                 (ngModelChange)="resultright2.sub=$event; onChangeResults(false, resultright2)">
+        </div>
+        <div class="col-xs-3 right " >
+          <label for="resultright2show">{{ 'currentresult.result' | translate }}</label>
+          <input id="resultright2show"
+                 class="form-control disabled"
+                 [disabled]="true"
+                 [ngModel]="resultright2.result">
+        </div>
+      </div>
+      <div *ngIf="currentcompetition !== compDecibelShow">
+        <div class="col-xs-5 right">
+          <label for="resultright2">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultright2"
                class="form-control"
                [ngModel]="resultright2.result"
-               (ngModelChange)="resultright2.result=+$event; onChangeResults(false)">
-      </div>
-      <div class="col-xs-1 center-block"></div>
-      <div class="col-xs-5 left">
-        <label for="outputright2">{{ 'currentresult.wt' | translate }}</label>
-        <input id="outputright2"
+               (ngModelChange)="resultright2.result=+$event; onChangeResults(false, resultright2)">
+        </div>
+        <div class="col-xs-1 center-block"></div>
+        <div class="col-xs-5 left" *ngIf="currentcompetition == compDecibelLeague">
+          <label for="outputright2">{{ 'currentresult.wt' | translate }}</label>
+          <input id="outputright2"
                class="form-control"
                [ngModel]="resultright2.outputpower"
-               (ngModelChange)="resultright2.outputpower=$event; onChangeResults(false)">
+               (ngModelChange)="resultright2.outputpower=$event; onChangeResults(false, resultright2)">
+        </div>
       </div>
       <input type="checkbox" class="form-check-input" [ngModel]="resultright2.checkin"
              [ngModelOptions]="{standalone: true}"
-             (ngModelChange)="resultright2.checkin=$event; onChangeResults(false)">
+             (ngModelChange)="resultright2.checkin=$event; onChangeResults(false, resultright2)">
     </div>
     <div><h4>{{ 'currentresult.finishresult' | translate }}</h4></div>
     <div class="row">
-      <div class="col-xs-5 right">
-        <label for="resultcurrentresultright">{{ 'currentresult.db' | translate }}</label>
-        <input id="resultcurrentresultright" class="form-control" [ngModel]="currentresultright.result" [disabled]="true">
+      <div *ngIf="currentcompetition == compDecibelShow">
+        <div class="col-xs-4 right">
+          <label for="fronttcurrentresultrightshow">{{ 'currentresult.front' | translate }}</label>
+          <input id="fronttcurrentresultrightshow" class="form-control" [ngModel]="currentresultright.front" [disabled]="true">
+        </div>
+        <div class="col-xs-4 right">
+          <label for="subtcurrentresultrightshow">{{ 'currentresult.sub' | translate }}</label>
+          <input id="subtcurrentresultrightshow" class="form-control" [ngModel]="currentresultright.sub" [disabled]="true">
+        </div>
+        <div class="col-xs-4 right">
+          <label for="resultcurrentresultrightshow">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultcurrentresultrightshow" class="form-control" [ngModel]="currentresultright.result" [disabled]="true">
+        </div>
       </div>
-      <div class="col-xs-1 center-block"></div>
-      <div class="col-xs-5 left">
-        <label for="outputcurrentresultright">{{ 'currentresult.wt' | translate }}</label>
-        <input id="outputcurrentresultright" class="form-control" [ngModel]="currentresultright.outputpower" [disabled]="true">
+      <div *ngIf="currentcompetition !== compDecibelShow">
+        <div class="col-xs-5 right">
+          <label for="resultcurrentresultright">{{ 'currentresult.db' | translate }}</label>
+          <input id="resultcurrentresultright" class="form-control" [ngModel]="currentresultright.result" [disabled]="true">
+        </div>
+        <div class="col-xs-1 center-block"></div>
+        <div class="col-xs-5 left" *ngIf="currentcompetition == compDecibelLeague">
+          <label for="outputcurrentresultright">{{ 'currentresult.wt' | translate }}</label>
+          <input id="outputcurrentresultright" class="form-control" [ngModel]="currentresultright.outputpower" [disabled]="true">
+        </div>
       </div>
     </div>
   </div>

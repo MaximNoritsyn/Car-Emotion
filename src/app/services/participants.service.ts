@@ -2,13 +2,11 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AngularFireDatabase} from 'angularfire2/database';
-import {AuthService} from './auth.service';
 
 import {car, competition, competitionclass, datacar, participant, person, result} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
 import {CurrentdataService} from './currentdata.service';
 import {FactoryService} from './factory.service';
-import {elementDef} from '@angular/core/src/view';
 
 
 @Injectable()
@@ -222,6 +220,7 @@ export class ParticipantsService {
       if (_participant.resultDecibelShow !== undefined && _participant.resultDecibelShow.id !== "") {
         _result.id = _participant.resultDecibelShow.id;
       }
+      //_result.result = _result.front + _result.sub;
     }
     else if (_competition == competition.DecibelLeague) {
       _result.class = _participant.classDecibelLeague;

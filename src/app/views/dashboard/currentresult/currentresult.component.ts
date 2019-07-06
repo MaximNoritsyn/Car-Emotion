@@ -43,6 +43,11 @@ export class CurrentresultComponent implements OnInit {
   public currentresultleft: result;
   public currentresultright: result;
 
+  compDecibelLeague: competition = competition.DecibelLeague;
+  compDecibelVolume: competition = competition.DecibelVolume;
+  compDecibelShow: competition = competition.DecibelShow;
+  compDecibelbattle: competition = competition.DecibelBattleQualy;
+
   /*public currentresult1: result;
   public currentresult2: result;
   public clearparticipant: participant;
@@ -168,7 +173,7 @@ export class CurrentresultComponent implements OnInit {
       }
       return false
       })
-    })
+    });
     this.arrayCompetitonsClass = [];
     this._EventsService.getCompetitionClassesObs().subscribe(items => {
       this.arrayCompetitonsClass = this._EventsService.getCompetitionClasses(items, this.currentcompetition);
@@ -205,16 +210,16 @@ export class CurrentresultComponent implements OnInit {
     let _clearclass = this._FactoryService.getNewCompetitionClass();
     {
       if (this.currentcompetition == competition.DecibelShow) {
-        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelShow
+        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelShow;
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelShow
       } else if (this.currentcompetition == competition.DecibelVolume) {
-        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelVolume
+        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelVolume;
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelVolume
       } else if (this.currentcompetition == competition.DecibelBattleQualy) {
-        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelBattle
+        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelBattle;
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelBattle
       } else if (this.currentcompetition == competition.DecibelLeague) {
-        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelLeague
+        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelLeague;
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelLeague
       }
     }
@@ -228,6 +233,12 @@ export class CurrentresultComponent implements OnInit {
     this.currentresultright = this._FactoryService.getNewResult(this.currentcompetition, this.classright);
     this.resultrighttop = this._FactoryService.getNewResult(this.currentcompetition, this.classright);
     this.resultright2 = this._FactoryService.getNewResult(this.currentcompetition, this.classright);
+    if (this.currentevent !== undefined) {
+      this.participantleft = this._FactoryService.getnewParticipantclass(this.currentevent.id);
+      this.ControlLeft.reset();
+      this.participantright = this._FactoryService.getnewParticipantclass(this.currentevent.id);
+      this.ControlRight.reset();
+    }
     /*this._CurrentdataService.setCurrentParticipant1(this.clearparticipant);
     this._CurrentdataService.setCurrentParticipant2(this.clearparticipant);
     this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
@@ -283,32 +294,46 @@ export class CurrentresultComponent implements OnInit {
     }
   }
 
-  onChangeResults(left: boolean) {
-    
+  onChangeResults(left: boolean, _result: result) {
+    if (this.currentcompetition == competition.DecibelShow) {
+      _result.result = +_result.sub + _result.front;
+    }
     if (left) {
       if (this.resultlefttop.checkin && this.resultleft2.checkin) {
         this.currentresultleft.result = Math.max(this.resultlefttop.result, this.resultleft2.result);
         if (this.currentresultleft.result == this.resultlefttop.result && this.resultlefttop.checkin) {
           this.currentresultleft.outputpower = this.resultlefttop.outputpower;
+          this.currentresultleft.front = this.resultlefttop.front;
+          this.currentresultleft.sub = this.resultlefttop.sub;
         }
         else if (this.currentresultleft.result == this.resultleft2.result && this.resultleft2.checkin) {
           this.currentresultleft.outputpower = this.resultleft2.outputpower;
+          this.currentresultleft.front = this.resultleft2.front;
+          this.currentresultleft.sub = this.resultleft2.sub;
         }
         else {
           this.currentresultleft.outputpower = "";
+          this.currentresultleft.front = 0;
+          this.currentresultleft.sub = 0;
         }
       }
       else if (this.resultlefttop.checkin) {
         this.currentresultleft.result = this.resultlefttop.result;
         this.currentresultleft.outputpower = this.resultlefttop.outputpower;
+        this.currentresultleft.front = this.resultlefttop.front;
+        this.currentresultleft.sub = this.resultlefttop.sub;
       }
       else if (this.resultleft2.checkin) {
         this.currentresultleft.result = this.resultleft2.result;
         this.currentresultleft.outputpower = this.resultleft2.outputpower;
+        this.currentresultleft.front = this.resultleft2.front;
+        this.currentresultleft.sub = this.resultleft2.sub;
       }
       else {
         this.currentresultleft.result = 0;
         this.currentresultleft.outputpower = "";
+        this.currentresultleft.front = 0;
+        this.currentresultleft.sub = 0;
       }
     }
     else {
@@ -316,25 +341,37 @@ export class CurrentresultComponent implements OnInit {
         this.currentresultright.result = Math.max(this.resultrighttop.result, this.resultright2.result);
         if (this.currentresultright.result == this.resultrighttop.result && this.resultrighttop.checkin) {
           this.currentresultright.outputpower = this.resultrighttop.outputpower;
+          this.currentresultright.front = this.resultrighttop.front;
+          this.currentresultright.sub = this.resultrighttop.sub;
         }
         else if (this.currentresultright.result == this.resultright2.result && this.resultright2.checkin) {
           this.currentresultright.outputpower = this.resultright2.outputpower;
+          this.currentresultright.front = this.resultright2.front;
+          this.currentresultright.sub = this.resultright2.sub;
         }
         else {
           this.currentresultright.outputpower = "";
+          this.currentresultright.front = 0;
+          this.currentresultright.sub = 0;
         }
       }
       else if (this.resultrighttop.checkin) {
         this.currentresultright.result = this.resultrighttop.result;
         this.currentresultright.outputpower = this.resultrighttop.outputpower;
+        this.currentresultright.front = this.resultrighttop.front;
+        this.currentresultright.sub = this.resultrighttop.sub;
       }
       else if (this.resultright2.checkin) {
         this.currentresultright.result = this.resultright2.result;
         this.currentresultright.outputpower = this.resultright2.outputpower;
+        this.currentresultright.front = this.resultright2.front;
+        this.currentresultright.sub = this.resultright2.sub;
       }
       else {
         this.currentresultright.result = 0;
         this.currentresultright.outputpower = "";
+        this.currentresultright.front = 0;
+        this.currentresultright.sub = 0;
       }
     }
 

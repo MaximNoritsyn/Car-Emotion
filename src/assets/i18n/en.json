@@ -93,6 +93,8 @@
     "class": "Class",
     "db": "Db",
     "wt": "Wt",
+    "front": "Front",
+    "sub": "Sub",
     "finishresult": "Final result"
   },
   "results": {
