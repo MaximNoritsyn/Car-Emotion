@@ -88,7 +88,21 @@
     "checkin": "Заліковий",
     "saveresults": "Зберегти результати",
     "clearresults": "Нові учасники",
-    "header": "Поточний майданчик змагань"
+    "header": "Поточний майданчик змагань",
+    "event": "Захід",
+    "class": "Класс",
+    "db": "Db",
+    "wt": "Wt",
+    "finishresult": "Заліковий результат"
+  },
+  "results": {
+    "place": "Місце",
+    "name": "Им'я",
+    "Familyname": "Призвіще",
+    "result": "db",
+    "outputpower": "wt",
+    "point": "Бали",
+    "team": "Команда"
   },
   "persons": {
   "persons": "Учасники"

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ParticipantsService} from '../../services/participants.service';
 import {CurrentdataService} from '../../services/currentdata.service';
-import {FactoryService} from '../../services/factory.service';
+import {arraycompetition, FactoryService} from '../../services/factory.service';
 import {EventsService} from '../../services/events.service';
-import {event} from '../../interfaces/app.interface';
+import {competition, competitionclass, event, person, result} from '../../interfaces/app.interface';
 import {Observable} from 'rxjs/Rx';
 
 @Component({
@@ -16,7 +16,14 @@ import {Observable} from 'rxjs/Rx';
 export class ResultsComponent implements OnInit {
 
   currentevent: event;
-  private eventObs: Observable<event>;
+  results: result[];
+  classes: competitionclass[];
+  arraycompetition: competition[] = arraycompetition;
+
+  compDecibelLeague: competition = competition.DecibelLeague;
+  compDecibelVolume: competition = competition.DecibelVolume;
+  compDecibelShow: competition = competition.DecibelShow;
+  compDecibelbattle: competition = competition.DecibelBattleQualy;
 
   constructor(public _auth: AuthService,
               private router: Router,
@@ -27,8 +34,28 @@ export class ResultsComponent implements OnInit {
               private _EventsService: EventsService) { }
 
   ngOnInit() {
+    this._EventsService.getCompetitionClassesObs().subscribe(items =>
+    this.classes = items)
+    this._CurrentdataService.getEvent().subscribe(item => {
+      this.currentevent = item;
+      this._ParticipantsService.getResultssOfEvent(this.currentevent.id)
+        .subscribe(items => this.results = items)
+
+    });
 
 
+  }
+
+  getCompetitionClasses(localcompetition: competition): competitionclass[] {
+    return this._EventsService.getCompetitionClasses(this.classes, localcompetition);
+  }
+
+  getResultsOfClass(idclass:string) {
+    return this._ParticipantsService.getResultsClasses(this.results, idclass);
+  }
+
+  getPerson(id:string):Observable<person>{
+    return this._ParticipantsService.getPerson(id);
   }
 
 }

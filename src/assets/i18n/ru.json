@@ -88,7 +88,21 @@
     "checkin": "Зачётный",
     "saveresults": "Сохранить результаты",
     "clearresults": "Новые участники",
-    "header": "Текущая площадка соревнований"
+    "header": "Текущая площадка соревнований",
+    "event": "Мероприятие",
+    "class": "Класс",
+    "db": "Db",
+    "wt": "Wt",
+    "finishresult": "Итоговый результат"
+  },
+  "results": {
+    "place": "Место",
+    "name": "Имя",
+    "Familyname": "Фамилия",
+    "result": "db",
+    "outputpower": "wt",
+    "point": "Балы",
+    "team": "Команда"
   },
   "persons": {
     "persons": "Участники"

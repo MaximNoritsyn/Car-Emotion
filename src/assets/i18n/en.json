@@ -88,7 +88,21 @@
     "checkin": "Check in",
     "saveresults": "Save results",
     "clearresults": "New participants",
-    "header": "Current competition area"
+    "header": "Current competition area",
+    "event": "Event",
+    "class": "Class",
+    "db": "Db",
+    "wt": "Wt",
+    "finishresult": "Final result"
+  },
+  "results": {
+    "place": "Place",
+    "name": "Name",
+    "Familyname": "Second name",
+    "result": "db",
+    "outputpower": "wt",
+    "point": "Point",
+    "team": "Team"
   },
   "persons": {
     "persons": "Participants"

@@ -81,12 +81,17 @@ export interface result{
   id: string,
   competition: competition,
   class: competitionclass,
+  person: person;
+  team: team;
   idclass: string,
   idperson: string,
   idparticipant: string,
   idcar: string,
   idevent: string,
   idseason: string,
+  idteam: string,
+  front: number,
+  sub: number,
   result: number,
   outputpower: string,
   checkin: boolean,
@@ -112,7 +117,8 @@ export interface result{
 
 export enum competition{
   DecibelLeague = "Decibel league",
-  DecibelBattle = "Decibel battle",
+  DecibelBattleQualy = "Decibel battle qualy",
+  DecibelBattlePlayOff= "Decibel battle play off",
   DecibelVolume = "Decibel volume",
   DecibelShow = "Decibel show"
 }

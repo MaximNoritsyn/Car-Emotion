@@ -51,7 +51,7 @@ export class ParticipantComponent implements OnInit {
   ngOnInit() {
 
     this._EventsService.getCompetitionClassesObs().subscribe(items => {
-      this.arrayclassDecibelBattle = this._EventsService.getCompetitionClasses(items, competition.DecibelBattle);
+      this.arrayclassDecibelBattle = this._EventsService.getCompetitionClasses(items, competition.DecibelBattleQualy);
       this.arrayclassDecibelLeague = this._EventsService.getCompetitionClasses(items, competition.DecibelLeague);
       this.arrayclassDecibelShow = this._EventsService.getCompetitionClasses(items, competition.DecibelShow);
       this.arrayclassDecibelVolume = this._EventsService.getCompetitionClasses(items, competition.DecibelVolume);

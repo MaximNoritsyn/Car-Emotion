@@ -23,11 +23,11 @@ export class CurrentresultComponent implements OnInit {
   public arrayCompetitons: competition[] = arraycompetition;
   public arrayCompetitonsClass: competitionclass[];
 
-  private participants: participant[] = [];
-  private FilteredPersonsLeft: Observable<participant[]>;
-  private FilteredPersonsRight: Observable<participant[]>;
-  private ControlLeft = new FormControl();
-  private ControlRight = new FormControl();
+  public participants: participant[] = [];
+  public FilteredPersonsLeft: Observable<participant[]>;
+  public FilteredPersonsRight: Observable<participant[]>;
+  public ControlLeft = new FormControl();
+  public ControlRight = new FormControl();
 
   public participantleft: participant;
   public participantright: participant;
@@ -160,7 +160,7 @@ export class CurrentresultComponent implements OnInit {
       else if (this.currentcompetition == competition.DecibelVolume) {
         return participants.isDecibelVolume
       }
-      else if (this.currentcompetition == competition.DecibelBattle) {
+      else if (this.currentcompetition == competition.DecibelBattleQualy) {
         return participants.isDecibelBattle
       }
       else if (this.currentcompetition == competition.DecibelLeague) {
@@ -210,7 +210,7 @@ export class CurrentresultComponent implements OnInit {
       } else if (this.currentcompetition == competition.DecibelVolume) {
         this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelVolume
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelVolume
-      } else if (this.currentcompetition == competition.DecibelBattle) {
+      } else if (this.currentcompetition == competition.DecibelBattleQualy) {
         this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelBattle
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelBattle
       } else if (this.currentcompetition == competition.DecibelLeague) {
@@ -255,7 +255,7 @@ export class CurrentresultComponent implements OnInit {
       if (this.currentcompetition == competition.DecibelLeague) {
         this.participantleft.classDecibelLeague = _event;
       }
-      else if (this.currentcompetition == competition.DecibelBattle) {
+      else if (this.currentcompetition == competition.DecibelBattleQualy) {
         this.participantleft.classDecibelBattle = _event;
       }
       else if (this.currentcompetition == competition.DecibelVolume) {
@@ -270,7 +270,7 @@ export class CurrentresultComponent implements OnInit {
       if (this.currentcompetition == competition.DecibelLeague) {
         this.participantright.classDecibelLeague = _event;
       }
-      else if (this.currentcompetition == competition.DecibelBattle) {
+      else if (this.currentcompetition == competition.DecibelBattleQualy) {
         this.participantright.classDecibelBattle = _event;
       }
       else if (this.currentcompetition == competition.DecibelVolume) {

@@ -20,8 +20,8 @@ arraystatuses.push(eventstatus.finish);
 arraystatuses.push(eventstatus.canceled);
 
 export const arraycompetition: competition[] = [];
-arraycompetition.push(competition.DecibelBattle);
 arraycompetition.push(competition.DecibelLeague);
+arraycompetition.push(competition.DecibelBattleQualy);
 arraycompetition.push(competition.DecibelShow);
 arraycompetition.push(competition.DecibelVolume);
 
@@ -142,10 +142,14 @@ export class FactoryService {
 
   getNewResult(_competition: competition, _competitionclass: competitionclass) {
     let _competitionclassempty = this.getNewCompetitionClass();
+    let _person = this.getnewPerson();
+    let _team = this.getNewTeam();
     return new class implements result {
       id: string = "";
-      competition: competition;
+      competition: competition = _competition;
       class: competitionclass = _competitionclass == undefined ? _competitionclassempty : _competitionclass;
+      person: person = _person;
+      team: team = _team;
       idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
       idperson: string = "";
       idparticipant: string = "";
@@ -153,6 +157,8 @@ export class FactoryService {
       idevent: string = "";
       idseason: string = "";
       idteam: string = "";
+      front: number = 0;
+      sub: number = 0;
       result: number = 0;
       outputpower: string = "";
       checkin: boolean = true;
