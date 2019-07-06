@@ -104,6 +104,9 @@
     "result": "db",
     "outputpower": "wt",
     "point": "Балы",
+    "front": "Фронт",
+    "sub": "Саб",
+    "resultshow": "Результат",
     "team": "Команда"
   },
   "persons": {

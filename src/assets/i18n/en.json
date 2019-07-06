@@ -104,6 +104,9 @@
     "result": "db",
     "outputpower": "wt",
     "point": "Point",
+    "front": "Front",
+    "sub": "Sub",
+    "resultshow": "Result",
     "team": "Team"
   },
   "persons": {
