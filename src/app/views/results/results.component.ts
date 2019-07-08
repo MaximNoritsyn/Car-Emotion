@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ParticipantsService} from '../../services/participants.service';
 import {CurrentdataService} from '../../services/currentdata.service';
 import {arraycompetition, FactoryService} from '../../services/factory.service';
@@ -36,12 +36,24 @@ export class ResultsComponent implements OnInit {
   ngOnInit() {
     this._EventsService.getCompetitionClassesObs().subscribe(items =>
     this.classes = items)
-    this._CurrentdataService.getEvent().subscribe(item => {
-      this.currentevent = item;
-      this._ParticipantsService.getResultssOfEvent(this.currentevent.id)
-        .subscribe(items => this.results = items)
+    this.activeRoute.params.subscribe((params: Params) => {
+        if (params["idevent"] !== null && params["idevent"] !== undefined) {
+          this._EventsService.getEvent(params["idevent"]).subscribe(item => {
+            this.currentevent = item;
+            this._ParticipantsService.getResultssOfEvent(this.currentevent.id)
+              .subscribe(items => this.results = items)
+          });
+        }
+        else {
+          this._CurrentdataService.getEvent().subscribe(item => {
+            this.currentevent = item;
+            this._ParticipantsService.getResultssOfEvent(this.currentevent.id)
+              .subscribe(items => this.results = items)
+          });
+        }
+      }
+    )
 
-    });
 
 
   }

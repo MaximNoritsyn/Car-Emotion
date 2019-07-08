@@ -30,7 +30,7 @@ const appRoutes: Routes = [
         [{path: '', component: ParticipantsComponent}]},
     {path: 'participant/:idevent/:idParticipant', component: ParticipantComponent},
     {path: 'participant/:idevent', component: ParticipantComponent},
-    {path: 'points/:idevent', component: ResultsComponent},
+    {path: 'results/:idevent', component: ResultsComponent},
     {path: 'team/:idseason/:idteam', component: TeamComponent},
     {path: 'team/:idseason', component: TeamComponent},
     {path: 'person/:idperson', component: PersonComponent},
