@@ -297,6 +297,7 @@ export class CurrentresultComponent implements OnInit {
   onChangeResults(left: boolean, _result: result) {
     if (this.currentcompetition == competition.DecibelShow) {
       _result.result = +_result.sub + _result.front;
+      _result.result.toFixed(2);
     }
     if (left) {
       if (this.resultlefttop.checkin && this.resultleft2.checkin) {

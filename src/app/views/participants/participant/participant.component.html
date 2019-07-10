@@ -280,7 +280,10 @@
     </div>
   </div>
   <hr>
-  <div class="form-group" *ngIf="_auth.isAdministrator()">
+  <div class="row form-group" *ngIf="_auth.isAdministrator()">
+    <button class="btn btn-block"  *ngIf="!currentParticipant.registered" (click)="enableEdit()">
+      {{ 'participant.edit' | translate }}
+    </button>
     <button class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="setParticipant()">
       {{ 'add' | translate }}
     </button>

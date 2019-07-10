@@ -31,6 +31,8 @@ export class ParticipantComponent implements OnInit {
   private carsControl = new FormControl();
   private cars: car[] = [];
 
+  public edit: boolean = false;
+
   private arrayclassDecibelLeague: competitionclass[];
   private arrayclassDecibelBattle: competitionclass[];
   private arrayclassDecibelShow: competitionclass[];
@@ -174,7 +176,7 @@ export class ParticipantComponent implements OnInit {
   }
 
   DisablePerson() {
-    return !(!this.currentParticipant.registered && this.newperson && this._auth.isAdministrator());
+    return !(!this.currentParticipant.registered && (this.newperson || this.edit) && this._auth.isAdministrator());
   }
 
   AllowSearchCar() {
@@ -193,6 +195,10 @@ export class ParticipantComponent implements OnInit {
     if (this.newperson) {
       this.currentParticipant.person.id = "";
     }
+  }
+
+  enableEdit() {
+    this.edit = true;
   }
 
   changeNewCar() {
