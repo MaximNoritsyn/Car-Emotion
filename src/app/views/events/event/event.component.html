@@ -55,7 +55,6 @@
         <option *ngFor="let key of arraystatuseslocal" [ngValue]="key">
           {{ 'eventsstatus.' + eventstatus[key] | translate }}
         </option>
-
       </select>
     </div>
   </div>
@@ -75,7 +74,8 @@
     </button>
   </div>
   </div>
-  <hr>
 </form>
+
+<hr>
 
 <router-outlet></router-outlet>

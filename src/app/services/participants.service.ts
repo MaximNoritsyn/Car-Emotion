@@ -340,16 +340,16 @@ export class ParticipantsService {
 
   updateResultInParticipant(_competition: competition, idevent: string, idparticipant: string, gettenpoint: result) {
     if (_competition == competition.DecibelVolume) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelVolume': gettenpoint});
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelVolume': gettenpoint});
     }
     else if (_competition == competition.DecibelBattleQualy) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelBattle': gettenpoint});
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelBattle': gettenpoint});
     }
     else if (_competition == competition.DecibelLeague) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelLeague': gettenpoint});
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelLeague': gettenpoint});
     }
     else if (_competition == competition.DecibelShow) {
-      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'pointDecibelShow': gettenpoint});
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelShow': gettenpoint});
     }
   }
 
@@ -374,6 +374,50 @@ export class ParticipantsService {
       return results.filter(option => option.idclass == idlocalclass && option.place !== 99).sort(this.bestresult)
     }
     return []
+  }
+
+  countAllResults() {
+    this.totalsortResult(competition.DecibelVolume);
+    this.totalsortResult(competition.DecibelLeague);
+    this.totalsortResult(competition.DecibelShow);
+  }
+
+  totalsortResult(_competition: competition): void {
+
+    this._db.list<result>('/results/',
+      ref => (ref.orderByChild('competition').equalTo(_competition)
+      )).query.once("value").then( resultsval =>
+      {
+        let arrayResults: result[] = [];
+        resultsval.forEach(resultval => {
+            let curresult: result = resultval.val() as result;
+            arrayResults.push(curresult);
+          }
+        );
+
+        arrayResults.sort(this.bestresult);
+
+        let totalplace: number = 1;
+
+        arrayResults.forEach(item => {
+          if (item.result == 0) {
+            item.place =  999;
+          }
+          else {
+            item.totalplace = totalplace;
+            totalplace++;
+          }
+          this._db.object('/results/' + item.id).update({"totalplace": item.totalplace});
+          if (item.idparticipant == '' || item.idparticipant == undefined) {
+
+          }
+          else {
+            this.updateResultInParticipant(item.competition, item.idevent, item.idparticipant, item);
+          }
+        })
+
+      }
+    )
   }
 
   /*  setResult(_result: result, _participant: participant, _class: competitionclass) {

@@ -96,7 +96,8 @@ export interface result{
   outputpower: string,
   checkin: boolean,
   point: number,
-  place: number
+  place: number,
+  totalplace: number
 }
 
 /*export interface point {

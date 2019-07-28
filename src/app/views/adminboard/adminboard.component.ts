@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {competitionclass, season} from '../../interfaces/app.interface';
 import {EventsService} from '../../services/events.service'
 import {Translate_Service} from '../../services/translate.service';
+import {ParticipantsService} from '../../services/participants.service';
 
 @Component({
   selector: 'app-adminboard',
@@ -18,12 +19,17 @@ export class AdminboardComponent implements OnInit {
   constructor(public _auth: AuthService,
               private router: Router,
               private _EventsService: EventsService,
+              private _ParticipantsService: ParticipantsService,
               private translate_service: Translate_Service) { }
 
   ngOnInit() {
     this._EventsService.getCompetitionClassesObs().subscribe(items => this.CompetitionClasses = items)
     this._EventsService.getSeasons().subscribe(items => this.seasons = items);
 
+  }
+
+  countAllResults() {
+    this._ParticipantsService.countAllResults();
   }
 
 }

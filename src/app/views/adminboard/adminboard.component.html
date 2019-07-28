@@ -8,6 +8,13 @@
        [routerLink]="['/season/' + season.id]"
     >{{season.name}}</a>
   </div>
+  <div class="row">
+    <div class="form-group col-xs-4">
+      <button class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="countAllResults()">
+        {{ 'competitionclasses.countallresults' | translate }}
+      </button>
+    </div>
+  </div>
 <div>
   <H4>{{ 'competitionclasses.classes' | translate }}</H4>
   <div class="list-group">
