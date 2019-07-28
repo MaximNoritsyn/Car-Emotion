@@ -176,7 +176,7 @@ export class ParticipantComponent implements OnInit {
   }
 
   DisablePerson() {
-    return !(!this.currentParticipant.registered && (this.newperson || this.edit) && this._auth.isAdministrator());
+    return !((this.newperson || this.isNew() || this.edit) && this._auth.isAdministrator());
   }
 
   AllowSearchCar() {
@@ -188,7 +188,7 @@ export class ParticipantComponent implements OnInit {
   }
 
   DisableFields() {
-    return !(!this.currentParticipant.registered && this._auth.isAdministrator());
+    return !((this.isNew() || this.edit) && this._auth.isAdministrator());
   }
 
   changeNewPerson() {
@@ -198,7 +198,11 @@ export class ParticipantComponent implements OnInit {
   }
 
   enableEdit() {
-    this.edit = true;
+    this.edit = !this.edit;
+  }
+
+  isNew(): boolean {
+    return this.currentParticipant.id == "";
   }
 
   changeNewCar() {

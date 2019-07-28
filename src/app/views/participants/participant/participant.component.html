@@ -42,7 +42,7 @@
              required>
   </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="_auth.isAdministrator()">
   <div class="form-group col-xs-6">
     <label for="email">{{ 'participant.email' | translate }}</label>
     <input class="form-control" [disabled]="DisablePerson()"
@@ -273,19 +273,23 @@
     <div class="form-check">
       <label class="form-check-label" for="isDecibelShow">
         <input type="checkbox" class="form-check-input" id="registered" name="currentParticipant.registered"
-               [disabled]="!_auth.isAdministrator()"
+               [disabled]="DisableFields()"
                [(ngModel)]="currentParticipant.registered">
         {{ 'participant.registered' | translate }}
       </label>
     </div>
   </div>
   <hr>
-  <div class="row form-group" *ngIf="_auth.isAdministrator()">
-    <button class="btn btn-block"  *ngIf="!currentParticipant.registered" (click)="enableEdit()">
-      {{ 'participant.edit' | translate }}
-    </button>
-    <button class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="setParticipant()">
-      {{ 'add' | translate }}
-    </button>
+  <div class="row" *ngIf="_auth.isAdministrator()">
+    <div class="form-group col-xs-6">
+      <button class="btn btn-primary btn-block col-xs-6"  style="margin-bottom: 20px" (click)="setParticipant()">
+        {{ 'participant.add' | translate }}
+      </button>
+    </div>
+    <div class="form-group col-xs-3">
+      <button class="btn btn-block" *ngIf="!isNew()" (click)="enableEdit()">
+        {{ 'participant.edit' | translate }}
+      </button>
+    </div>
   </div>
 </form>
