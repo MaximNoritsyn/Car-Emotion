@@ -333,7 +333,6 @@ export class ParticipantsService {
             this.updateResultInParticipant(item.competition, item.idevent, item.idparticipant, item);
           }
         })
-
       }
     )
   }
@@ -358,6 +357,12 @@ export class ParticipantsService {
       ref => (ref.orderByChild('idevent').equalTo(idevent)
       )).valueChanges();
   }
+  getResultssOfCompetition(_competition: competition) {
+    return this._db.list<result>('/results/',
+      ref => (ref.orderByChild('competition').equalTo(_competition)
+      )).valueChanges();
+  }
+
 
   bestresult( a: result, b: result) {
     if ( a.result > b.result ){

@@ -42,6 +42,7 @@ import { CurrentresultComponent } from './views/dashboard/currentresult/currentr
 import {FactoryService} from './services/factory.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { TotalresultsComponent } from './views/results/totalresults/totalresults.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -64,7 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PersonComponent,
     ResultsComponent,
     ResultComponent,
-    CurrentresultComponent
+    CurrentresultComponent,
+    TotalresultsComponent
   ],
   imports: [
     BrowserModule,

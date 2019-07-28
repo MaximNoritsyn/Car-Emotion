@@ -18,7 +18,6 @@ export class ResultsComponent implements OnInit {
   currentevent: event;
   results: result[];
   classes: competitionclass[];
-  arraycompetition: competition[] = arraycompetition;
 
   compDecibelLeague: competition = competition.DecibelLeague;
   compDecibelVolume: competition = competition.DecibelVolume;
@@ -35,7 +34,7 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {
     this._EventsService.getCompetitionClassesObs().subscribe(items =>
-    this.classes = items)
+    this.classes = items);
     this.activeRoute.params.subscribe((params: Params) => {
         if (params["idevent"] !== null && params["idevent"] !== undefined) {
           this._EventsService.getEvent(params["idevent"]).subscribe(item => {
@@ -64,10 +63,6 @@ export class ResultsComponent implements OnInit {
 
   getResultsOfClass(idclass:string) {
     return this._ParticipantsService.getResultsClasses(this.results, idclass);
-  }
-
-  getPerson(id:string):Observable<person>{
-    return this._ParticipantsService.getPerson(id);
   }
 
 }
