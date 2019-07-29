@@ -28,6 +28,9 @@
         <li>
           <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
         </li>
+        <li>
+          <a [routerLink]="['/totalresults/DecibelLeague']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.totalresults' | translate }}</a>
+        </li>
         <li *ngIf="_auth.isAdministrator()">
           <a [routerLink]="['/currentresultboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.currentresultboard' | translate }}</a>
         </li>

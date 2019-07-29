@@ -27,8 +27,8 @@ export class TotalresultsComponent implements OnInit {
   ngOnInit() {
     this.activeRoute.params.subscribe((params: Params) => {
       if (params["competetion"] == "DecibelLeague") {
-        /*this._ParticipantsService.getResultssOfCompetition(competition.DecibelLeague)._subscribe(items =>
-          this.results = items)*/
+        this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelLeague).subscribe(items =>
+          this.results = items);
 
       }
     }

@@ -357,10 +357,8 @@ export class ParticipantsService {
       ref => (ref.orderByChild('idevent').equalTo(idevent)
       )).valueChanges();
   }
-  getResultssOfCompetition(_competition: competition) {
-    return this._db.list<result>('/results/',
-      ref => (ref.orderByChild('competition').equalTo(_competition)
-      )).valueChanges();
+  getBestResultssOfCompetition(_competition: competition) {
+    return this._db.list<result>('/totalresults/' + _competition.toString()).valueChanges();
   }
 
 
@@ -389,11 +387,14 @@ export class ParticipantsService {
 
   totalsortResult(_competition: competition): void {
 
+    this._db.list<result>('/totalresults/' + _competition.toString()).remove()
+      .then( none =>
     this._db.list<result>('/results/',
       ref => (ref.orderByChild('competition').equalTo(_competition)
       )).query.once("value").then( resultsval =>
       {
         let arrayResults: result[] = [];
+        let bestResults: result[] = [];
         resultsval.forEach(resultval => {
             let curresult: result = resultval.val() as result;
             arrayResults.push(curresult);
@@ -405,23 +406,25 @@ export class ParticipantsService {
         let totalplace: number = 1;
 
         arrayResults.forEach(item => {
-          if (item.result == 0) {
-            item.place =  999;
+          //console.log((bestResults.findIndex(itembestresult => itembestresult.idperson === item.idperson) == -1));
+          if (bestResults.findIndex(itembestresult => itembestresult.idperson === item.idperson) < 0) {
+            if (item.result == 0) {
+              item.totalplace = 999;
+            } else {
+              console.log(bestResults.findIndex(itembestresult => itembestresult.idperson === item.idperson));
+              item.totalplace = totalplace;
+              bestResults.push(item);
+              totalplace++;
+            }
           }
-          else {
-            item.totalplace = totalplace;
-            totalplace++;
-          }
-          this._db.object('/results/' + item.id).update({"totalplace": item.totalplace});
-          if (item.idparticipant == '' || item.idparticipant == undefined) {
-
-          }
-          else {
-            this.updateResultInParticipant(item.competition, item.idevent, item.idparticipant, item);
-          }
-        })
+        });
+        bestResults.forEach(item => {
+          this._db.list<result>('/totalresults/' + _competition.toString()).push(item);
+        }
+        )
 
       }
+    )
     )
   }
 

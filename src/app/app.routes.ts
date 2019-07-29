@@ -15,6 +15,7 @@ import {CurrentresultComponent} from './views/dashboard/currentresult/currentres
 import {DashboardComponent} from './views/dashboard/dashboard.component';
 import { AuthGuard } from './services/auth-guard.service';
 import {ResultsComponent} from './views/results/results.component';
+import {TotalresultsComponent} from './views/results/totalresults/totalresults.component';
 
 
 const appRoutes: Routes = [
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     {path: 'team/:idseason', component: TeamComponent},
     {path: 'person/:idperson', component: PersonComponent},
     {path: 'persons', component: PersonsComponent},
+    {path: 'totalresults/:competetion', component: TotalresultsComponent},
     {path: '', component: DashboardComponent, children:
       [{path: '', component: ResultsComponent}]},
     {path: 'currentresultboard', canActivate: [AuthGuard], component: CurrentresultComponent}
