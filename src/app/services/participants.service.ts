@@ -269,8 +269,6 @@ export class ParticipantsService {
 
     _result.idparticipant = _participant.id;
 
-    console.log(_result);
-
     if (_result.id == "") {
       let _key = this._db.list<result>('/results/').push(_result).key;
       this._db.object<result>('/results/' + _key).update({"id": _key});

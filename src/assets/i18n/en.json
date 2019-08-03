@@ -114,7 +114,9 @@
     "front": "Front",
     "sub": "Sub",
     "resultshow": "Result",
-    "team": "Team"
+    "team": "Team",
+    "city": "City",
+    "date": "Date",
   },
   "persons": {
     "persons": "Participants",

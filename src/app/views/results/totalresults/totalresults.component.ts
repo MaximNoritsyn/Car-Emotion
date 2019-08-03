@@ -16,6 +16,8 @@ export class TotalresultsComponent implements OnInit {
 
   results: result[];
 
+  currentCompetition: competition;
+
   constructor(public _auth: AuthService,
               private router: Router,
               private activeRoute: ActivatedRoute,
@@ -29,20 +31,23 @@ export class TotalresultsComponent implements OnInit {
       if (params["competetion"] == "DecibelLeague") {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelLeague).subscribe(items =>
           this.results = items);
+        this.currentCompetition = competition.DecibelLeague;
       }
       else if (params["competetion"] == "DecibelShow") {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelShow).subscribe(items =>
           this.results = items);
+        this.currentCompetition = competition.DecibelShow;
       }
       else if (params["competetion"] == "DecibelVolume") {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelVolume).subscribe(items =>
           this.results = items);
+        this.currentCompetition = competition.DecibelVolume;
       }
     }
   )
   }
 
-  cityres(_result: result) {
+  cityres(_result: result): string {
     if (_result.event == undefined) {
       return ""
     }
@@ -51,13 +56,21 @@ export class TotalresultsComponent implements OnInit {
     }
   }
 
-  dateres(_result: result) {
+  dateres(_result: result): string {
     if (_result.event == undefined) {
       return ""
     }
     else {
-      return _result.event.startDate
+      return _result.event.startDate.toString();
     }
+  }
+
+  isDecibelLeague() {
+    return this.currentCompetition == competition.DecibelLeague;
+  }
+
+  isDecibelShow() {
+    return this.currentCompetition == competition.DecibelShow;
   }
 
 }
