@@ -29,7 +29,14 @@ export class TotalresultsComponent implements OnInit {
       if (params["competetion"] == "DecibelLeague") {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelLeague).subscribe(items =>
           this.results = items);
-
+      }
+      else if (params["competetion"] == "DecibelShow") {
+        this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelShow).subscribe(items =>
+          this.results = items);
+      }
+      else if (params["competetion"] == "DecibelVolume") {
+        this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelVolume).subscribe(items =>
+          this.results = items);
       }
     }
   )

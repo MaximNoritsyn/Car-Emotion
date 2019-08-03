@@ -406,12 +406,10 @@ export class ParticipantsService {
         let totalplace: number = 1;
 
         arrayResults.forEach(item => {
-          //console.log((bestResults.findIndex(itembestresult => itembestresult.idperson === item.idperson) == -1));
           if (bestResults.findIndex(itembestresult => itembestresult.idperson === item.idperson) < 0) {
             if (item.result == 0) {
               item.totalplace = 999;
             } else {
-              console.log(bestResults.findIndex(itembestresult => itembestresult.idperson === item.idperson));
               item.totalplace = totalplace;
               bestResults.push(item);
               totalplace++;

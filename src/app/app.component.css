@@ -1,0 +1,9 @@
+.sub-menu {
+  position: absolute;
+  display: none;
+}
+
+
+li:hover .sub-menu {
+  display: block;
+}

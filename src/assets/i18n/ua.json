@@ -8,7 +8,11 @@
     "AdminBoard": "Налаштування чемпіонату",
     "currentresultboard": "Майданчик результатов",
     "Login": "Увійти",
-    "Logout": "Вийти"
+    "Logout": "Вийти",
+    "totalresults": "Найкарщі результати",
+    "totalresultsleague": "Decibel League",
+    "totalresultsshow": "Decibel Show",
+    "totalresultsvolume": "Decibel Volume"
   },
   "login": {
     "email": "Електрона адреса",

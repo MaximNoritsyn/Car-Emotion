@@ -8,7 +8,11 @@
     "AdminBoard": "Настройки чемпионата",
     "currentresultboard": "Площадка результатов",
     "Login": "Войти",
-    "Logout": "Выйти"
+    "Logout": "Выйти",
+    "totalresults": "Лучшие результаты",
+    "totalresultsleague": "Decibel League",
+    "totalresultsshow": "Decibel Show",
+    "totalresultsvolume": "Decibel Volume"
   },
   "login": {
     "email": "Электронный адрес",

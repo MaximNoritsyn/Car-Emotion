@@ -8,7 +8,11 @@
     "AdminBoard": "Setting of Champ",
     "currentresultboard": "Results area",
     "Login": "Login",
-    "Logout": "Logout"
+    "Logout": "Logout",
+    "totalresults": "The best results",
+    "totalresultsleague": "Decibel League",
+    "totalresultsshow": "Decibel Show",
+    "totalresultsvolume": "Decibel Volume"
   },
   "login": {
     "email": "Email address",

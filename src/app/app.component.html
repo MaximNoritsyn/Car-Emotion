@@ -28,9 +28,21 @@
         <li>
           <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.Events' | translate }}</a>
         </li>
-        <li>
-          <a [routerLink]="['/totalresults/DecibelLeague']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.totalresults' | translate }}</a>
-        </li>
+          <li>
+            <a>{{ 'navigate.totalresults' | translate }}</a>
+            <ul class="sub-menu navbar-default nav nav-tabs">
+              <li >
+                <a [routerLink]="['/totalresults/DecibelLeague']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.totalresultsleague' | translate }}</a>
+              </li>
+              <li >
+                <a [routerLink]="['/totalresults/DecibelShow']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.totalresultsshow' | translate }}</a>
+              </li>
+              <li >
+                <a [routerLink]="['/totalresults/DecibelVolume']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.totalresultsvolume' | translate }}</a>
+              </li>
+            </ul>
+          </li>
+
         <li *ngIf="_auth.isAdministrator()">
           <a [routerLink]="['/currentresultboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">{{ 'navigate.currentresultboard' | translate }}</a>
         </li>
@@ -46,6 +58,7 @@
       </ul>
     </div>
   </nav>
+  <hr>
   <router-outlet></router-outlet>
 </div>
 </html>
