@@ -376,8 +376,20 @@ export class ParticipantsService {
       ref => (ref.orderByChild('idevent').equalTo(idevent)
       )).valueChanges();
   }
+
+  getResultssOfPerson(idperson: string) {
+    return this._db.list<result>('/results/',
+      ref => (ref.orderByChild('idperson').equalTo(idperson)
+      )).valueChanges();
+  }
+
   getBestResultssOfCompetition(_competition: competition) {
     return this._db.list<result>('/totalresults/' + _competition.toString()).valueChanges();
+  }
+
+  getBestResultsOfPerson(_competition: competition, idperson: string) {
+    return this._db.list<result>('/totalresults/' + _competition.toString(),
+      ref => (ref.orderByChild('idperson').equalTo(idperson))).valueChanges();
   }
 
 

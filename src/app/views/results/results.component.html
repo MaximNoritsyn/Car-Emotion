@@ -14,7 +14,7 @@
           <div class="col-xs-3 left">{{'results.team' | translate}}</div>
         </a>
         <a *ngFor="let currentresult of getResultsOfClass(currentclass.id)"
-           class="list-group-item list-group-item-action h5">
+           class="list-group-item list-group-item-action h5" [routerLink]="['/person/' + currentresult.idperson]">
           <div class="col-xs-1 left">{{currentresult.place}}</div>
           <div class="col-xs-3 left">
             <a>

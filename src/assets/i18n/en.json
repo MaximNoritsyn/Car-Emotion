@@ -117,6 +117,13 @@
     "team": "Team"
   },
   "persons": {
-    "persons": "Participants"
+    "persons": "Participants",
+    "bestdecibelLeague": "Best in Decibel League",
+    "bestdecibelVolume": "Best in Decibel Volume",
+    "bestdecibelShow": "Best in Decibel Show",
+    "bestdecibelPlace": "Place",
+    "bestdecibelResult": "Result",
+    "bestdecibelCity": "City of record",
+    "bestdecibelDate": "Date of record"
   }
 }

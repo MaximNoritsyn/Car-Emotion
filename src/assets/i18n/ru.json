@@ -117,7 +117,14 @@
     "team": "Команда"
   },
   "persons": {
-    "persons": "Участники"
+    "persons": "Участники",
+    "bestdecibelLeague": "Лучший Decibel League",
+    "bestdecibelVolume": "Лучший Decibel Volume",
+    "bestdecibelShow": "Лучший Decibel Show",
+    "bestdecibelPlace": "Место",
+    "bestdecibelResult": "Результат",
+    "bestdecibelCity": "Город рекорда",
+    "bestdecibelDate": "Дата рекорда"
   }
 
 }

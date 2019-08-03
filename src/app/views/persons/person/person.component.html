@@ -26,3 +26,84 @@
            required>
   </div>
 </div>
+<div class="form-group col-xs-4" *ngIf="deisplayBestLeague()">
+  <h2>{{ 'persons.bestdecibelLeague' | translate }}</h2>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelPlace' | translate }}</label>
+      <h1> {{bestDecibelleague.totalplace}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelResult' | translate }}</label>
+      <h2> {{bestDecibelleague.result}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelCity' | translate }}</label>
+      <h4> {{bestDecibelleague.event.location}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelDate' | translate }}</label>
+      <h4> {{bestDecibelleague.event.startDate}}</h4>
+    </div>
+  </div>
+</div>
+<div class="form-group col-xs-4" *ngIf="deisplayBestVolume()">
+  <h2>{{ 'persons.bestdecibelVolume' | translate }}</h2>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelPlace' | translate }}</label>
+      <h1> {{bestDecibelVolume.totalplace}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelResult' | translate }}</label>
+      <h2> {{bestDecibelVolume.result}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelCity' | translate }}</label>
+      <h4> {{bestDecibelVolume.event.location}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelDate' | translate }}</label>
+      <h4> {{bestDecibelVolume.event.startDate}}</h4>
+    </div>
+  </div>
+</div>
+<div class="form-group col-xs-4" *ngIf="deisplayBestShow()">
+  <h2>{{ 'persons.bestdecibelShow' | translate }}</h2>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelPlace' | translate }}</label>
+      <h1> {{bestDecibelShow.totalplace}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelResult' | translate }}</label>
+      <h2> {{bestDecibelShow.result}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelCity' | translate }}</label>
+      <h4> {{bestDecibelShow.event.location}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group">
+      <label>{{ 'persons.bestdecibelDate' | translate }}</label>
+      <h4> {{bestDecibelShow.event.startDate}}</h4>
+    </div>
+  </div>
+</div>

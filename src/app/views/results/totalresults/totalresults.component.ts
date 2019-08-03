@@ -42,4 +42,22 @@ export class TotalresultsComponent implements OnInit {
   )
   }
 
+  cityres(_result: result) {
+    if (_result.event == undefined) {
+      return ""
+    }
+    else {
+      return _result.event.location
+    }
+  }
+
+  dateres(_result: result) {
+    if (_result.event == undefined) {
+      return ""
+    }
+    else {
+      return _result.event.startDate
+    }
+  }
+
 }
