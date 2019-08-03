@@ -164,7 +164,8 @@ export class FactoryService {
       checkin: boolean = true;
       point: number = 0;
       place: number = 99;
-      totalplace: number = 999
+      totalplace: number = 999;
+      event: event = undefined
     }
 
     }

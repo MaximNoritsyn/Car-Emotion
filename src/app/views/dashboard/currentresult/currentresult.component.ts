@@ -247,9 +247,9 @@ export class CurrentresultComponent implements OnInit {
   }
 
   SaveResults() {
-    this._ParticipantsService.generateResult(this.currentresultleft, this.participantleft, this.currentcompetition);
+    this._ParticipantsService.generateResult(this.currentresultleft, this.participantleft, this.currentcompetition, this.currentevent);
 
-    this._ParticipantsService.generateResult(this.currentresultright, this.participantright, this.currentcompetition);
+    this._ParticipantsService.generateResult(this.currentresultright, this.participantright, this.currentcompetition, this.currentevent);
 
     /*if(this.currentresult1.front > 0) {
       this._ParticipantsService.setResult(this.currentresult1, this.currentparticipant1[0], this.currentcompetitionclass);

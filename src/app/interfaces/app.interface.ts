@@ -97,7 +97,8 @@ export interface result{
   checkin: boolean,
   point: number,
   place: number,
-  totalplace: number
+  totalplace: number,
+  event: event
 }
 
 /*export interface point {

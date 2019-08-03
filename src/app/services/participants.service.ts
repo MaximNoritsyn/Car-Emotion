@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AngularFireDatabase} from 'angularfire2/database';
 
-import {car, competition, competitionclass, datacar, participant, person, result} from '../interfaces/app.interface';
+import {car, competition, competitionclass, datacar, event, participant, person, result} from '../interfaces/app.interface';
 import {EventsService} from './events.service';
 import {CurrentdataService} from './currentdata.service';
 import {FactoryService} from './factory.service';
@@ -51,13 +51,15 @@ export class ParticipantsService {
     let localevent = this._EventsService.getEventOnce(this.idcurrentevent);
     localevent.then(item => {
       if (item.val() !== null) {
-        _participant.datainput = item.val().startDate;
-      this.writePerson(_participant);}
+        let _event: event = item.val();
+        _participant.datainput = _event.startDate;
+        this.writePerson(_participant, _event);
+      }
     }
     )
   }
 
-  writePerson(_participant: participant) {
+  writePerson(_participant: participant, localevent: event) {
     let _key = _participant.person.id;
     if (_key == '') {
       _participant.person.datainput = _participant.datainput;
@@ -65,7 +67,7 @@ export class ParticipantsService {
         this._db.object('/persons/' + _key).update({"id": _key});
         _participant.person.id = _key;
         //this.writeCar(_participant)
-        this.writeParticipant(_participant);
+        this.writeParticipant(_participant, localevent);
         }
     else {
       if (_participant.person.datainput <= _participant.datainput) {
@@ -73,54 +75,54 @@ export class ParticipantsService {
         this._db.object('/persons/' + _key).update(_participant.person)
       }
       //this.writeCar(_participant);
-      this.writeParticipant(_participant);
+      this.writeParticipant(_participant, localevent);
     }
 
   }
 
-  writeCar(_participant: participant) {
+  writeCar(_participant: participant, localevent: event) {
     let _key = _participant.car.id;
     if (_participant.car.model == '') {
-      this.writeParticipant(_participant);
+      this.writeParticipant(_participant, localevent);
     }
     else if (_key == '') {
       _key = this._db.list('/cars/').push(_participant.car).key;
           this._db.object('/cars/' + _key).update({"id": _key});
           _participant.car.id = _key;
-          this.writeDataCar(_participant);
+          this.writeDataCar(_participant, localevent);
           }
     else {
       this._db.object('/cars/' + _key).update(_participant.car);
-      this.writeDataCar(_participant);
+      this.writeDataCar(_participant, localevent);
     }
   }
 
-  writeDataCar(_participant: participant) {
+  writeDataCar(_participant: participant, localevent: event) {
     _participant.datacar.idevent = _participant.idevent;
     let _key = _participant.datacar.id;
     if (_key == '') {
       _key = this._db.list('/cars/' + _participant.car.id + '/datacar/').push(_participant.datacar).key;
           this._db.object('/cars/' + _participant.car.id + '/datacar/' + _key).update({"id": _key});
           _participant.datacar.id = _key;
-          this.writeParticipant(_participant);
+          this.writeParticipant(_participant, localevent);
           }
     else {
       this._db.object('/cars/' + _participant.car.id + '/datacar/' + _key).update(_participant.datacar);
-      this.writeParticipant(_participant);
+      this.writeParticipant(_participant, localevent);
     }
   }
 
-  writeParticipant(_participant: participant) {
+  writeParticipant(_participant: participant, localevent: event) {
     let _key = _participant.id;
     if (_key == "") {
       let _key = this._db.list('/participants/' + this.idcurrentevent + '/all/').push(_participant).key;
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _key).update({"id": _key});
       _participant.id = _key;
-      this.generateResultsForParticipants(_participant);
+      this.generateResultsForParticipants(_participant, localevent);
     }
     else {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _key).update(_participant);
-      this.generateResultsForParticipants(_participant);
+      this.generateResultsForParticipants(_participant, localevent);
     }
 
   }
@@ -149,26 +151,39 @@ export class ParticipantsService {
     return this._db.list<datacar>('/cars/'+ idcar + '/datacar').query.once("value")
   }
 
-  generateResultsForParticipants(_participant: participant) {
+  generateResultsForParticipants(_participant: participant, localevent: event) {
+
     if (_participant.registered) {
-      if (_participant.isDecibelShow && _participant.resultDecibelShow == undefined) {
-        let _result = this._FactoryService.getNewResult(competition.DecibelShow, _participant.classDecibelShow);
-        this.generateResult(_result, _participant, competition.DecibelShow);
+      if (_participant.isDecibelShow) {
+        let  _result = _participant.resultDecibelShow;
+        if (_participant.resultDecibelShow == undefined) {
+          _result = this._FactoryService.getNewResult(competition.DecibelShow, _participant.classDecibelShow);
+        }
+        this.generateResult(_result, _participant, competition.DecibelShow, localevent);
       }
 
-      if (_participant.isDecibelLeague && _participant.resultDecibelLeague == undefined) {
-        let _result = this._FactoryService.getNewResult(competition.DecibelLeague, _participant.classDecibelLeague);
-        this.generateResult(_result, _participant, competition.DecibelLeague);
+      if (_participant.isDecibelLeague) {
+        let _result = _participant.resultDecibelLeague;
+        if (_participant.resultDecibelLeague == undefined) {
+          let _result = this._FactoryService.getNewResult(competition.DecibelLeague, _participant.classDecibelLeague);
+        }
+        this.generateResult(_result, _participant, competition.DecibelLeague, localevent);
       }
 
-      if (_participant.isDecibelVolume && _participant.resultDecibelVolume == undefined) {
-        let _result = this._FactoryService.getNewResult(competition.DecibelVolume, _participant.classDecibelVolume);
-        this.generateResult(_result, _participant, competition.DecibelVolume);
+      if (_participant.isDecibelVolume) {
+        let _result = _participant.resultDecibelVolume;
+        if (_participant.resultDecibelVolume == undefined) {
+          let _result = this._FactoryService.getNewResult(competition.DecibelVolume, _participant.classDecibelVolume);
+        }
+        this.generateResult(_result, _participant, competition.DecibelVolume, localevent);
       }
 
       if (_participant.isDecibelBattle && _participant.resultDecibelBattle == undefined) {
-        let _result = this._FactoryService.getNewResult(competition.DecibelBattleQualy, _participant.classDecibelBattle);
-        this.generateResult(_result, _participant, competition.DecibelBattleQualy);
+        let _result = _participant.resultDecibelBattle;
+        if (_participant.resultDecibelBattle) {
+          let _result = this._FactoryService.getNewResult(competition.DecibelBattleQualy, _participant.classDecibelBattle);
+        }
+        this.generateResult(_result, _participant, competition.DecibelBattleQualy, localevent);
       }
     }
     else {
@@ -190,7 +205,7 @@ export class ParticipantsService {
     }
   }
 
-  generateResult(_result: result, _participant: participant, _competition: competition) {
+  generateResult(_result: result, _participant: participant, _competition: competition, localevent: event) {
     _result.idevent = _participant.idevent;
     _result.competition = _competition;
     if (_participant.car == undefined) {
@@ -206,6 +221,9 @@ export class ParticipantsService {
       _result.idteam = _participant.team.id;
       _result.team = _participant.team;
     }
+
+    _result.event = localevent;
+    _result.idseason = localevent.season.id;
 
     if (_participant.person == undefined) {
       _result.idperson = "";
@@ -251,6 +269,7 @@ export class ParticipantsService {
 
     _result.idparticipant = _participant.id;
 
+    console.log(_result);
 
     if (_result.id == "") {
       let _key = this._db.list<result>('/results/').push(_result).key;

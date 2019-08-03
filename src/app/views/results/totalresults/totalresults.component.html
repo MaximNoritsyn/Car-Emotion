@@ -9,6 +9,7 @@
       <div class="col-xs-3 left">{{'results.team' | translate}}</div>
     </a>
     <a *ngFor="let currentresult of results"
+       [routerLink]="['/person/' + currentresult.idperson]"
        class="list-group-item list-group-item-action h5">
       <div class="col-xs-1 left">{{currentresult.totalplace}}</div>
       <div class="col-xs-3 left">

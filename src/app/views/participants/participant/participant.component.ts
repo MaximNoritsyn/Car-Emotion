@@ -24,8 +24,8 @@ export class ParticipantComponent implements OnInit {
   private newcar: boolean = false;
 
   private persons: person[] = [];
-  private FilteredPersons: Observable<person[]>;
-  private personsControl = new FormControl();
+  public FilteredPersons: Observable<person[]>;
+  public personsControl = new FormControl();
 
   private FilteredCars: Observable<car[]>;
   private carsControl = new FormControl();
