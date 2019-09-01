@@ -16,10 +16,10 @@ export class ParticipantsService {
   private idcurrentevent: string;
 
   private currentPerson: Observable<person>;
-  private persons: Observable<person[]>;
+  public  persons: Observable<person[]>;
 
   private currentCar: Observable<car>;
-  private cars: Observable<car[]>;
+  public  cars: Observable<car[]>;
   private idcurrentCar: string;
 
   private currentdatacar: Observable<datacar>;
@@ -455,6 +455,116 @@ export class ParticipantsService {
     )
   }
 
+  controlresults(): void {
+
+    this._db.list<result>('/results/').query.once("value").then(
+      resultsval =>
+      {
+        let arrayResults: result[] = [];
+        resultsval.forEach(resultval => {
+          let curresult: result = resultval.val() as result;
+          arrayResults.push(curresult);
+        });
+
+        arrayResults.forEach(item => {
+
+          //if (item.idseason == "" && item.place !== 99) {
+            if (true) {
+
+            if (arrayResults.findIndex(itemresult =>
+              itemresult.competition == item.competition &&
+              itemresult.idperson === item.idperson &&
+              itemresult.idevent === item.idevent &&
+              itemresult.id !== item.id
+            ) >= 0)
+            {
+
+              let correctresult = arrayResults[arrayResults.findIndex(itemresult =>
+                itemresult.competition == item.competition &&
+                itemresult.idperson === item.idperson &&
+                itemresult.idevent === item.idevent &&
+                itemresult.id !== item.id
+              )];
+
+              //this._db.list<result>('/results/' + correctresult.id).remove();
+              console.log(item);
+              correctresult.front = item.front;
+              correctresult.sub = item.sub;
+              correctresult.result = item.result;
+              correctresult.outputpower = item.outputpower;
+
+              console.log(correctresult);
+              this._db.list<result>('/results/' + item.id).remove();
+              this._db.object<result>('/results/' + correctresult.id).update(correctresult);
+              if (correctresult.competition == competition.DecibelShow) {
+                this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+                  .update({'resultDecibelShow': correctresult})
+                  .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+              }
+              else if (correctresult.competition == competition.DecibelLeague) {
+                this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+                  .update({'resultDecibelLeague': correctresult})
+                  .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+              }
+              else if (correctresult.competition == competition.DecibelVolume) {
+                this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+                  .update({'resultDecibelVolume': correctresult})
+                  .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+              }
+              else if (correctresult.competition == competition.DecibelBattleQualy) {
+                this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+                  .update({'resultDecibelBattle': correctresult})
+                  .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+              }
+
+
+          }
+
+        }}
+        );
+      }
+    )
+  }
+
+  updateresultsbyevent(_event: event) {
+    this._db.list<result>('/results/',
+      ref => (ref.orderByChild('idevent').equalTo(_event.id)
+      )
+    ).query.once("value").then(resultsval => {
+
+      resultsval.forEach(resultval => {
+        let correctresult: result = resultval.val() as result;
+        correctresult.event = _event;
+        correctresult.idseason = _event.season.id;
+
+        console.log(correctresult);
+        this._db.object<result>('/results/' + correctresult.id).update(correctresult);
+        if (correctresult.competition == competition.DecibelShow) {
+          this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+            .update({'resultDecibelShow': correctresult})
+            .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+        }
+        else if (correctresult.competition == competition.DecibelLeague) {
+          this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+            .update({'resultDecibelLeague': correctresult})
+            .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+        }
+        else if (correctresult.competition == competition.DecibelVolume) {
+          this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+            .update({'resultDecibelVolume': correctresult})
+            .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+        }
+        else if (correctresult.competition == competition.DecibelBattleQualy) {
+          this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+            .update({'resultDecibelBattle': correctresult})
+            .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+        }
+      });
+
+      }
+
+    )
+  }
   /*  setResult(_result: result, _participant: participant, _class: competitionclass) {
 
     _result.idparticipant = _participant.id;

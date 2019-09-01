@@ -43,6 +43,10 @@ export class TotalresultsComponent implements OnInit {
           this.results = items);
         this.currentCompetition = competition.DecibelVolume;
       }
+      else {
+        this.results = [];
+        this.currentCompetition = competition.DecibelLeague;
+      }
     }
   )
   }
