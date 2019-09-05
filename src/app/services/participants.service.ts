@@ -455,7 +455,7 @@ export class ParticipantsService {
     )
   }
 
-  controlresults(): void {
+  duty_controlresults(): void {
 
     this._db.list<result>('/results/').query.once("value").then(
       resultsval =>
@@ -526,7 +526,7 @@ export class ParticipantsService {
     )
   }
 
-  updateresultsbyevent(_event: event) {
+  duty_updateresultsbyevent(_event: event) {
     this._db.list<result>('/results/',
       ref => (ref.orderByChild('idevent').equalTo(_event.id)
       )
