@@ -7,6 +7,7 @@ import {car, competition, competitionclass, datacar, event, participant, person,
 import {EventsService} from './events.service';
 import {CurrentdataService} from './currentdata.service';
 import {FactoryService} from './factory.service';
+import {AuthService} from './auth.service';
 
 
 @Injectable()
@@ -28,6 +29,7 @@ export class ParticipantsService {
 
   constructor(private _db: AngularFireDatabase,
               private router: Router,
+              private _Auth: AuthService,
               private _EventsService: EventsService,
               private _CurrentdataService: CurrentdataService,
               private _FactoryService: FactoryService) {
@@ -75,6 +77,7 @@ export class ParticipantsService {
         this._db.object('/persons/' + _key).update(_participant.person)
       }
       //this.writeCar(_participant);
+      //this._Auth.createUserAutomatic(_participant.person.email).then(user => console.log(user.user));
       this.writeParticipant(_participant, localevent);
     }
 

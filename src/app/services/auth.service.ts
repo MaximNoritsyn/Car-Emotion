@@ -4,11 +4,14 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {person, result} from '../interfaces/app.interface';
 
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
+  private person: person = null;
 
   getIdToken = () => {
     return new Promise((resolve, reject) => {
@@ -27,23 +30,25 @@ export class AuthService {
     });
   };
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private _firebaseAuth: AngularFireAuth,
+              private _db: AngularFireDatabase,
+              private router: Router) {
     this.user = _firebaseAuth.authState;
 
     this.user.subscribe(
       (user) => {
         if (user) {
           this.userDetails = user;
-          // console.log(this.userDetails);
-           // this.writeUserData(this.userDetails.uid, name, this.userDetails.email, this.userDetails.photoURL)
+          this._db.list<person>('/persons/',
+            ref => (ref.orderByChild('userUid').equalTo(this.userDetails.uid)
+            )).valueChanges().subscribe(person => this.person = person.length > 0 ? person[0] : null);
+          console.log(user);
         } else {
           this.userDetails = null;
         }
       }
     );
   }
-
-
 
 
   signInWithTwitter() {
@@ -76,8 +81,9 @@ export class AuthService {
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
-  registrateInRegular(email: string, password: string) {
-    return firebase.auth().createUserWithEmailAndPassword( email, password );
+  createUserAutomatic(email: string) {
+    //var pass = getASecureRandomPassword()
+    return firebase.auth().createUserWithEmailAndPassword( email, "L*]K&N2j\"n7(+FQ\\" );
   }
 
   isLoggedIn() {
@@ -85,11 +91,15 @@ export class AuthService {
   }
 
   isAdministrator() {
-    return !(this.userDetails == null )
+    return !(this.userDetails == null ) && (this.person == null)
   }
 
   logout() {
     this._firebaseAuth.auth.signOut()
     .then((res) => this.router.navigate(['/']));
+  }
+
+  test() {
+
   }
 }

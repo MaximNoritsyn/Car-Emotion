@@ -27,15 +27,17 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "angular2-fontawesome": "^0.9.3",
     "angularfire2": "^5.0.0-rc.9",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "core-js": "^2.4.1",
     "firebase": "^5.0.3",
+    "firebase-admin": "^8.7.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.0",
     "ng-pick-datetime": "^7.0.0",
     "rxjs": "^6.3.3",
     "rxjs-compat": "^6.0.0-rc.0",
     "tslib": "^1.9.0",
+    "viber-bot": "^1.0.14",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

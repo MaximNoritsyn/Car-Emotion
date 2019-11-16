@@ -74,6 +74,7 @@ export class FactoryService {
       name: string = "";
       datainput: Date = new Date();
       telephone: string = "";
+      userUid: string = "";
     }
   }
 
