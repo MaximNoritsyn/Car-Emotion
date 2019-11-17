@@ -9,7 +9,8 @@ export interface person {
   telephone: string,
   datainput: Date,
   city: string,
-  userUid: string
+  userUid: string,
+  login: string
 }
 
 //свой формат

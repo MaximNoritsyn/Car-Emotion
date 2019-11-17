@@ -4,7 +4,6 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ParticipantsService} from '../../../services/participants.service';
 import {competition, person, result} from '../../../interfaces/app.interface';
 import {FactoryService} from '../../../services/factory.service';
-import {__rest} from 'tslib';
 
 @Component({
   selector: 'app-person',
@@ -16,6 +15,9 @@ export class PersonComponent implements OnInit {
   public currentperson: person;
 
   public results: result[];
+
+  public editmode: boolean = false;
+  public password: string = "";
 
   public bestDecibelleague: result;
   public bestDecibelShow: result;
@@ -58,15 +60,27 @@ export class PersonComponent implements OnInit {
   }
 
   deisplayBestLeague() {
-    return this.bestDecibelleague !== undefined;
+    return this.bestDecibelleague !== undefined && !this.isEditMode();
   }
 
   deisplayBestVolume() {
-    return this.bestDecibelVolume !== undefined;
+    return this.bestDecibelVolume !== undefined && !this.isEditMode();
   }
 
   deisplayBestShow() {
-    return this.bestDecibelShow !== undefined;
+    return this.bestDecibelShow !== undefined && !this.isEditMode();
+  }
+
+  enableEditMode() {
+    this.editmode = true;
+  }
+
+  isEditMode(): boolean {
+    return this.editmode;
+  }
+
+  savePerson() {
+
   }
 
 }
