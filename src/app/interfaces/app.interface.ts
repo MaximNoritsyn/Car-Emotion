@@ -9,8 +9,8 @@ export interface person {
   telephone: string,
   datainput: Date,
   city: string,
+  insta: string,
   userUid: string,
-  login: string
 }
 
 //свой формат

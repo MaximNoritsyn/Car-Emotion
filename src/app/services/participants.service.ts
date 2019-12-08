@@ -83,6 +83,18 @@ export class ParticipantsService {
 
   }
 
+  setPerson(_person: person) {
+
+    let _key = _person.id;
+    if (_key == '') {
+      _key = this._db.list('/persons/').push(_person).key;
+      this._db.object('/persons/' + _key).update({"id": _key});
+    }
+    else {
+        this._db.object('/persons/' + _key).update(_person)
+    }
+  }
+
   writeCar(_participant: participant, localevent: event) {
     let _key = _participant.car.id;
     if (_participant.car.model == '') {

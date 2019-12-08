@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   car,
   competition,
@@ -31,7 +31,8 @@ arraycompetition.push(competition.DecibelVolume);
 
 export class FactoryService {
 
-  constructor() { }
+  constructor() {
+  }
 
 
   getnewParticipantclass(idcurrentevent: string): participant {
@@ -41,10 +42,10 @@ export class FactoryService {
     let _car: car = null;
     let _datacar = this.getnewDataCar();
     return new class implements participant {
-      id: string = "";
+      id: string = '';
       idevent: string = _idevent;
       person: person = _person;
-      imageperson: string = "";
+      imageperson: string = '';
       car: car = _car;
       datacar: datacar = _datacar;
       team: team;
@@ -67,78 +68,78 @@ export class FactoryService {
 
   getnewPerson() {
     return new class implements person {
-      city: string = "";
-      email: string = "";
-      familyName: string = "";
-      id: string = "";
-      name: string = "";
+      city: string = '';
+      email: string = '';
+      familyName: string = '';
+      id: string = '';
+      name: string = '';
       datainput: Date = new Date();
-      telephone: string = "";
-      userUid: string = "";
-      login: string = ""
+      telephone: string = '';
+      insta: string = '';
+      userUid: string = '';
     }
   }
 
   getnewCar() {
     return new class implements car {
-      id: string = "";
-      model: string = "";
-      alternateName: string = ""
+      id: string = '';
+      model: string = '';
+      alternateName: string = ''
     }
   }
 
   getnewDataCar() {
     return new class implements datacar {
-      id: string = "";
-      idevent: string = "";
-      image: string = "";
+      id: string = '';
+      idevent: string = '';
+      image: string = '';
       subsize: number = 0;
       subcount: number = 0;
-      nameamplifiler: string = "";
-      front: string = "";
+      nameamplifiler: string = '';
+      front: string = '';
       datainput: Date = new Date()
     }
   }
 
   getnewSeason(): season {
     return new class implements season {
-      id: string = "";
-      name: string = "";
+      id: string = '';
+      name: string = '';
       date: Date = new Date()
     }
   }
 
   getnewEvent(): event {
     return new class implements event {
-      id: string = "";
-      name: string = "";
+      id: string = '';
+      name: string = '';
       season: season = new class implements season {
-        id: string = "";
-        name: string = "";
+        id: string = '';
+        name: string = '';
         date: Date = new Date()
       };
-      location: string = "";
+      location: string = '';
       eventStatus: eventstatus = eventstatus.inplan;
-      organizer: string = "Car Emotion";
+      organizer: string = 'Car Emotion';
       startDate: Date = new Date()
     }
   }
 
   getNewCompetitionClass() {
     return new class implements competitionclass {
-      id: string = "";
+      id: string = '';
       competition: competition;
-      name: string = "";
+      name: string = '';
       actual: boolean = false;
-      comment: string = ""
+      comment: string = ''
     }
   }
 
   getNewTeam() {
     return new class implements team {
-      id: string = "";
-      legalName: string = "";
-      logo: string = ""
+      id: string = '';
+      legalName: string = '';
+      logo: string = ''
     }
   }
 
@@ -147,22 +148,22 @@ export class FactoryService {
     let _person = this.getnewPerson();
     let _team = this.getNewTeam();
     return new class implements result {
-      id: string = "";
+      id: string = '';
       competition: competition = _competition;
       class: competitionclass = _competitionclass == undefined ? _competitionclassempty : _competitionclass;
       person: person = _person;
       team: team = _team;
-      idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
-      idperson: string = "";
-      idparticipant: string = "";
-      idcar: string = "";
-      idevent: string = "";
-      idseason: string = "";
-      idteam: string = "";
+      idclass: string = _competitionclass == undefined ? '' : _competitionclass.id;
+      idperson: string = '';
+      idparticipant: string = '';
+      idcar: string = '';
+      idevent: string = '';
+      idseason: string = '';
+      idteam: string = '';
       front: number = 0;
       sub: number = 0;
       result: number = 0;
-      outputpower: string = "";
+      outputpower: string = '';
       checkin: boolean = true;
       point: number = 0;
       place: number = 99;
@@ -170,27 +171,26 @@ export class FactoryService {
       event: event = undefined
     }
 
-    }
-
-/*
-    getNewPoint(_competition: competition, _competitionclass: competitionclass) {
-      let newclass = this.getNewCompetitionClass();
-      return new class implements point {
-        id: string = "";
-        idparticipant: string = "";
-        idteam: string = "";
-        idperson: string = "";
-        idcar: string = "";
-        idevent: string = "";
-        idseason: string = "";
-        competition: competition = _competition;
-        idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
-        class: competitionclass = _competitionclass == undefined ? newclass : _competitionclass;
-        bestresult: number = 0;
-        point: number = 0;
-        place: number = 99
+  }
+  /*
+      getNewPoint(_competition: competition, _competitionclass: competitionclass) {
+        let newclass = this.getNewCompetitionClass();
+        return new class implements point {
+          id: string = "";
+          idparticipant: string = "";
+          idteam: string = "";
+          idperson: string = "";
+          idcar: string = "";
+          idevent: string = "";
+          idseason: string = "";
+          competition: competition = _competition;
+          idclass: string = _competitionclass == undefined ? "" : _competitionclass.id;
+          class: competitionclass = _competitionclass == undefined ? newclass : _competitionclass;
+          bestresult: number = 0;
+          point: number = 0;
+          place: number = 99
+        }
       }
-    }
-*/
+  */
 
 }

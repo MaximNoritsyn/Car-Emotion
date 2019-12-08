@@ -17,7 +17,8 @@ export class PersonComponent implements OnInit {
   public results: result[];
 
   public editmode: boolean = false;
-  public password: string = "";
+  public password: string = '';
+  public infotext: string = '';
 
   public bestDecibelleague: result;
   public bestDecibelShow: result;
@@ -81,6 +82,61 @@ export class PersonComponent implements OnInit {
 
   savePerson() {
 
+    if ((this.currentperson.userUid == null || this.currentperson.userUid == '')
+      && this.password !== "")
+    {
+      //than register
+      this.authService.createUserAutomatic(this.currentperson.email, this.password)
+        .then(user => {
+            console.log(user);
+            this.currentperson.userUid = user.user.uid;
+            this._ParticipantsService.setPerson(this.currentperson);
+            this.editmode = false;
+            this.infotext = 'Новий користувач був створений';
+          },
+          error => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(error);
+            if (errorCode == 'auth/weak-password') {
+              this.infotext = 'Пароль дуже простий';
+            } else {
+              this.infotext = errorMessage;
+            }
+          })
+    } else if (this.password !== '') {
+      //than register
+      this.authService.changePass(this.password)
+        .then(user => {
+            console.log(user);
+            this._ParticipantsService.setPerson(this.currentperson);
+            this.editmode = false;
+            this.infotext = 'Дані збережні';
+          },
+          error => {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(error);
+            if (errorCode == 'auth/weak-password') {
+              this.infotext = 'Пароль дуже простий';
+            } else {
+              this.infotext = errorMessage;
+            }
+          }
+      );
+      console.log("else if")
+
+    } else {
+      this._ParticipantsService.setPerson(this.currentperson);
+      this.editmode = false;
+      console.log("else")
+    }
+  }
+
+  isAdministrator() {
+    this.authService.isAdministrator();
   }
 
 }
