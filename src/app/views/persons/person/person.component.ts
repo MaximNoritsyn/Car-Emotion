@@ -88,7 +88,6 @@ export class PersonComponent implements OnInit {
       //than register
       this.authService.createUserAutomatic(this.currentperson.email, this.password)
         .then(user => {
-            console.log(user);
             this.currentperson.userUid = user.user.uid;
             this._ParticipantsService.setPerson(this.currentperson);
             this.editmode = false;
@@ -109,7 +108,6 @@ export class PersonComponent implements OnInit {
       //than register
       this.authService.changePass(this.password)
         .then(user => {
-            console.log(user);
             this._ParticipantsService.setPerson(this.currentperson);
             this.editmode = false;
             this.infotext = 'Дані збережні';
@@ -135,8 +133,19 @@ export class PersonComponent implements OnInit {
     }
   }
 
-  isAdministrator() {
-    this.authService.isAdministrator();
+  isAdministrator(): boolean {
+    return this.authService.isAdministrator();
+  }
+
+  canEdit(): boolean {
+    return (this.currentperson.id == this.authService.idPersonCurrentUser()) ||
+      this.authService.isAdministrator();
+  }
+
+  canSetPass(): boolean {
+      return ((this.currentperson.userUid == '' || this.currentperson.userUid == null) &&
+        this.authService.isAdministrator()) ||
+        (this.currentperson.userUid == this.authService.idPersonCurrentUser());
   }
 
 }

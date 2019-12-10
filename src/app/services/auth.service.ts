@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {person, result} from '../interfaces/app.interface';
 import * as admin from 'firebase-admin';
+import {FactoryService} from './factory.service';
 
 @Injectable()
 export class AuthService {
@@ -33,9 +34,11 @@ export class AuthService {
 
   constructor(private _firebaseAuth: AngularFireAuth,
               private _db: AngularFireDatabase,
-              private router: Router) {
+              private router: Router,
+              private _FactoryService: FactoryService) {
     this.user = _firebaseAuth.authState;
 
+    this.person = _FactoryService.getnewPerson();
     this.user.subscribe(
       (user) => {
         if (user) {
@@ -43,7 +46,6 @@ export class AuthService {
           this._db.list<person>('/persons/',
             ref => (ref.orderByChild('userUid').equalTo(this.userDetails.uid)
             )).valueChanges().subscribe(person => this.person = person.length > 0 ? person[0] : null);
-          console.log(user);
         } else {
           this.userDetails = null;
         }
@@ -60,6 +62,7 @@ export class AuthService {
   createUserAutomatic(email: string, pass: string) {
     //var pass = getASecureRandomPassword()
     return firebase.auth().createUserWithEmailAndPassword(email, pass);
+    //return admin.auth.
   }
 
   changePass(pass: string) {
@@ -81,4 +84,9 @@ export class AuthService {
     this._firebaseAuth.auth.signOut()
       .then((res) => this.router.navigate(['/']));
   }
+
+  idPersonCurrentUser() : string {
+    return this.person == null ? '' : this.person.id;
+  }
+
 }
