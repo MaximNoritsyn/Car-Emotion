@@ -32,4 +32,8 @@ export class AdminboardComponent implements OnInit {
     this._ParticipantsService.countAllResults();
   }
 
+  changeUid() {
+    this._ParticipantsService.inputUserUid();
+  }
+
 }

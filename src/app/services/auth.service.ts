@@ -44,11 +44,23 @@ export class AuthService {
       (user) => {
         if (user) {
           this.userDetails = user;
-          this._db.list<person>('/persons/',
-            ref => (ref.orderByChild('userUid').equalTo(this.userDetails.uid)
-            )).valueChanges().subscribe(person => this.person = person.length > 0 ? person[0] : null);
+          console.log(this.userDetails);
+          if (this.userDetails.phoneNumber == null) {
+            this.isAdmin = true;
+          }
+          else if (this.userDetails.phoneNumber !== null && this.userDetails.phoneNumber !== "") {
+
+            this._db.list<person>('/persons/',
+              ref => (ref.orderByChild('userUid').equalTo(this.userDetails.phoneNumber)
+              )).valueChanges().subscribe(person => this.person = person.length > 0 ? person[0] : null);
+
+          }
+          else {
+            this.person = null;
+          }
         } else {
           this.userDetails = null;
+          this.person = null;
         }
       }
     );
@@ -65,7 +77,7 @@ export class AuthService {
   }
 
   isAdministrator() {
-    return !(this.userDetails == null) && (this.person == null) && (this.isAdmin)
+    return !(this.userDetails == null) && (this.isAdmin)
   }
 
   logout() {
@@ -87,6 +99,24 @@ export class AuthService {
 
   setAdminStatus(result: boolean): void {
     this.isAdmin = result;
+  }
+
+  getUidFromTelephone(telephone: string): string {
+    let num = telephone.replace(/[^0-9.]/g, '');
+    if (num.length == 10) {
+      num = '+38' + num;
+    }
+    else if (num.length == 11) {
+      num = '+3' + num;
+    }
+    else if (num.length == 12) {
+      num = '+' + num;
+    }
+    else {
+      num = ''
+    }
+
+    return num;
   }
 
 }

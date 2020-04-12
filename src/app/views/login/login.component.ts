@@ -63,10 +63,8 @@ export class LoginComponent implements OnInit {
 
     const appVerifier = this.windowRef.recaptchaVerifier;
 
-    let num = this.phoneNumber.replace(/[^0-9.]/g, '');
+    let num = this.authService.getUidFromTelephone(this.phoneNumber);
 
-    num = '+' + num;
-    console.log(num);
     if (num.length !== 13) {
       this.textCoution = 'Довжина номера не корректна';
     } else {
