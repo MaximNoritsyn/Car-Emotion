@@ -82,7 +82,7 @@ export class PersonComponent implements OnInit {
 
   savePerson() {
 
-    if ((this.currentperson.userUid == null || this.currentperson.userUid == '')
+    /*if ((this.currentperson.userUid == null || this.currentperson.userUid == '')
       && this.password !== "")
     {
       //than register
@@ -130,7 +130,7 @@ export class PersonComponent implements OnInit {
       this._ParticipantsService.setPerson(this.currentperson);
       this.editmode = false;
       console.log("else")
-    }
+    }*/
   }
 
   isAdministrator(): boolean {

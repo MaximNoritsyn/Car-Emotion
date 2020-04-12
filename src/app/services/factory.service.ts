@@ -172,6 +172,7 @@ export class FactoryService {
     }
 
   }
+
   /*
       getNewPoint(_competition: competition, _competitionclass: competitionclass) {
         let newclass = this.getNewCompetitionClass();

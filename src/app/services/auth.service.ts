@@ -14,6 +14,7 @@ export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
   private person: person = null;
+  private isAdmin: boolean = false;
 
   getIdToken = () => {
     return new Promise((resolve, reject) => {
@@ -59,25 +60,12 @@ export class AuthService {
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
-  createUserAutomatic(email: string, pass: string) {
-    //var pass = getASecureRandomPassword()
-    return firebase.auth().createUserWithEmailAndPassword(email, pass);
-    //return admin.auth.
-  }
-
-  changePass(pass: string) {
-    if (!this.isAdministrator()) {
-      return this.userDetails.updatePassword(pass);
-    }
-
-  }
-
   isLoggedIn() {
     return !(this.userDetails == null)
   }
 
   isAdministrator() {
-    return !(this.userDetails == null) && (this.person == null)
+    return !(this.userDetails == null) && (this.person == null) && (this.isAdmin)
   }
 
   logout() {
@@ -87,6 +75,18 @@ export class AuthService {
 
   idPersonCurrentUser() : string {
     return this.person == null ? '' : this.person.id;
+  }
+
+  recaptcha() {
+    return new firebase.auth.RecaptchaVerifier('recaptcha-container')
+  }
+
+  get windowRef() {
+    return window
+  }
+
+  setAdminStatus(result: boolean): void {
+    this.isAdmin = result;
   }
 
 }
