@@ -5,12 +5,9 @@
     {{season.name}}
   </option>
 </select></label>
-<H4>События</H4>
-<div class="list-group">
-  <a class="list-group-item active" *ngIf="_auth.isAdministrator()" [routerLink]="['/event']">
-    {{ 'events.addevent' | translate }}
-  </a>
-  <a class="list-group-item list-group-item-action" *ngFor="let events of events"
-    [routerLink]="'/event/' + events.id"
-  >{{events.name}}</a>
+<div class="row">
+  <div class="col-sm-5 col-md-5 carblock" *ngFor="let events of events"
+       [routerLink]="'/results/' + events.id">
+    {{events.name}}
+  </div>
 </div>

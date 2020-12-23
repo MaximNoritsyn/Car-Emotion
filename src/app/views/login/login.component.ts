@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
     this.windowRef.recaptchaVerifier
       .render()
       .then(widgetId => {
-
         this.windowRef.recaptchaWidgetId = widgetId
       });
   }
@@ -83,12 +82,12 @@ export class LoginComponent implements OnInit {
   verifyLoginCode() {
     this.windowRef.confirmationResult
       .confirm(this.verificationCode)
-      .then(result => {
+      .then(() => {
         this.router.navigate(['']);
         this.authService.setAdminStatus(false);
 
       })
-      .catch(error => this.authService.setAdminStatus(false));
+      .catch(() => this.authService.setAdminStatus(false));
   }
 
   changeEnterMode() {

@@ -1,4 +1,9 @@
-
+<div class="form-group col-xs-4">
+  <button class="btn btn-primary btn-block" *ngIf="_auth.isAdministrator()" [routerLink]="['/event']">
+    {{ 'events.addevent' | translate }}
+  </button>
+</div>
+<hr>
   <H4>{{ 'season.seasons' | translate }}</H4>
   <div class="list-group">
     <a class="list-group-item active" [routerLink]="['/season/']">
@@ -26,5 +31,4 @@
     >{{class.competition}} - {{class.name}} (actual -{{class.actual}})</a>
   </div>
   <router-outlet></router-outlet>
-  <button (click)="changeUid()">User Uid</button>
 </div>

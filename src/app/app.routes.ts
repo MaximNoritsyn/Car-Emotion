@@ -38,7 +38,7 @@ const appRoutes: Routes = [
     {path: 'persons', component: PersonsComponent},
     {path: 'totalresults/:competetion', component: TotalresultsComponent},
     {path: '', component: DashboardComponent, children:
-      [{path: '', component: ResultsComponent}]},
+      [{path: '', component: EventsComponent}]},
     {path: 'currentresultboard', canActivate: [AuthGuard], component: CurrentresultComponent}
 ];
 
