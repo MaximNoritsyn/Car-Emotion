@@ -380,7 +380,6 @@ export class ParticipantsService {
       ref => (ref.orderByChild('idperson').equalTo(idperson))).valueChanges();
   }
 
-
   bestresult(a: result, b: result) {
     if (a.result > b.result) {
       return -1;
@@ -558,90 +557,4 @@ export class ParticipantsService {
       }
     )
   }
-
-  /*  setResult(_result: result, _participant: participant, _class: competitionclass) {
-
-    _result.idparticipant = _participant.id;
-    _result.idevent = _participant.idevent;
-    _result.class = _class;
-    _result.idclass = _class.id;
-    if (_participant.car == undefined) {
-      _result.idcar = "";
-    }
-    else {
-      _result.idcar = _participant.car.id;
-    }
-    /!*if (_participant.team == undefined) {
-      _result.idteam = "";
-    }
-    else {
-      _result.idteam = _participant.team.id;
-    }*!/
-    if (_participant.person == undefined) {
-      _result.idperson = "";
-    }
-    else {
-      _result.idperson = _participant.person.id;
-    }
-
-    _result.result = 0;
-    if (_result.checkin) {
-      _result.result = _result.front;
-       if (_result.competition == competition.DecibelShow) {
-        _result.result = _result.front + _result.sub;
-      }
-    }
-
-    if (_class.competition == competition.DecibelVolume && _participant.pointDecibelVolume !== undefined) {
-      _result.idpoint = _participant.pointDecibelVolume.id
-    }
-    else if (_class.competition == competition.DecibelBattle && _participant.pointDecibelBattle !== undefined) {
-      _result.idpoint = _participant.pointDecibelBattle.id
-    }
-    else if (_class.competition == competition.DecibelLeague && _participant.pointDecibelLeague !== undefined) {
-      _result.idpoint = _participant.pointDecibelLeague.id;
-    }
-    else if (_class.competition == competition.DecibelShow && _participant.pointDecibelShow !== undefined) {
-      _result.idpoint = _participant.pointDecibelShow.id;
-    }
-
-    if (_result.id == '') {
-      let _key = this._db.list<result>('/results/').push(_result).key;
-      this._db.object<result>('/results/' + _key).update({"id": _key}).then(
-        snapshot => this.setBestResulttoPoint(_result)
-      );
-
-    }
-    else {
-      this._db.object<result>('/results/' + _result.id).set(_result).then(
-        snapshot => this.setBestResulttoPoint(_result)
-      );
-
-    }
-  }
-  setBestResulttoPoint(_result: result): void {
-    this._db.list<result>('/results/',
-      ref => (ref.orderByChild('idpoint').equalTo(_result.idpoint)
-      )
-    ).query.once("value").then(items =>
-    {
-      let bestresult: number = 0;
-      items.forEach(datapoint => {
-        let curResult = datapoint.val();
-        bestresult = Math.max(bestresult, curResult['result']);
-        });
-      this._db.object('/points/' + _result.idpoint).update({"bestresult": bestresult}).then(item =>
-        this._db.object('/points/' + _result.idpoint).update({"idparticipant": _result.idparticipant}).then(
-          item => {
-            this._db.object('/points/' + _result.idpoint).query.once("value").then(gettenpoint => {
-                this.updatePointInParticipant(_result.competition, _result.idevent, _result.idparticipant, gettenpoint.val());
-          }
-            )})
-
-      );
-      this.sortPlacesInPoint(_result.idevent, _result.class);
-  })
-
-  }
-*/
 }
