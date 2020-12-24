@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 import {AngularFireDatabase} from 'angularfire2/database';
-import {competition, competitionclass, event, eventstatus, participant, season, team} from '../interfaces/app.interface';
+import {competition, competitionclass, event, participant, season, team} from '../interfaces/app.interface';
 import {CurrentdataService} from './currentdata.service';
 
 @Injectable()
@@ -53,6 +53,40 @@ export class EventsService {
     } else {
       this._db.object('/events/' + event.id).update(event);
       this._CurrentdataService.setEvent(event);
+    }
+  }
+
+  updateEvent(event: event) {
+    if (event.id !== "") {
+      let _list = this._db.list<participant>('/participants/' + event.id).query.once('value').then(
+        resultparticipants => {
+          event.countDecibelLeague = 0;
+          event.countDecibelVolume = 0;
+          event.countDecibelShow = 0;
+          event.bestDecibelLeague = 0;
+          event.bestDecibelVolume = 0;
+          event.bestDecibelShow = 0;
+          resultparticipants.forEach(_participant => {
+              let curparticipant: participant = _participant.val() as participant;
+              if (curparticipant.isDecibelLeague == true) {
+                event.countDecibelLeague == event.countDecibelLeague + 1;
+                event.bestDecibelLeague == Math.max(event.bestDecibelLeague, curparticipant.resultDecibelLeague.result);
+              }
+            if (curparticipant.isDecibelVolume == true) {
+              event.countDecibelVolume == event.countDecibelVolume + 1;
+              event.bestDecibelVolume == Math.max(event.bestDecibelVolume, curparticipant.resultDecibelVolume.result)
+            }
+            if (curparticipant.isDecibelShow == true) {
+              event.countDecibelShow == event.countDecibelShow + 1;
+              event.bestDecibelShow == Math.max(event.bestDecibelShow, curparticipant.resultDecibelShow.result)
+            }
+            }
+          );
+
+          this._db.object('/events/' + event.id).update(event);
+
+        }
+      );
     }
   }
 
