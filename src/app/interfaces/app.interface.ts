@@ -67,6 +67,12 @@ export interface event{
   name: string,
   season: season,
   location: string,
+  countDecibelLeague: number,
+  countDecibelVolume: number,
+  countDecibelShow: number,
+  bestDecibelLeague: number,
+  bestDecibelVolume: number,
+  bestDecibelShow: number,
   eventStatus: eventstatus,
   organizer: string,
   startDate: Date
