@@ -34,6 +34,10 @@ export class EventsService {
     return this.events;
   }
 
+  getEventsOnce() {
+    return this._db.list<event>('/events/').query.once("value");
+  }
+
   getEvent(id: string) {
     this.currentevent = this._db.object<event>('/events/' + id).valueChanges();
     return this.currentevent;
@@ -68,6 +72,7 @@ export class EventsService {
           event.bestDecibelShow = 0;
           resultparticipants.forEach(_participant => {
               let curparticipant: participant = _participant.val() as participant;
+              console.log(curparticipant);
               if (curparticipant.isDecibelLeague == true) {
                 event.countDecibelLeague == event.countDecibelLeague + 1;
                 event.bestDecibelLeague == Math.max(event.bestDecibelLeague, curparticipant.resultDecibelLeague.result);

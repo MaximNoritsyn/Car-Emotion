@@ -119,6 +119,12 @@ export class FactoryService {
         date: Date = new Date()
       };
       location: string = '';
+      countDecibelLeague: number = 0;
+      countDecibelVolume: number = 0;
+      countDecibelShow: number = 0;
+      bestDecibelLeague: number = 0;
+      bestDecibelVolume: number = 0;
+      bestDecibelShow: number = 0;
       eventStatus: eventstatus = eventstatus.inplan;
       organizer: string = 'Car Emotion';
       startDate: Date = new Date()

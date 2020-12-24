@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
-import {competitionclass, season} from '../../interfaces/app.interface';
+import {competitionclass, event, participant, season} from '../../interfaces/app.interface';
 import {EventsService} from '../../services/events.service'
 import {Translate_Service} from '../../services/translate.service';
 import {ParticipantsService} from '../../services/participants.service';
@@ -30,6 +30,15 @@ export class AdminboardComponent implements OnInit {
 
   countAllResults() {
     this._ParticipantsService.countAllResults();
+    this._EventsService.getEventsOnce().then(
+      resultevents => {
+        resultevents.forEach(_event => {
+          let localevent: event = _event.val() as event;
+          this._EventsService.updateEvent(localevent)
+          }
+        )
+      }
+    )
   }
 
   changeUid() {
