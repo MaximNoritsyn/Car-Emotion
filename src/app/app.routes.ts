@@ -19,27 +19,34 @@ import {TotalresultsComponent} from './views/results/totalresults/totalresults.c
 
 
 const appRoutes: Routes = [
-    {path: 'login', component: LoginComponent},
-    {path: 'events', component: EventsComponent},
-    {path: 'adminboard', canActivate: [AuthGuard], component: AdminboardComponent, children:
-        [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
-          {path: 'competitionclass', component: CompetitionclassComponent}]},
-    {path: 'season', canActivate: [AuthGuard], component: SeasonComponent},
-    {path: 'season/:idseason', canActivate: [AuthGuard], component: SeasonComponent},
-    {path: 'event', component: EventComponent},
-    {path: 'event/:idevent', component: EventComponent, children:
-        [{path: '', component: ParticipantsComponent}]},
-    {path: 'participant/:idevent/:idParticipant', component: ParticipantComponent},
-    {path: 'participant/:idevent', component: ParticipantComponent},
-    {path: 'results/:idevent', component: ResultsComponent},
-    {path: 'team/:idseason/:idteam', component: TeamComponent},
-    {path: 'team/:idseason', component: TeamComponent},
-    {path: 'person/:idperson', component: PersonComponent},
-    {path: 'persons', component: PersonsComponent},
-    {path: 'totalresults/:competetion', component: TotalresultsComponent},
-    {path: '', component: DashboardComponent, children:
-      [{path: '', component: EventsComponent}]},
-    {path: 'currentresultboard', canActivate: [AuthGuard], component: CurrentresultComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'events', component: EventsComponent},
+  {
+    path: 'adminboard', canActivate: [AuthGuard], component: AdminboardComponent, children:
+      [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
+        {path: 'competitionclass', component: CompetitionclassComponent}]
+  },
+  {path: 'season', canActivate: [AuthGuard], component: SeasonComponent},
+  {path: 'season/:idseason', canActivate: [AuthGuard], component: SeasonComponent},
+  {path: 'event', component: EventComponent},
+  {
+    path: 'event/:idevent', component: EventComponent, children:
+      [{path: '', component: ParticipantsComponent}]
+  },
+  {path: 'participant/:idevent/:idParticipant', component: ParticipantComponent},
+  {path: 'participant/:idevent', component: ParticipantComponent},
+  {path: 'results/:idevent', component: ResultsComponent},
+  {path: 'team/:idseason/:idteam', component: TeamComponent},
+  {path: 'team/:idseason', component: TeamComponent},
+  {path: 'person/:idperson', component: PersonComponent},
+  {path: 'persons', component: PersonsComponent},
+  {path: 'totalresults/:competetion', component: TotalresultsComponent},
+  {path: 'totalresults', component: TotalresultsComponent},
+  {
+    path: '', component: DashboardComponent, children:
+      [{path: '', component: EventsComponent}]
+  },
+  {path: 'currentresultboard', canActivate: [AuthGuard], component: CurrentresultComponent}
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

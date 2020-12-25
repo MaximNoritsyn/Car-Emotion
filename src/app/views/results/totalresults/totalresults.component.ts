@@ -50,7 +50,7 @@ export class TotalresultsComponent implements OnInit {
         this.currentCompetition = competition.DecibelVolume;
       } else {
         this.results = [];
-        this.currentCompetition = competition.DecibelLeague;
+        this.currentCompetition = null;
       }
     }
   )
@@ -80,6 +80,10 @@ export class TotalresultsComponent implements OnInit {
 
   isDecibelShow() {
     return this.currentCompetition == competition.DecibelShow;
+  }
+
+  isSomeComp() {
+    return this.currentCompetition !== null;
   }
 
 }

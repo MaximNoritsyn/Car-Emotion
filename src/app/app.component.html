@@ -19,37 +19,22 @@
     <div class="container-fluid">
       <ul class="nav nav-tabs">
         <li><a [routerLink]="['']"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}"><h4>{{ 'navigate.Main' | translate }}</h4></a>
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}"><h4>{{ 'navigate.Main' | translate }}</h4></a>
         </li>
         <li>
-          <a [routerLink]="['/persons']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.Persons' | translate }}</h4></a>
-        </li>
-        <li>
-          <a [routerLink]="['/events']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.Events' | translate }}</h4></a>
-        </li>
-          <li>
-            <a><h4>{{ 'navigate.totalresults' | translate }}</h4></a>
-            <ul class="sub-menu navbar-default nav nav-tabs">
-              <li >
-                <a [routerLink]="['/totalresults/DecibelLeague']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.totalresultsleague' | translate }}</h4></a>
-              </li>
-              <li >
-                <a [routerLink]="['/totalresults/DecibelShow']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.totalresultsshow' | translate }}</h4></a>
-              </li>
-              <li >
-                <a [routerLink]="['/totalresults/DecibelVolume']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.totalresultsvolume' | translate }}</h4></a>
-              </li>
-            </ul>
-          </li>
-
-        <li *ngIf="_auth.isAdministrator()">
-          <a [routerLink]="['/currentresultboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.currentresultboard' | translate }}</h4></a>
+          <a [routerLink]="['/totalresults/']"><h4>{{ 'navigate.totalresults' | translate }}</h4></a>
         </li>
         <li *ngIf="_auth.isAdministrator()">
-          <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link"><h4>{{ 'navigate.AdminBoard' | translate }}</h4></a>
+          <a [routerLink]="['/currentresultboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">
+            <h4>{{ 'navigate.currentresultboard' | translate }}</h4></a>
         </li>
-        <li [routerLink]="['/login']" routerLinkActive="active-link" *ngIf="!_auth.isLoggedIn()" class="nav navbar-nav navbar-right">
+        <li *ngIf="_auth.isAdministrator()">
+          <a [routerLink]="['/adminboard']" class="nav navbar-nav navbar-left" routerLinkActive="active-link">
+            <h4>{{ 'navigate.AdminBoard' | translate }}</h4></a>
+        </li>
+        <li [routerLink]="['/login']" routerLinkActive="active-link" *ngIf="!_auth.isLoggedIn()"
+            class="nav navbar-nav navbar-right">
           <a><h4>{{ 'navigate.Login' | translate }}</h4></a>
         </li>
         <li *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['']" (click)="_auth.logout()">
