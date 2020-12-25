@@ -37,6 +37,8 @@ export class ParticipantComponent implements OnInit {
   private arrayclassDecibelBattle: competitionclass[];
   private arrayclassDecibelShow: competitionclass[];
   private arrayclassDecibelVolume: competitionclass[];
+  private arrayclassDecibelShow2020: competitionclass[];
+  private arrayclassDecibelVolume2020: competitionclass[];
 
   public teams: team[];
 
@@ -57,6 +59,8 @@ export class ParticipantComponent implements OnInit {
       this.arrayclassDecibelLeague = this._EventsService.getCompetitionClasses(items, competition.DecibelLeague);
       this.arrayclassDecibelShow = this._EventsService.getCompetitionClasses(items, competition.DecibelShow);
       this.arrayclassDecibelVolume = this._EventsService.getCompetitionClasses(items, competition.DecibelVolume);
+      this.arrayclassDecibelShow2020 = this._EventsService.getCompetitionClasses(items, competition.DecibelShow2020);
+      this.arrayclassDecibelVolume2020 = this._EventsService.getCompetitionClasses(items, competition.DecibelVolume2020);
     });
 
     this._ParticipantsService.getPersons().subscribe(items =>

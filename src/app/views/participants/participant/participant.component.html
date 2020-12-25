@@ -227,18 +227,18 @@
         <label class="form-check-label" for="isDecibelVolume">
           <input type="checkbox" class="form-check-input" id="isDecibelVolume" name="currentParticipant.isDecibelVolume"
                  [disabled]="DisableFields()"
-                 [(ngModel)]="currentParticipant.isDecibelVolume">
+                 [(ngModel)]="currentParticipant.isDecibelVolume2020">
           {{ 'participant.isDecibelVolume' | translate }}
         </label>
       </div>
     </div>
-    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelVolume">
+    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelVolume2020">
       <label for="classDecibelVolume">{{ 'participant.classDecibelVolume' | translate }}</label>
-      <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelVolume"
+      <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelVolume2020"
               [disabled]="DisableFields()"
               id="classDecibelVolume"
               [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let key of arrayclassDecibelVolume" [ngValue]="key">
+        <option *ngFor="let key of arrayclassDecibelVolume2020" [ngValue]="key">
           {{key.name}}
         </option>
       </select>
@@ -251,18 +251,18 @@
         <label class="form-check-label" for="isDecibelShow">
           <input type="checkbox" class="form-check-input" id="isDecibelShow" name="currentParticipant.isDecibelShow"
                  [disabled]="DisableFields()"
-                 [(ngModel)]="currentParticipant.isDecibelShow">
+                 [(ngModel)]="currentParticipant.isDecibelShow2020">
           {{ 'participant.isDecibelShow' | translate }}
         </label>
       </div>
     </div>
-    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelShow">
+    <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelShow2020">
       <label for="classDecibelShow">{{ 'participant.classDecibelShow' | translate }}</label>
-      <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelShow"
+      <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelShow2020"
               [disabled]="DisableFields()"
               id="classDecibelShow"
               [ngModelOptions]="{standalone: true}">
-        <option *ngFor="let key of arrayclassDecibelShow" [ngValue]="key">
+        <option *ngFor="let key of arrayclassDecibelShow2020" [ngValue]="key">
           {{key.name}}
         </option>
       </select>

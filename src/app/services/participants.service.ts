@@ -257,6 +257,16 @@ export class ParticipantsService {
       if (_participant.resultDecibelVolume !== undefined && _participant.resultDecibelVolume.id !== '') {
         _result.id = _participant.resultDecibelVolume.id;
       }
+    }
+    else if (_competition == competition.DecibelVolume2020) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id)
+        .update({'resultDecibelVolume2020': _result})
+        .then(item => this.sortResult(_result.idevent, _result.class));
+    }
+    else if (_competition == competition.DecibelShow2020) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id)
+        .update({'resultDecibelShow2020': _result})
+        .then(item => this.sortResult(_result.idevent, _result.class));
     } else if (_competition == competition.DecibelBattleQualy) {
       _result.class = _participant.classDecibelBattle;
       if (_participant.resultDecibelBattle !== undefined && _participant.resultDecibelBattle.id !== '') {
@@ -292,6 +302,16 @@ export class ParticipantsService {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id)
         .update({'resultDecibelVolume': _result})
         .then(item => this.sortResult(_result.idevent, _result.class));
+    }
+    else if (_competition == competition.DecibelVolume2020) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id)
+        .update({'resultDecibelVolume2020': _result})
+        .then(item => this.sortResult(_result.idevent, _result.class));
+    }
+    else if (_competition == competition.DecibelShow2020) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id)
+        .update({'resultDecibelShow2020': _result})
+        .then(item => this.sortResult(_result.idevent, _result.class));
     } else if (_competition == competition.DecibelBattleQualy) {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id)
         .update({'resultDecibelBattle': _result})
@@ -307,6 +327,10 @@ export class ParticipantsService {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelLeague': null});
     } else if (_result.competition == competition.DecibelVolume) {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelVolume': null});
+    } else if (_result.competition == competition.DecibelVolume2020) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelVolume2020': null});
+    } else if (_result.competition == competition.DecibelShow2020) {
+      this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelShow2020': null});
     } else if (_result.competition == competition.DecibelBattleQualy) {
       this._db.object('/participants/' + this.idcurrentevent + '/all/' + _participant.id).update({'resultDecibelBattle': null});
     }
@@ -356,6 +380,10 @@ export class ParticipantsService {
       this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelLeague': gettenpoint});
     } else if (_competition == competition.DecibelShow) {
       this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelShow': gettenpoint});
+    } else if (_competition == competition.DecibelVolume2020) {
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelVolume2020': gettenpoint});
+    } else if (_competition == competition.DecibelShow2020) {
+      this._db.object('/participants/' + idevent + '/all/' + idparticipant).update({'resultDecibelShow2020': gettenpoint});
     }
   }
 
@@ -401,6 +429,8 @@ export class ParticipantsService {
     this.totalsortResult(competition.DecibelVolume);
     this.totalsortResult(competition.DecibelLeague);
     this.totalsortResult(competition.DecibelShow);
+    this.totalsortResult(competition.DecibelVolume2020);
+    this.totalsortResult(competition.DecibelShow2020);
   }
 
   totalsortResult(_competition: competition): void {
@@ -484,14 +514,11 @@ export class ParticipantsService {
                   itemresult.id !== item.id
                 )];
 
-                //this._db.list<result>('/results/' + correctresult.id).remove();
-                console.log(item);
                 correctresult.front = item.front;
                 correctresult.sub = item.sub;
                 correctresult.result = item.result;
                 correctresult.outputpower = item.outputpower;
 
-                console.log(correctresult);
                 this._db.list<result>('/results/' + item.id).remove();
                 this._db.object<result>('/results/' + correctresult.id).update(correctresult);
                 if (correctresult.competition == competition.DecibelShow) {
@@ -506,15 +533,20 @@ export class ParticipantsService {
                   this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
                     .update({'resultDecibelVolume': correctresult})
                     .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+                } else if (correctresult.competition == competition.DecibelVolume2020) {
+                  this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+                    .update({'resultDecibelVolume2020': correctresult})
+                    .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+                } else if (correctresult.competition == competition.DecibelShow2020) {
+                  this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+                    .update({'resultDecibelShow2020': correctresult})
+                    .then(item => this.sortResult(correctresult.idevent, correctresult.class));
                 } else if (correctresult.competition == competition.DecibelBattleQualy) {
                   this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
                     .update({'resultDecibelBattle': correctresult})
                     .then(item => this.sortResult(correctresult.idevent, correctresult.class));
                 }
-
-
               }
-
             }
           }
         );
@@ -533,7 +565,6 @@ export class ParticipantsService {
           correctresult.event = _event;
           correctresult.idseason = _event.season.id;
 
-          console.log(correctresult);
           this._db.object<result>('/results/' + correctresult.id).update(correctresult);
           if (correctresult.competition == competition.DecibelShow) {
             this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
@@ -546,6 +577,14 @@ export class ParticipantsService {
           } else if (correctresult.competition == competition.DecibelVolume) {
             this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
               .update({'resultDecibelVolume': correctresult})
+              .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+          } else if (correctresult.competition == competition.DecibelVolume2020) {
+            this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+              .update({'resultDecibelVolume2020': correctresult})
+              .then(item => this.sortResult(correctresult.idevent, correctresult.class));
+          } else if (correctresult.competition == competition.DecibelShow2020) {
+            this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)
+              .update({'resultDecibelShow2020': correctresult})
               .then(item => this.sortResult(correctresult.idevent, correctresult.class));
           } else if (correctresult.competition == competition.DecibelBattleQualy) {
             this._db.object('/participants/' + this.idcurrentevent + '/all/' + correctresult.idparticipant)

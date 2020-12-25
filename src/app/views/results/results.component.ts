@@ -22,6 +22,8 @@ export class ResultsComponent implements OnInit {
   compDecibelLeague: competition = competition.DecibelLeague;
   compDecibelVolume: competition = competition.DecibelVolume;
   compDecibelShow: competition = competition.DecibelShow;
+  compDecibelVolume2020: competition = competition.DecibelVolume2020;
+  compDecibelShow2020: competition = competition.DecibelShow2020;
   compDecibelbattle: competition = competition.DecibelBattleQualy;
 
   constructor(public _auth: AuthService,

@@ -25,15 +25,21 @@ export interface participant {
   isDecibelLeague: boolean,
   isDecibelBattle: boolean,
   isDecibelVolume: boolean,
+  isDecibelVolume2020: boolean,
   isDecibelShow: boolean,
+  isDecibelShow2020: boolean,
   classDecibelLeague: competitionclass,
   classDecibelBattle: competitionclass,
   classDecibelVolume: competitionclass,
+  classDecibelVolume2020: competitionclass,
   classDecibelShow: competitionclass,
+  classDecibelShow2020: competitionclass,
   resultDecibelLeague: result,
   resultDecibelBattle: result,
   resultDecibelVolume: result,
+  resultDecibelVolume2020: result,
   resultDecibelShow: result,
+  resultDecibelShow2020: result,
   registered: boolean,
   datainput: Date
 }
@@ -130,7 +136,9 @@ export enum competition{
   DecibelBattleQualy = "Decibel battle qualy",
   DecibelBattlePlayOff= "Decibel battle play off",
   DecibelVolume = "Decibel volume",
-  DecibelShow = "Decibel show"
+  DecibelVolume2020 = "Decibel volume 2020",
+  DecibelShow = "Decibel show",
+  DecibelShow2020 = "Decibel show 2020"
 }
 
 export interface competitionclass {

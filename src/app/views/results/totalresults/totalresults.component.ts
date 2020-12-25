@@ -28,22 +28,27 @@ export class TotalresultsComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.params.subscribe((params: Params) => {
-      if (params["competetion"] == "DecibelLeague") {
+      if (params['competetion'] == 'DecibelLeague') {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelLeague).subscribe(items =>
           this.results = items);
         this.currentCompetition = competition.DecibelLeague;
-      }
-      else if (params["competetion"] == "DecibelShow") {
+      } else if (params['competetion'] == 'DecibelShow') {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelShow).subscribe(items =>
           this.results = items);
         this.currentCompetition = competition.DecibelShow;
-      }
-      else if (params["competetion"] == "DecibelVolume") {
+      } else if (params['competetion'] == 'DecibelShow2020') {
+        this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelShow).subscribe(items =>
+          this.results = items);
+        this.currentCompetition = competition.DecibelShow2020;
+      } else if (params['competetion'] == 'DecibelVolume2020') {
+        this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelShow).subscribe(items =>
+          this.results = items);
+        this.currentCompetition = competition.DecibelVolume2020;
+      } else if (params['competetion'] == 'DecibelVolume') {
         this._ParticipantsService.getBestResultssOfCompetition(competition.DecibelVolume).subscribe(items =>
           this.results = items);
         this.currentCompetition = competition.DecibelVolume;
-      }
-      else {
+      } else {
         this.results = [];
         this.currentCompetition = competition.DecibelLeague;
       }

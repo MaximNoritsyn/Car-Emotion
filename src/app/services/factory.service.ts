@@ -24,6 +24,8 @@ arraycompetition.push(competition.DecibelLeague);
 arraycompetition.push(competition.DecibelBattleQualy);
 arraycompetition.push(competition.DecibelShow);
 arraycompetition.push(competition.DecibelVolume);
+arraycompetition.push(competition.DecibelShow2020);
+arraycompetition.push(competition.DecibelVolume2020);
 
 @Injectable({
   providedIn: 'root'
@@ -53,14 +55,20 @@ export class FactoryService {
       isDecibelBattle: boolean = false;
       isDecibelVolume: boolean = false;
       isDecibelShow: boolean = false;
+      isDecibelVolume2020: boolean = false;
+      isDecibelShow2020: boolean = false;
       classDecibelLeague: competitionclass;
       classDecibelBattle: competitionclass;
       classDecibelVolume: competitionclass;
       classDecibelShow: competitionclass;
+      classDecibelVolume2020: competitionclass;
+      classDecibelShow2020: competitionclass;
       resultDecibelLeague: result = null;
       resultDecibelBattle: result = null;
       resultDecibelVolume: result = null;
       resultDecibelShow: result = null;
+      resultDecibelVolume2020: result = null;
+      resultDecibelShow2020: result = null;
       registered: boolean = false;
       datainput: Date = new Date()
     }

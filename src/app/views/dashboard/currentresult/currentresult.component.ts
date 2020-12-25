@@ -45,19 +45,10 @@ export class CurrentresultComponent implements OnInit {
 
   compDecibelLeague: competition = competition.DecibelLeague;
   compDecibelVolume: competition = competition.DecibelVolume;
+  compDecibelVolume2020: competition = competition.DecibelVolume2020;
   compDecibelShow: competition = competition.DecibelShow;
+  compDecibelShow2020: competition = competition.DecibelShow2020;
   compDecibelbattle: competition = competition.DecibelBattleQualy;
-
-  /*public currentresult1: result;
-  public currentresult2: result;
-  public clearparticipant: participant;
-
-  public currentparticipant1: participant[] = [];
-  public currentparticipant2: participant[] = [];
-
-  public participants: participant[];
-  public turn1: participant[] = [];
-  public turn2: participant[] = [];*/
 
   constructor(public _auth: AuthService,
               private router: Router,
@@ -94,53 +85,6 @@ export class CurrentresultComponent implements OnInit {
           }
         )
       );
-      /*this._CurrentdataService.getCompetitionClass().subscribe(item => {
-        this.currentcompetitionclass = item;
-        this._ParticipantsService.getParticipants().subscribe(curparticipants => {
-            this.participants = curparticipants.filter(curparticipant => {
-              if (this.currentcompetitionclass.competition == competition.DecibelShow) {
-                return curparticipant.classDecibelShow.id == this.currentcompetitionclass.id
-              } else if (this.currentcompetitionclass.competition == competition.DecibelLeague) {
-                return curparticipant.classDecibelLeague.id == this.currentcompetitionclass.id
-              } else if (this.currentcompetitionclass.competition == competition.DecibelBattle) {
-                return curparticipant.classDecibelBattle.id == this.currentcompetitionclass.id
-              } else if (this.currentcompetitionclass.competition == competition.DecibelVolume) {
-                return curparticipant.classDecibelVolume.id == this.currentcompetitionclass.id
-              }
-              return false
-            })
-          }
-        );
-    });
-    this.currentresult1 = this._FactoryService.getNewResult();
-    this.currentresult2 = this._FactoryService.getNewResult();
-    this.clearparticipant = this._FactoryService.getnewParticipantclass("");
-    this.currentparticipant1.push(this.clearparticipant);
-    this.currentparticipant2.push(this.clearparticipant);
-
-    this._EventsService.getCompetitionClassesObs().subscribe(items => {
-      this.arrayCompetitonsClass = this._EventsService.getCompetitionClasses(items, this.currentcompetition);
-    });
-     this._CurrentdataService.getTurn1().subscribe(items => this.turn1 = items);
-    this._CurrentdataService.getTurn2().subscribe(items => this.turn2 = items);
-    this._CurrentdataService.getCurrentParticipant1().subscribe(items => {if (items == null){
-      this.currentparticipant1.pop();
-      this.currentparticipant1.push(this.clearparticipant);
-    }
-    else {
-      this.currentparticipant1.pop();
-      this.currentparticipant1.push(items)
-    }});
-    this._CurrentdataService.getCurrentParticipant2().subscribe(items => {if (items == null){
-      this.currentparticipant2.pop();
-      this.currentparticipant2.push(this.clearparticipant);
-    }
-    else {
-      this.currentparticipant2.pop();
-      this.currentparticipant2.push(items)
-    }});
-    this._CurrentdataService.getCurrentResult1().subscribe(item => this.currentresult1 = item);
-    this._CurrentdataService.getCurrentResult2().subscribe(item => this.currentresult2 = item);*/
   }
 
   selectedCompetition(competitionel: any, currentcompetitionel: any) {
@@ -158,19 +102,20 @@ export class CurrentresultComponent implements OnInit {
     this.currentcompetition = _event;
     this._ParticipantsService.getParticipants().subscribe(items =>
     {
-      this.participants = items.filter( participants =>
-      {if (this.currentcompetition == competition.DecibelShow) {
-        return participants.isDecibelShow
-      }
-      else if (this.currentcompetition == competition.DecibelVolume) {
-        return participants.isDecibelVolume
-      }
-      else if (this.currentcompetition == competition.DecibelBattleQualy) {
-        return participants.isDecibelBattle
-      }
-      else if (this.currentcompetition == competition.DecibelLeague) {
-        return participants.isDecibelLeague
-      }
+      this.participants = items.filter(participants => {
+        if (this.currentcompetition == competition.DecibelShow) {
+          return participants.isDecibelShow
+        } else if (this.currentcompetition == competition.DecibelVolume) {
+          return participants.isDecibelVolume
+        } else if (this.currentcompetition == competition.DecibelBattleQualy) {
+          return participants.isDecibelBattle
+        } else if (this.currentcompetition == competition.DecibelLeague) {
+          return participants.isDecibelLeague
+        } else if (this.currentcompetition == competition.DecibelVolume2020) {
+          return participants.isDecibelVolume2020
+        } else if (this.currentcompetition == competition.DecibelShow2020) {
+          return participants.isDecibelShow2020
+        }
       return false
       })
     });
@@ -221,7 +166,12 @@ export class CurrentresultComponent implements OnInit {
       } else if (this.currentcompetition == competition.DecibelLeague) {
         this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelLeague;
         this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelLeague
-      }
+      } else if (this.currentcompetition == competition.DecibelShow2020) {
+        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelShow2020;
+        this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelShow2020
+      } else if (this.currentcompetition == competition.DecibelVolume2020) {
+        this.classleft = this.participantleft == undefined ? _clearclass: this.participantleft.classDecibelVolume2020;
+        this.classright = this.participantright == undefined ? _clearclass: this.participantright.classDecibelVolume2020 }
     }
   }
 
@@ -239,56 +189,44 @@ export class CurrentresultComponent implements OnInit {
       this.participantright = this._FactoryService.getnewParticipantclass(this.currentevent.id);
       this.ControlRight.reset();
     }
-    /*this._CurrentdataService.setCurrentParticipant1(this.clearparticipant);
-    this._CurrentdataService.setCurrentParticipant2(this.clearparticipant);
-    this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
-    this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());*/
 
   }
 
   SaveResults() {
     this._ParticipantsService.generateResult(this.currentresultleft, this.participantleft, this.currentcompetition, this.currentevent);
-
     this._ParticipantsService.generateResult(this.currentresultright, this.participantright, this.currentcompetition, this.currentevent);
-
-    /*if(this.currentresult1.front > 0) {
-      this._ParticipantsService.setResult(this.currentresult1, this.currentparticipant1[0], this.currentcompetitionclass);
-    }
-    if(this.currentresult2.front > 0) {
-      this._ParticipantsService.setResult(this.currentresult2, this.currentparticipant2[0], this.currentcompetitionclass);
-    }
-    this._CurrentdataService.setCurrentResult1(this._FactoryService.getNewResult());
-    this._CurrentdataService.setCurrentResult2(this._FactoryService.getNewResult());*/
   }
 
   onChangecompetitionClass(_event: any, left: boolean) {
     if (left) {
       if (this.currentcompetition == competition.DecibelLeague) {
         this.participantleft.classDecibelLeague = _event;
-      }
-      else if (this.currentcompetition == competition.DecibelBattleQualy) {
+      } else if (this.currentcompetition == competition.DecibelBattleQualy) {
         this.participantleft.classDecibelBattle = _event;
-      }
-      else if (this.currentcompetition == competition.DecibelVolume) {
+      } else if (this.currentcompetition == competition.DecibelVolume) {
         this.participantleft.classDecibelVolume = _event;
-      }
-      else if (this.currentcompetition == competition.DecibelShow) {
+      } else if (this.currentcompetition == competition.DecibelShow) {
         this.participantleft.classDecibelShow = _event;
+      } else if (this.currentcompetition == competition.DecibelVolume2020) {
+        this.participantleft.classDecibelVolume2020 = _event;
+      } else if (this.currentcompetition == competition.DecibelShow2020) {
+        this.participantleft.classDecibelShow2020 = _event;
       }
       this._ParticipantsService.setParticipant(this.participantleft);
     }
     else {
       if (this.currentcompetition == competition.DecibelLeague) {
         this.participantright.classDecibelLeague = _event;
-      }
-      else if (this.currentcompetition == competition.DecibelBattleQualy) {
+      } else if (this.currentcompetition == competition.DecibelBattleQualy) {
         this.participantright.classDecibelBattle = _event;
-      }
-      else if (this.currentcompetition == competition.DecibelVolume) {
+      } else if (this.currentcompetition == competition.DecibelVolume) {
         this.participantright.classDecibelVolume = _event;
-      }
-      else if (this.currentcompetition == competition.DecibelShow) {
+      } else if (this.currentcompetition == competition.DecibelShow) {
         this.participantright.classDecibelShow = _event;
+      } else if (this.currentcompetition == competition.DecibelVolume2020) {
+        this.participantright.classDecibelVolume2020 = _event;
+      } else if (this.currentcompetition == competition.DecibelShow2020) {
+        this.participantright.classDecibelShow2020 = _event;
       }
       this._ParticipantsService.setParticipant(this.participantright);
     }
@@ -296,6 +234,10 @@ export class CurrentresultComponent implements OnInit {
 
   onChangeResults(left: boolean, _result: result) {
     if (this.currentcompetition == competition.DecibelShow) {
+      _result.result = +_result.sub + _result.front;
+      _result.result.toFixed(2);
+    }
+    if (this.currentcompetition == competition.DecibelShow2020) {
       _result.result = +_result.sub + _result.front;
       _result.result.toFixed(2);
     }
@@ -378,129 +320,7 @@ export class CurrentresultComponent implements OnInit {
 
   }
 
-  /*onDrop(event: CdkDragDrop<participant[]>) {
-    if (!this._auth.isAdministrator()) {}
-    else if(event.previousContainer === event.container) {
-      moveItemInArray(event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-      this.setAnyTurn(event.container);
-    }
-    else if (event.previousContainer.id == "participants") {
-      event.container.data.push(event.previousContainer.data[event.previousIndex]);
-      this.setAnyTurn(event.container);
-    }
-    else if (event.previousContainer.id == "participantTurn1" || event.previousContainer.id == "participantTurn2") {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-      this.setAnyTurn(event.container);
-      this.setAnyTurn(event.previousContainer);
-    }
-    else if (event.previousContainer.id == "result1" || event.previousContainer.id == "result2") {
-      if ((event.previousContainer.id == "result1" && this.currentresult1.front !== 0) ||
-        (event.previousContainer.id == "result2" && this.currentresult2.front !== 0))
-      {
-        return;
-      }
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-      event.previousContainer.data.push(this.clearparticipant);
-      this.setAnyTurn(event.container);
-      this.setAnyTurn(event.previousContainer);
-    }
-    else {
-      console.log(event);
-    }
+  isShow() {
+    return this.currentcompetition == competition.DecibelShow || this.currentcompetition == competition.DecibelShow2020
   }
-
-  disbledresults(_currentparticipant: participant[]) {
-    return _currentparticipant[0].id == '' || !this._auth.isAdministrator();
-  }
-
-  changeresult(_number: number) {
-    if (_number == 1) {
-      this._CurrentdataService.setCurrentResult1(this.currentresult1);
-    }
-    else if (_number == 2) {
-      this._CurrentdataService.setCurrentResult2(this.currentresult2);
-    }
-  }
-
-  bestResultcurrentclass(_participant: participant): number {
-    if (this.currentcompetitionclass.competition == competition.DecibelVolume) {
-      return _participant.pointDecibelVolume.bestresult;
-    }
-    else if (this.currentcompetitionclass.competition == competition.DecibelBattle) {
-      return _participant.pointDecibelBattle.bestresult;
-    }
-    else if (this.currentcompetitionclass.competition == competition.DecibelLeague) {
-      return _participant.pointDecibelLeague.bestresult;
-    }
-    else if (this.currentcompetitionclass.competition == competition.DecibelShow) {
-      return _participant.pointDecibelShow.bestresult;
-    }
-    return 0;
-  }
-
-  IsDecibelShow() {
-    return this.currentcompetition == competition.DecibelShow;
-  }
-
-
-
-  onDropparticipants(event: CdkDragDrop<participant[]>) {
-    if (!this._auth.isAdministrator()) {}
-    else if(event.previousContainer !== event.container) {
-      if (event.previousIndex > -1)
-      {
-        event.previousContainer.data.splice(event.previousIndex, 1);
-      }
-      this.setAnyTurn(event.previousContainer);
-    }
-  }
-
-  onDropresult(event: CdkDragDrop<participant[]>) {
-    if(event.previousContainer === event.container || !this._auth.isAdministrator()) {
-      // nothng t o do
-    }
-    if (event.previousContainer.id == "participantTurn1" || event.previousContainer.id == "participantTurn2") {
-      if (event.container.data[0].id == "")
-      {event.container.data.pop()}
-      else
-      {return}
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-      this.setAnyTurn(event.container);
-      this.setAnyTurn(event.previousContainer);
-    }
-    if (event.previousContainer.id == "result1" || event.previousContainer.id == "result2") {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-      this.setAnyTurn(event.container);
-      this.setAnyTurn(event.previousContainer);
-    }
-  }
-
-  setAnyTurn(_cont: any) {
-    if (_cont.id == "participantTurn1") {
-      this._CurrentdataService.setTurn1(_cont.data);
-    }
-    else if (_cont.id == "participantTurn2") {
-      this._CurrentdataService.setTurn2(_cont.data);
-    }
-    else if (_cont.id == "result1") {
-      this._CurrentdataService.setCurrentParticipant1(_cont.data[0]);
-    }
-    else if (_cont.id == "result2") {
-      this._CurrentdataService.setCurrentParticipant2(_cont.data[0]);
-    }
-  }*/
 }
