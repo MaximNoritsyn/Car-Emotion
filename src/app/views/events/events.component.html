@@ -2,37 +2,37 @@
   <div class="col-sm-5 col-md-5 carblock" *ngFor="let event of events"
        [routerLink]="'/results/' + event.id">
     <div class="row">
-      <h6 class="col-md-8">{{event.season.name}}</h6>
-      <h6 class="col-md-4">{{event.startDate | date : 'mediumDate'  }}</h6>
+      <h6 class="col-xs-8">{{event.season.name}}</h6>
+      <h6 class="col-xs-4">{{event.startDate | date : 'mediumDate'  }}</h6>
     </div>
     <div class="nameEvent">
       <h3>{{event.name}}</h3>
     </div>
     <div class="row">
-      <h4 class="col-md-8">{{ 'participant.city' | translate }}: {{event.location}}</h4>
-      <h5 class="col-md-4">{{ 'eventsstatus.' + eventstatus[event.eventStatus] | translate }}</h5>
+      <h4 class="col-xs-8">{{ 'participant.city' | translate }}: {{event.location}}</h4>
+      <h5 class="col-xs-4">{{ 'eventsstatus.' + eventstatus[event.eventStatus] | translate }}</h5>
     </div>
     <div>
       <ul>
         <a class="row h5">
-          <div class="col-md-4 left"></div>
-          <div class="col-md-4 left">{{'events.count' | translate}}</div>
-          <div class="col-md-4 left">{{'events.best' | translate}}</div>
+          <div class="col-xs-4 left"></div>
+          <div class="col-xs-4 left">{{'events.count' | translate}}</div>
+          <div class="col-xs-4 left">{{'events.best' | translate}}</div>
         </a>
         <li class="row h5">
-          <div class="col-md-6 left">Decibel League</div>
-          <div class="col-md-3 left">{{event.countDecibelLeague}}</div>
-          <div class="col-md-3 left">{{event.bestDecibelLeague}}</div>
+          <div class="col-xs-6 left">Decibel League</div>
+          <div class="col-xs-3 left">{{event.countDecibelLeague}}</div>
+          <div class="col-xs-3 left">{{event.bestDecibelLeague}}</div>
         </li>
         <li class="row h5">
-          <div class="col-md-6 left">Decibel Show</div>
-          <div class="col-md-3 left">{{event.countDecibelShow}}</div>
-          <div class="col-md-3 left">{{event.bestDecibelShow}}</div>
+          <div class="col-xs-6 left">Decibel Show</div>
+          <div class="col-xs-3 left">{{event.countDecibelShow}}</div>
+          <div class="col-xs-3 left">{{event.bestDecibelShow}}</div>
         </li>
         <li class="row h5">
-          <div class="col-md-6 left">Decibel Volume</div>
-          <div class="col-md-3 left">{{event.countDecibelVolume}}</div>
-          <div class="col-md-3 left">{{event.bestDecibelVolume}}</div>
+          <div class="col-xs-6 left">Decibel Volume</div>
+          <div class="col-xs-3 left">{{event.countDecibelVolume}}</div>
+          <div class="col-xs-3 left">{{event.bestDecibelVolume}}</div>
         </li>
       </ul>
     </div>
