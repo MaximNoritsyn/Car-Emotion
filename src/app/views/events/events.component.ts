@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs/Rx';
-import {event, season} from '../../interfaces/app.interface';
+import {event, eventstatus, season} from '../../interfaces/app.interface';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {EventsService} from '../../services/events.service';
 import {CurrentdataService} from '../../services/currentdata.service';
-import {MatNativeDateModule} from '@angular/material';
 
 
 @Component({
@@ -13,6 +12,7 @@ import {MatNativeDateModule} from '@angular/material';
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css']
 })
+
 export class EventsComponent implements OnInit {
 
   seasonsObs: Observable<season[]>;
@@ -20,6 +20,7 @@ export class EventsComponent implements OnInit {
   currentseason: season;
   eventsObs: Observable<event[]>;
   events: event[];
+  eventstatus = eventstatus;
 
   constructor(public _auth: AuthService,
               private router: Router,
@@ -58,12 +59,13 @@ export class EventsComponent implements OnInit {
 
   fillevents() {
     this.eventsObs.subscribe( items => {
-        if (items !== null && (this.currentseason !== undefined && this.currentseason.id !== "")) {
+      this.events = items.sort((a, b) => a.startDate > b.startDate ? -1 : a.startDate < b.startDate ? 1 : 0);
+        /*if (items !== null && (this.currentseason !== undefined && this.currentseason.id !== "")) {
           this.events = items.filter(options => options.season.id == this.currentseason.id)
         }
           else {
             this.events = items;
-          }
+          }*/
         })
   }
 }

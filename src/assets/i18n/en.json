@@ -62,7 +62,9 @@
   },
   "events": {
     "addseason": "Add new season",
-    "date": "Date"
+    "date": "Date",
+    "count": "participant",
+    "best": "best"
   },
   "season": {
     "seasons": "Seasons",
