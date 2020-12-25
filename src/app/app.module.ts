@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import { AppRoutes } from './app.routes';
 
@@ -43,6 +43,10 @@ import {FactoryService} from './services/factory.service';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { TotalresultsComponent } from './views/results/totalresults/totalresults.component';
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
+
+registerLocaleData(localeUk);
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -100,7 +104,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     Translate_Service,
     EventsService,
     CurrentdataService,
-    FactoryService
+    FactoryService,
+    {provide: LOCALE_ID, useValue: 'uk'}
   ],
   bootstrap: [AppComponent]
 })
