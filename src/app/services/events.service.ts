@@ -62,7 +62,7 @@ export class EventsService {
 
   updateEvent(event: event) {
     if (event.id !== "") {
-      let _list = this._db.list<participant>('/participants/' + event.id).query.once('value').then(
+      let _list = this._db.list<participant>('/participants/' + event.id + '/all').query.once('value').then(
         resultparticipants => {
           event.countDecibelLeague = 0;
           event.countDecibelVolume = 0;
@@ -72,19 +72,25 @@ export class EventsService {
           event.bestDecibelShow = 0;
           resultparticipants.forEach(_participant => {
               let curparticipant: participant = _participant.val() as participant;
-              console.log(curparticipant);
+
               if (curparticipant.isDecibelLeague == true) {
-                event.countDecibelLeague == event.countDecibelLeague + 1;
-                event.bestDecibelLeague == Math.max(event.bestDecibelLeague, curparticipant.resultDecibelLeague.result);
+                event.countDecibelLeague = event.countDecibelLeague + 1;
+                if (curparticipant.resultDecibelLeague !== undefined) {
+                  event.bestDecibelLeague = Math.max(event.bestDecibelLeague, curparticipant.resultDecibelLeague.result);
+                }
               }
-            if (curparticipant.isDecibelVolume == true) {
-              event.countDecibelVolume == event.countDecibelVolume + 1;
-              event.bestDecibelVolume == Math.max(event.bestDecibelVolume, curparticipant.resultDecibelVolume.result)
-            }
-            if (curparticipant.isDecibelShow == true) {
-              event.countDecibelShow == event.countDecibelShow + 1;
-              event.bestDecibelShow == Math.max(event.bestDecibelShow, curparticipant.resultDecibelShow.result)
-            }
+              if (curparticipant.isDecibelVolume == true) {
+                event.countDecibelVolume = event.countDecibelVolume + 1;
+                if (curparticipant.resultDecibelVolume !== undefined) {
+                  event.bestDecibelLeague = Math.max(event.bestDecibelVolume, curparticipant.resultDecibelVolume.result);
+                }
+              }
+              if (curparticipant.isDecibelShow == true) {
+                event.countDecibelShow = event.countDecibelShow + 1;
+                if (curparticipant.resultDecibelShow !== undefined) {
+                  event.bestDecibelShow = Math.max(event.bestDecibelShow, curparticipant.resultDecibelShow.result)
+                }
+              }
             }
           );
 
