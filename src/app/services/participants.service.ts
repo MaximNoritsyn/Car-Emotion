@@ -88,6 +88,7 @@ export class ParticipantsService {
   setPerson(_person: person) {
 
     let _key = _person.id;
+    _person.userUid = this._Auth.getUidFromTelephone(_person.telephone);
     if (_key == '') {
       _key = this._db.list('/persons/').push(_person).key;
       this._db.object('/persons/' + _key).update({'id': _key});
@@ -479,7 +480,6 @@ export class ParticipantsService {
 
         let correctresult: person = personval.val() as person;
         correctresult.userUid = this._Auth.getUidFromTelephone(correctresult.telephone);
-        console.log(correctresult);
         this._db.object<person>('/persons/' + correctresult.id).update({'userUid': correctresult.userUid})
       })
     })

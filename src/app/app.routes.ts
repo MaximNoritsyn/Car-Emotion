@@ -48,7 +48,8 @@ const appRoutes: Routes = [
       [{path: '', component: EventsComponent}]
   },
   {path: 'currentresultboard', canActivate: [IsAdminGuard], component: CurrentresultComponent},
-  {path: 'user', canActivate: [IsLoggedGuard], component: UserComponent}
+  {path: 'user', canActivate: [IsLoggedGuard], component: UserComponent},
+  {path: 'user/:idperson', canActivate: [IsLoggedGuard], component: UserComponent}
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

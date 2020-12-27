@@ -32,7 +32,7 @@
              id="name"
              required>
     </div>
-  <div class="form-group col-xs-6">
+    <div class="form-group col-xs-6">
       <label for="familyName">{{ 'participant.familyName' | translate }}</label>
       <input class="form-control" [disabled]="DisablePerson()"
              [(ngModel)]="currentParticipant.person.familyName"
@@ -40,38 +40,38 @@
              id="familyName"
              placeholder="Family name"
              required>
-  </div>
+    </div>
   </div>
   <div class="row" *ngIf="_auth.isAdministrator()">
-  <div class="form-group col-xs-6">
-    <label for="email">{{ 'participant.email' | translate }}</label>
-    <input class="form-control" [disabled]="DisablePerson()"
-           [(ngModel)]="currentParticipant.person.email"
-           name="person.email"
-           id="email"
-           placeholder="Email"
-           required>
-  </div>
-  <div class="form-group col-xs-3">
-    <label for="telephone">{{ 'participant.telephone' | translate }}</label>
-    <input class="form-control" [disabled]="DisablePerson()"
-           [(ngModel)]="currentParticipant.person.telephone"
-           name="person.telephone"
-           id="telephone"
-           placeholder="0501234567"
-           required>
-  </div>
+    <div class="form-group col-xs-6">
+      <label for="email">{{ 'participant.email' | translate }}</label>
+      <input class="form-control" [disabled]="DisablePerson()"
+             [(ngModel)]="currentParticipant.person.email"
+             name="person.email"
+             id="email"
+             placeholder="Email"
+             required>
+    </div>
+    <div class="form-group col-xs-3">
+      <label for="telephone">{{ 'participant.telephone' | translate }}</label>
+      <input class="form-control" [disabled]="DisablePerson()"
+             [(ngModel)]="currentParticipant.person.telephone"
+             name="person.telephone"
+             id="telephone"
+             placeholder="0501234567"
+             required>
+    </div>
   </div>
   <div class="row">
-  <div class="form-group col-xs-6">
-    <label for="city">{{ 'participant.city' | translate }}</label>
-    <input class="form-control" [disabled]="DisablePerson()"
-           [(ngModel)]="currentParticipant.person.city"
-           name="person.city"
-           id="city"
-           placeholder="City"
-           required>
-  </div>
+    <div class="form-group col-xs-6">
+      <label for="city">{{ 'participant.city' | translate }}</label>
+      <input class="form-control" [disabled]="DisablePerson()"
+             [(ngModel)]="currentParticipant.person.city"
+             name="person.city"
+             id="city"
+             placeholder="City"
+             required>
+    </div>
   </div>
   <hr>
   <div class="row">
@@ -172,7 +172,7 @@
       required>
   </div>
   </div>-->
-<hr>
+  <hr>
   <div class="row">
     <div class="form-group col-xs-6">
       <div class="form-check">
@@ -186,7 +186,8 @@
     </div>
     <div class="form-group col-xs-6" *ngIf="currentParticipant.isDecibelLeague">
       <label for="classDecibelLeague">{{ 'participant.classDecibelLeague' | translate }}</label>
-      <select class="form-control col-xs-6" [compareWith]="selectedid" [(ngModel)]="currentParticipant.classDecibelLeague"
+      <select class="form-control col-xs-6" [compareWith]="selectedid"
+              [(ngModel)]="currentParticipant.classDecibelLeague"
               [disabled]="DisableFields()"
               id="classDecibelLeague"
               [ngModelOptions]="{standalone: true}">
@@ -199,7 +200,7 @@
   <div class="row">
     <div class="form-group col-xs-6">
       <div class="form-check">
-        <label class="form-check-label" for="isDecibelBattle" >
+        <label class="form-check-label" for="isDecibelBattle">
           <input type="checkbox" class="form-check-input" name="currentParticipant.isDecibelBattle"
                  [disabled]="DisableFields()"
                  id="isDecibelBattle"
@@ -282,7 +283,7 @@
   <hr>
   <div class="row" *ngIf="_auth.isAdministrator()">
     <div class="form-group col-xs-6">
-      <button class="btn btn-primary btn-block col-xs-6"  style="margin-bottom: 20px" (click)="setParticipant()">
+      <button class="btn btn-primary btn-block col-xs-6" style="margin-bottom: 20px" (click)="setParticipant()">
         {{ 'participant.add' | translate }}
       </button>
     </div>

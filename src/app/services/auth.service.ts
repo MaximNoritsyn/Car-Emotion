@@ -95,11 +95,6 @@ export class AuthService {
       .then((res) => this.router.navigate(['/']));
   }
 
-  idPersonCurrentUser() : string {
-    return "false"
-    //return this.person == null ? '' : this.person.id;
-  }
-
   recaptcha() {
     return new firebase.auth.RecaptchaVerifier('recaptcha-container')
   }

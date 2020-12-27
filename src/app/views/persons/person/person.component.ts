@@ -16,13 +16,13 @@ export class PersonComponent implements OnInit {
 
   public results: result[];
 
-  public editmode: boolean = false;
   public password: string = '';
   public infotext: string = '';
 
   public bestDecibelleague: result;
   public bestDecibelShow: result;
   public bestDecibelVolume: result;
+  private idCurrentUser: string
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -58,79 +58,23 @@ export class PersonComponent implements OnInit {
       }
     }
     )
+    this.authService.getCurrentUser().subscribe(person => {this.idCurrentUser = person.id});
   }
 
   deisplayBestLeague() {
-    return this.bestDecibelleague !== undefined && !this.isEditMode();
+    return this.bestDecibelleague !== undefined;
   }
 
   deisplayBestVolume() {
-    return this.bestDecibelVolume !== undefined && !this.isEditMode();
+    return this.bestDecibelVolume !== undefined;
   }
 
   deisplayBestShow() {
-    return this.bestDecibelShow !== undefined && !this.isEditMode();
-  }
-
-  enableEditMode() {
-    this.editmode = true;
-  }
-
-  isEditMode(): boolean {
-    return this.editmode;
+    return this.bestDecibelShow !== undefined;
   }
 
   savePerson() {
 
-    /*if ((this.currentperson.userUid == null || this.currentperson.userUid == '')
-      && this.password !== "")
-    {
-      //than register
-      this.authService.createUserAutomatic(this.currentperson.email, this.password)
-        .then(user => {
-            this.currentperson.userUid = user.user.uid;
-            this._ParticipantsService.setPerson(this.currentperson);
-            this.editmode = false;
-            this.infotext = 'Новий користувач був створений';
-          },
-          error => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(error);
-            if (errorCode == 'auth/weak-password') {
-              this.infotext = 'Пароль дуже простий';
-            } else {
-              this.infotext = errorMessage;
-            }
-          })
-    } else if (this.password !== '') {
-      //than register
-      this.authService.changePass(this.password)
-        .then(user => {
-            this._ParticipantsService.setPerson(this.currentperson);
-            this.editmode = false;
-            this.infotext = 'Дані збережні';
-          },
-          error => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(error);
-            if (errorCode == 'auth/weak-password') {
-              this.infotext = 'Пароль дуже простий';
-            } else {
-              this.infotext = errorMessage;
-            }
-          }
-      );
-      console.log("else if")
-
-    } else {
-      this._ParticipantsService.setPerson(this.currentperson);
-      this.editmode = false;
-      console.log("else")
-    }*/
   }
 
   isAdministrator(): boolean {
@@ -138,14 +82,18 @@ export class PersonComponent implements OnInit {
   }
 
   canEdit(): boolean {
-    return (this.currentperson.id == this.authService.idPersonCurrentUser()) ||
+    return (this.currentperson.id == this.idCurrentUser) ||
       this.authService.isAdministrator();
   }
 
   canSetPass(): boolean {
       return ((this.currentperson.userUid == '' || this.currentperson.userUid == null) &&
         this.authService.isAdministrator()) ||
-        (this.currentperson.userUid == this.authService.idPersonCurrentUser());
+        (this.currentperson.userUid == this.idCurrentUser);
+  }
+
+  haveInsta(): boolean {
+    return this.currentperson.insta !== "";
   }
 
 }
