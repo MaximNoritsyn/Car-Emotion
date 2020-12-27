@@ -13,21 +13,22 @@ import {PersonsComponent} from './views/persons/persons.component';
 import {PersonComponent} from './views/persons/person/person.component';
 import {CurrentresultComponent} from './views/dashboard/currentresult/currentresult.component';
 import {DashboardComponent} from './views/dashboard/dashboard.component';
-import { AuthGuard } from './services/auth-guard.service';
+import {IsAdminGuard, IsLoggedGuard} from './services/auth-guard.service';
 import {ResultsComponent} from './views/results/results.component';
 import {TotalresultsComponent} from './views/results/totalresults/totalresults.component';
+import {UserComponent} from './views/login/user/user.component';
 
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'events', component: EventsComponent},
   {
-    path: 'adminboard', canActivate: [AuthGuard], component: AdminboardComponent, children:
+    path: 'adminboard', canActivate: [IsAdminGuard], component: AdminboardComponent, children:
       [{path: 'competitionclass/:idclass', component: CompetitionclassComponent},
         {path: 'competitionclass', component: CompetitionclassComponent}]
   },
-  {path: 'season', canActivate: [AuthGuard], component: SeasonComponent},
-  {path: 'season/:idseason', canActivate: [AuthGuard], component: SeasonComponent},
+  {path: 'season', canActivate: [IsAdminGuard], component: SeasonComponent},
+  {path: 'season/:idseason', canActivate: [IsAdminGuard], component: SeasonComponent},
   {path: 'event', component: EventComponent},
   {
     path: 'event/:idevent', component: EventComponent, children:
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
     path: '', component: DashboardComponent, children:
       [{path: '', component: EventsComponent}]
   },
-  {path: 'currentresultboard', canActivate: [AuthGuard], component: CurrentresultComponent}
+  {path: 'currentresultboard', canActivate: [IsAdminGuard], component: CurrentresultComponent},
+  {path: 'user', canActivate: [IsLoggedGuard], component: UserComponent}
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

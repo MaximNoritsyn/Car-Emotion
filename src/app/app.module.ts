@@ -16,7 +16,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AuthService } from './services/auth.service';
 import { ParticipantsService } from './services/participants.service';
-import { AuthGuard } from './services/auth-guard.service';
+import { IsAdminGuard, IsLoggedGuard } from './services/auth-guard.service';
 import { ParticipantComponent } from './views/participants/participant/participant.component';
 import { ParticipantsComponent } from './views/participants/participants.component';
 
@@ -45,6 +45,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { TotalresultsComponent } from './views/results/totalresults/totalresults.component';
 import { registerLocaleData } from '@angular/common';
 import localeUk from '@angular/common/locales/uk';
+import { UserComponent } from './views/login/user/user.component';
 
 registerLocaleData(localeUk);
 
@@ -70,7 +71,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResultsComponent,
     ResultComponent,
     CurrentresultComponent,
-    TotalresultsComponent
+    TotalresultsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     AuthService,
-    AuthGuard,
+    IsAdminGuard,
+    IsLoggedGuard,
     ParticipantsService,
     Translate_Service,
     EventsService,

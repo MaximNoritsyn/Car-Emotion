@@ -79,8 +79,6 @@ export class AuthService {
   }
 
   signInRegular(email: string, password: string) {
-    //const credential = firebase.auth.EmailAuthProvider.credential( email, password );
-
     return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
   }
 
