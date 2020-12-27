@@ -3,18 +3,21 @@ import {Router} from '@angular/router';
 
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {person, result} from '../interfaces/app.interface';
 import * as admin from 'firebase-admin';
 import {FactoryService} from './factory.service';
+import {map} from 'rxjs/operators';
+import {from} from 'rxjs/internal/observable/from';
 
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
-  private person: person = null;
+  private person: Observable<person>;
   private isAdmin: boolean = false;
+  private readonly emptyPerson: person;
 
   getIdToken = () => {
     return new Promise((resolve, reject) => {
@@ -39,31 +42,40 @@ export class AuthService {
               private _FactoryService: FactoryService) {
     this.user = _firebaseAuth.authState;
 
-    this.person = _FactoryService.getnewPerson();
-    this.user.subscribe(
-      (user) => {
-        if (user) {
-          this.userDetails = user;
-          console.log(this.userDetails);
-          if (this.userDetails.phoneNumber == null) {
-            this.isAdmin = true;
+    this.emptyPerson = this._FactoryService.getnewPerson();
+    this.person = new Observable((observer) => {
+      observer.next(this.emptyPerson);
+      this.user.subscribe(
+        (user) => {
+          if (user) {
+            this.userDetails = user;
+            if (this.userDetails.phoneNumber == null) {
+              this.isAdmin = true;
+            } else if (this.userDetails.phoneNumber !== '') {
+              this.isAdmin = false;
+              this._db.list<person>('/persons/',
+                ref => (ref.orderByChild('userUid').equalTo(this.userDetails.phoneNumber)
+                )).valueChanges().subscribe(person => {
+                  if (person.length > 0) {
+                    observer.next(person[0]);
+                  } else {
+                    this.person = of(this.emptyPerson);
+                  }
+                }
+              );
+            } else {
+              this.isAdmin = false;
+              this.person = of(this.emptyPerson);
+            }
+          } else {
+            this.isAdmin = false;
+            this.userDetails = null;
+            this.person = of(this.emptyPerson);
           }
-          else if (this.userDetails.phoneNumber !== null && this.userDetails.phoneNumber !== "") {
-
-            this._db.list<person>('/persons/',
-              ref => (ref.orderByChild('userUid').equalTo(this.userDetails.phoneNumber)
-              )).valueChanges().subscribe(person => this.person = person.length > 0 ? person[0] : null);
-
-          }
-          else {
-            this.person = null;
-          }
-        } else {
-          this.userDetails = null;
-          this.person = null;
         }
-      }
-    );
+      );
+    });
+
   }
 
   signInRegular(email: string, password: string) {
@@ -86,7 +98,8 @@ export class AuthService {
   }
 
   idPersonCurrentUser() : string {
-    return this.person == null ? '' : this.person.id;
+    return "false"
+    //return this.person == null ? '' : this.person.id;
   }
 
   recaptcha() {
@@ -117,6 +130,10 @@ export class AuthService {
     }
 
     return num;
+  }
+
+  getCurrentUser() {
+    return this.person;
   }
 
 }
