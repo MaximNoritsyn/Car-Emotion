@@ -6,6 +6,7 @@ import {Translate_Service} from '../../../services/translate.service';
 import {CurrentdataService} from '../../../services/currentdata.service';
 import {competition, event, person} from '../../../interfaces/app.interface';
 import {ParticipantsService} from '../../../services/participants.service';
+import {EventsService} from '../../../services/events.service';
 
 @Component({
   selector: 'app-user',
@@ -21,6 +22,7 @@ export class UserComponent implements OnInit {
 
   constructor(public _auth: AuthService,
               private router: Router,
+              private _EventsService: EventsService,
               private activeRoute: ActivatedRoute,
               private _FactoryService: FactoryService,
               private _ParticipantsService: ParticipantsService,
@@ -38,7 +40,8 @@ export class UserComponent implements OnInit {
           }
         }
       )
-    } else {
+    }
+    else {
       this.currentperson = this._FactoryService.getnewPerson();
       this._auth.getCurrentUser().subscribe(
         person => {
@@ -46,6 +49,16 @@ export class UserComponent implements OnInit {
         }
       );
     }
+
+    this.currentevent = this._FactoryService.getnewEvent();
+    this._CurrentdataService.getCurrentEventOnce().then(
+      event =>
+      {
+        this._EventsService.getEvent(event.val().id).subscribe(
+          realevent => this.currentevent = realevent
+        )
+      }
+    )
   }
 
   editMode() {
@@ -62,6 +75,10 @@ export class UserComponent implements OnInit {
 
   enableEdit() {
     this.edit = true
+  }
+
+  isOpenevent() {
+    return this.currentevent.id !== "";
   }
 
 

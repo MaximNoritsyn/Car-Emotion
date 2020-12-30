@@ -7,6 +7,12 @@
     <a class="h4">{{currentperson.insta}}</a>
   </a>
   <button class="btn btn-block" (click)="enableEdit()">Edit</button>
+  <div *ngIf="isOpenevent()">
+    <hr>
+    <div>{{ 'user.openevent' | translate }}</div>
+    <div>{{currentevent.name}}</div>
+    <div>{{ 'eventsstatus.' + currentevent.eventStatus | translate }}</div>
+  </div>
 
 
 

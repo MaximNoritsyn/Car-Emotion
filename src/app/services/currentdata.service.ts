@@ -33,6 +33,10 @@ export class CurrentdataService {
 
   }
 
+  getCurrentEventOnce() {
+    return this._db.object<event>('/currentdata/currentevent').query.once("value")
+  }
+
   getseasonOnce() {
     return this._db.object<season>('/currentdata/currentseason').query.once("value");
   }

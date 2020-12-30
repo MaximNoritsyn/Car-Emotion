@@ -59,18 +59,18 @@ export class AuthService {
                   if (person.length > 0) {
                     observer.next(person[0]);
                   } else {
-                    this.person = of(this.emptyPerson);
+                    observer.next(this.emptyPerson);
                   }
                 }
               );
             } else {
               this.isAdmin = false;
-              this.person = of(this.emptyPerson);
+              observer.next(this.emptyPerson);
             }
           } else {
             this.isAdmin = false;
             this.userDetails = null;
-            this.person = of(this.emptyPerson);
+            observer.next(this.emptyPerson);
           }
         }
       );
