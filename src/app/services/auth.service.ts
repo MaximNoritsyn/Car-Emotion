@@ -125,7 +125,7 @@ export class AuthService {
     return num;
   }
 
-  getCurrentUser() {
+  getPersonOfCurrentUser() {
     return this.person;
   }
 

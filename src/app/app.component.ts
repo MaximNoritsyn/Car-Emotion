@@ -25,7 +25,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.currentperson = this._FactoryService.getnewPerson();
-     this._auth.getCurrentUser().subscribe(
+     this._auth.getPersonOfCurrentUser().subscribe(
        person => {
          this.currentperson = person
        }

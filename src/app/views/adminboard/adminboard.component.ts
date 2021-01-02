@@ -15,6 +15,7 @@ export class AdminboardComponent implements OnInit {
 
   public CompetitionClasses: competitionclass[];
   public seasons: season[];
+  public events: event[];
 
   constructor(public _auth: AuthService,
               private router: Router,
@@ -25,6 +26,9 @@ export class AdminboardComponent implements OnInit {
   ngOnInit() {
     this._EventsService.getCompetitionClassesObs().subscribe(items => this.CompetitionClasses = items)
     this._EventsService.getSeasons().subscribe(items => this.seasons = items);
+    this._EventsService.getEvents().subscribe( items => {
+      this.events = items.sort((a, b) => a.startDate > b.startDate ? -1 : a.startDate < b.startDate ? 1 : 0);
+    })
 
   }
 

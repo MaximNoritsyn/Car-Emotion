@@ -1,4 +1,7 @@
-<div *ngIf="!editMode()">
+<div *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['']" (click)="_auth.logout()">
+  <a><h4>{{ 'navigate.Logout' | translate }}</h4></a>
+</div>
+<div *ngIf="!editMode() && !_auth.isAdministrator()">
   <div class="row center-block h2">
     {{currentperson.name}} {{currentperson.familyName}}
   </div>
@@ -13,18 +16,148 @@
     <div>{{currentevent.name}}</div>
     <div>{{ 'eventsstatus.' + currentevent.eventStatus | translate }}</div>
   </div>
+  <div class="form-group col-xs-6" *ngIf="isNew()">
+    <button class="btn btn-primary btn-block col-xs-6" style="margin-bottom: 20px" (click)="setBeginReestration()">
+      {{ 'participant.beginreestration' | translate }}
+    </button>
+  </div>
 
+  <hr>
+  <div *ngIf="beginReestration()">
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <div class="form-check">
+          <label class="form-check-label" for="isDecibelLeague">
+            <input type="checkbox" class="form-check-input" id="isDecibelLeague"
+                   name="currentParticipant.isDecibelLeague"
+                   [disabled]="DisableParticipant()"
+                   [(ngModel)]="currentparticipant.isDecibelLeague">
+            {{ 'participant.isDecibelLeague' | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-xs-6" *ngIf="currentparticipant.isDecibelLeague">
+        <label for="classDecibelLeague">{{ 'participant.classDecibelLeague' | translate }}</label>
+        <select class="form-control col-xs-6" [compareWith]="selectedid"
+                [(ngModel)]="currentparticipant.classDecibelLeague"
+                [disabled]="DisableParticipant()"
+                id="classDecibelLeague"
+                [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let key of arrayclassDecibelLeague" [ngValue]="key">
+            {{key.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <div class="form-check">
+          <label class="form-check-label" for="isDecibelBattle">
+            <input type="checkbox" class="form-check-input" name="currentParticipant.isDecibelBattle"
+                   [disabled]="DisableParticipant()"
+                   id="isDecibelBattle"
+                   [(ngModel)]="currentparticipant.isDecibelBattle">
+            {{ 'participant.isDecibelBattle' | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-xs-6" *ngIf="currentparticipant.isDecibelBattle">
+        <label for="classDecibelBattle">{{ 'participant.classDecibelBattle' | translate }}</label>
+        <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentparticipant.classDecibelBattle"
+                [disabled]="DisableParticipant()"
+                id="classDecibelBattle"
+                [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let key of arrayclassDecibelBattle" [ngValue]="key">
+            {{key.name}}
+          </option>
+        </select>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <div class="form-check">
+          <label class="form-check-label" for="isDecibelVolume">
+            <input type="checkbox" class="form-check-input" id="isDecibelVolume"
+                   name="currentParticipant.isDecibelVolume"
+                   [disabled]="DisableParticipant()"
+                   [(ngModel)]="currentparticipant.isDecibelVolume2020">
+            {{ 'participant.isDecibelVolume' | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-xs-6" *ngIf="currentparticipant.isDecibelVolume2020">
+        <label for="classDecibelVolume">{{ 'participant.classDecibelVolume' | translate }}</label>
+        <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentparticipant.classDecibelVolume2020"
+                [disabled]="DisableParticipant()"
+                id="classDecibelVolume"
+                [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let key of arrayclassDecibelVolume2020" [ngValue]="key">
+            {{key.name}}
+          </option>
+        </select>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="form-group  col-xs-6">
+        <div class="form-check">
+          <label class="form-check-label" for="isDecibelShow">
+            <input type="checkbox" class="form-check-input" id="isDecibelShow" name="currentParticipant.isDecibelShow"
+                   [disabled]="DisableParticipant()"
+                   [(ngModel)]="currentparticipant.isDecibelShow2020">
+            {{ 'participant.isDecibelShow' | translate }}
+          </label>
+        </div>
+      </div>
+      <div class="form-group col-xs-6" *ngIf="currentparticipant.isDecibelShow2020">
+        <label for="classDecibelShow">{{ 'participant.classDecibelShow' | translate }}</label>
+        <select class="form-control" [compareWith]="selectedid" [(ngModel)]="currentparticipant.classDecibelShow2020"
+                [disabled]="DisableParticipant()"
+                id="classDecibelShow"
+                [ngModelOptions]="{standalone: true}">
+          <option *ngFor="let key of arrayclassDecibelShow2020" [ngValue]="key">
+            {{key.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <hr>
+    <div class="form-group">
+      <div class="form-check">
+        <label class="form-check-label" for="isDecibelShow">
+          <input type="checkbox" class="form-check-input" id="registered" name="currentParticipant.registered"
+                 [disabled]="DisableParticipant()"
+                 [(ngModel)]="currentparticipant.registered">
+          {{ 'participant.registered' | translate }}
+        </label>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <button class="btn btn-primary btn-block col-xs-6" style="margin-bottom: 20px" (click)="setParticipant()">
+          {{ 'participant.add' | translate }}
+        </button>
+      </div>
+      <div class="form-group col-xs-3">
+        <button class="btn btn-block" *ngIf="!isNew()" (click)="enableEdit()">
+          {{ 'participant.edit' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
-<div *ngIf="editMode()">
+
+<div *ngIf="editMode() && !_auth.isAdministrator()">
   <div class="row">
     <label for="InputName">{{ 'participant.name' | translate }}</label>
     <input id="InputName" class="form-control" [(ngModel)]="currentperson.name" placeholder="Name" required>
   </div>
   <div class="row">
     <label for="InputFamilyName">{{ 'participant.familyName' | translate }}</label>
-    <input id="InputFamilyName" class="form-control" [(ngModel)]="currentperson.familyName" placeholder="Family Name" required>
+    <input id="InputFamilyName" class="form-control" [(ngModel)]="currentperson.familyName" placeholder="Family Name"
+           required>
   </div>
   <div class="row">
     <label for="InputCity">{{ 'participant.city' | translate }}</label>
@@ -32,7 +165,8 @@
   </div>
   <div class="row">
     <label for="InputInsta">{{ 'participant.insta' | translate }}</label>
-    <input id="InputInsta" class="form-control" [(ngModel)]="currentperson.insta" placeholder="Instagram login" required>
+    <input id="InputInsta" class="form-control" [(ngModel)]="currentperson.insta" placeholder="Instagram login"
+           required>
   </div>
   <div class="row">
     <label for="Inputemail">{{ 'participant.email' | translate }}</label>
@@ -40,7 +174,8 @@
   </div>
   <div class="row">
     <label for="InputTelephone">{{ 'participant.email' | translate }}</label>
-    <input id="InputTelephone" class="form-control" [(ngModel)]="currentperson.telephone" placeholder="telephone" required>
+    <input id="InputTelephone" class="form-control" [(ngModel)]="currentperson.telephone" placeholder="telephone"
+           required>
   </div>
 
   <div class="form-group">

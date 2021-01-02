@@ -40,9 +40,6 @@
         <li *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['user']">
           <a><h4>{{currentperson.name}} {{currentperson.familyName}}</h4></a>
         </li>
-        <li *ngIf="_auth.isLoggedIn()" class="nav navbar-nav navbar-right" [routerLink]="['']" (click)="_auth.logout()">
-          <a><h4>{{ 'navigate.Logout' | translate }}</h4></a>
-        </li>
       </ul>
     </div>
   </nav>

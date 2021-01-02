@@ -1,25 +1,36 @@
-<div class="form-group col-xs-4">
-  <button class="btn btn-primary btn-block" *ngIf="_auth.isAdministrator()" [routerLink]="['/event']">
-    {{ 'events.addevent' | translate }}
-  </button>
+<div class="row">
+  <div class="form-group col-xs-4">
+    <button class="btn btn-primary btn-block" *ngIf="_auth.isAdministrator()" [routerLink]="['/event']">
+      {{ 'events.addevent' | translate }}
+    </button>
+  </div>
+</div>
+<div class="list-group">
+  <a class="list-group-item list-group-item-action" *ngFor="let event of events"
+       [routerLink]="'/event/' + event.id">
+    <div class="row">
+      <h6 class="col-xs-8">{{event.name}}</h6>
+      <h6 class="col-xs-4">{{event.startDate | date : 'mediumDate'  }}</h6>
+    </div>
+  </a>
 </div>
 <hr>
-  <H4>{{ 'season.seasons' | translate }}</H4>
-  <div class="list-group">
-    <a class="list-group-item active" [routerLink]="['/season/']">
-      {{ 'season.addseason' | translate }}
-    </a>
-    <a *ngFor="let season of seasons" class="list-group-item list-group-item-action"
-       [routerLink]="['/season/' + season.id]"
-    >{{season.name}}</a>
+<H4>{{ 'season.seasons' | translate }}</H4>
+<div class="list-group">
+  <a class="list-group-item active" [routerLink]="['/season/']">
+    {{ 'season.addseason' | translate }}
+  </a>
+  <a *ngFor="let season of seasons" class="list-group-item list-group-item-action"
+     [routerLink]="['/season/' + season.id]"
+  >{{season.name}}</a>
+</div>
+<div class="row">
+  <div class="form-group col-xs-4">
+    <button class="btn btn-primary btn-block" style="margin-bottom: 20px" (click)="countAllResults()">
+      {{ 'competitionclasses.countallresults' | translate }}
+    </button>
   </div>
-  <div class="row">
-    <div class="form-group col-xs-4">
-      <button class="btn btn-primary btn-block"  style="margin-bottom: 20px" (click)="countAllResults()">
-        {{ 'competitionclasses.countallresults' | translate }}
-      </button>
-    </div>
-  </div>
+</div>
 <div>
   <H4>{{ 'competitionclasses.classes' | translate }}</H4>
   <div class="list-group">

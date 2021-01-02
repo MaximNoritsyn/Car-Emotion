@@ -45,7 +45,6 @@ export class EventComponent implements OnInit {
         }
       }
     );
-    //this.currentseason = this._CurrentdataService.getseason();
     this.seasonsObs = this._EventsService.getSeasons();
     this.seasonsObs.subscribe(items => {
       this.seasons = items;

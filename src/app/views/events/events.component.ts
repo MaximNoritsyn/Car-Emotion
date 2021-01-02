@@ -15,8 +15,6 @@ import {CurrentdataService} from '../../services/currentdata.service';
 
 export class EventsComponent implements OnInit {
 
-  seasonsObs: Observable<season[]>;
-  seasons: season[];
   currentseason: season;
   eventsObs: Observable<event[]>;
   events: event[];
@@ -31,14 +29,6 @@ export class EventsComponent implements OnInit {
 
     //season
     this.currentseason = this._CurrentdataService.getseason();
-    this.seasonsObs = this._EventsService.getSeasons();
-    this.seasonsObs.subscribe(items => {
-      this.seasons = items;
-      if (this.currentseason.id == "") {
-        this.currentseason = this._CurrentdataService.getseason()
-      }
-    });
-
 
     //event
     this.eventsObs = this._EventsService.getEvents();
@@ -60,12 +50,6 @@ export class EventsComponent implements OnInit {
   fillevents() {
     this.eventsObs.subscribe( items => {
       this.events = items.sort((a, b) => a.startDate > b.startDate ? -1 : a.startDate < b.startDate ? 1 : 0);
-        /*if (items !== null && (this.currentseason !== undefined && this.currentseason.id !== "")) {
-          this.events = items.filter(options => options.season.id == this.currentseason.id)
-        }
-          else {
-            this.events = items;
-          }*/
         })
   }
 }
