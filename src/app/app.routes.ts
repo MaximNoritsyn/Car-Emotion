@@ -17,6 +17,7 @@ import {IsAdminGuard, IsLoggedGuard} from './services/auth-guard.service';
 import {ResultsComponent} from './views/results/results.component';
 import {TotalresultsComponent} from './views/results/totalresults/totalresults.component';
 import {UserComponent} from './views/login/user/user.component';
+import {MergepersonsComponent} from './views/adminboard/mergepersons/mergepersons.component';
 
 
 const appRoutes: Routes = [
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
   },
   {path: 'currentresultboard', canActivate: [IsAdminGuard], component: CurrentresultComponent},
   {path: 'user', canActivate: [IsLoggedGuard], component: UserComponent},
-  {path: 'user/:idperson', canActivate: [IsLoggedGuard], component: UserComponent}
+  {path: 'user/:idperson', canActivate: [IsLoggedGuard], component: UserComponent},
+  {path: 'mergepersons', canActivate: [IsAdminGuard],component: MergepersonsComponent}
 ];
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

@@ -46,6 +46,7 @@ import { TotalresultsComponent } from './views/results/totalresults/totalresults
 import { registerLocaleData } from '@angular/common';
 import localeUk from '@angular/common/locales/uk';
 import { UserComponent } from './views/login/user/user.component';
+import { MergepersonsComponent } from './views/adminboard/mergepersons/mergepersons.component';
 
 registerLocaleData(localeUk);
 
@@ -72,7 +73,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResultComponent,
     CurrentresultComponent,
     TotalresultsComponent,
-    UserComponent
+    UserComponent,
+    MergepersonsComponent
   ],
   imports: [
     BrowserModule,

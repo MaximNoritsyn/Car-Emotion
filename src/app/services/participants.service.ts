@@ -153,6 +153,9 @@ export class ParticipantsService {
   getPerson(id: string) {
     return this._db.object<person>('/persons/' + id).valueChanges();
   }
+  getPersonOnce(id: string) {
+    return this._db.object<person>('/persons/' + id);
+  }
 
   setidcurrenevent(id: string) {
     this.idcurrentevent = id;
