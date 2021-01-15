@@ -3,6 +3,26 @@
 </div>
 <div itemscope itemtype="http://schema.org/Person">
   <div>
+    <hr>
+    Результаты
+    <div class="list-group">
+      <a *ngFor="let res of results" class="list-group-item">
+        <div class="col-xs-4">{{res.id}}</div>
+        <div class="col-xs-4">{{res.event.name}}</div>
+        <div class="col-xs-4">{{res.result}}</div>
+      </a>
+    </div>
+
+    <hr>
+    Участники
+    <div class="list-group">
+      <a *ngFor="let part of localparticipants" class="list-group-item">
+        <div class="col-xs-6">{{part.id}}</div>
+        <div class="col-xs-6">{{part.idevent}}</div>
+      </a>
+    </div>
+    <hr>
+
     <div class="row">
       <div class="form-group col-xs-12 row">
         <h1 itemprop="name">{{currentperson.name}} </h1>
@@ -102,5 +122,7 @@
       </div>
     </div>
   </div>
+
+
 </div>
 

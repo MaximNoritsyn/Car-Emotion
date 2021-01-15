@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FactoryService} from '../../../services/factory.service';
@@ -39,11 +39,12 @@ export class UserComponent implements OnInit {
               private _FactoryService: FactoryService,
               private _ParticipantsService: ParticipantsService,
               public translate_service: Translate_Service,
-              private _CurrentdataService: CurrentdataService) { }
+              private _CurrentdataService: CurrentdataService) {
+  }
 
   ngOnInit() {
 
-    this.currentparticipant = this._FactoryService.getnewParticipantclass("");
+    this.currentparticipant = this._FactoryService.getnewParticipantclass('');
 
     if (this._auth.isAdministrator()) {
       this.activeRoute.params.subscribe((params: Params) => {
@@ -56,8 +57,7 @@ export class UserComponent implements OnInit {
           }
         }
       )
-    }
-    else {
+    } else {
       this.currentperson = this._FactoryService.getnewPerson();
       this._auth.getPersonOfCurrentUser().subscribe(
         person => {
@@ -67,18 +67,7 @@ export class UserComponent implements OnInit {
       );
     }
 
-    this.currentevent = this._FactoryService.getnewEvent();
-    this._CurrentdataService.getCurrentEventOnce().then(
-      event =>
-      {
-        this._EventsService.getEvent(event.val().id).subscribe(
-          realevent => {
-            this.currentevent = realevent;
-            this.currentparticipant.idevent = this.currentevent.id;
-          }
-        )
-      }
-    );
+    this.getEvent();
 
     this._EventsService.getCompetitionClassesObs().subscribe(items => {
       this.arrayclassDecibelBattle = this._EventsService.getCompetitionClasses(items, competition.DecibelBattleQualy);
@@ -95,7 +84,7 @@ export class UserComponent implements OnInit {
   }
 
   haveInsta(): boolean {
-    return this.currentperson.insta !== "";
+    return this.currentperson.insta !== '';
   }
 
   savePerson() {
@@ -107,7 +96,7 @@ export class UserComponent implements OnInit {
   }
 
   isOpenevent() {
-    return this.currentevent.id !== "";
+    return this.currentevent.id !== '';
   }
 
   DisableParticipant() {
@@ -115,7 +104,7 @@ export class UserComponent implements OnInit {
   }
 
   isNew(): boolean {
-    return this.currentparticipant.id == "";
+    return this.currentparticipant.id == '';
   }
 
   setParticipant() {
@@ -139,4 +128,20 @@ export class UserComponent implements OnInit {
     return (this.beginreestration && this.isNew()) || !this.isNew();
   }
 
+  getEvent() {
+    this.currentevent = this._FactoryService.getnewEvent();
+    this._CurrentdataService.getCurrentEventOnce().then(
+      event => {
+        this._EventsService.getEvent(event.val().id).subscribe(
+          realevent => {
+            this.currentevent = realevent;
+          }
+        )
+      }
+    );
+  }
+
+  getParticipant() {
+
+  }
 }

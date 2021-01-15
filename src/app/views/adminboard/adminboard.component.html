@@ -4,6 +4,11 @@
       {{ 'events.addevent' | translate }}
     </button>
   </div>
+  <div class="form-group col-xs-4">
+    <button class="btn btn-primary btn-block" *ngIf="_auth.isAdministrator()" (click)="changeUidOfPerson()">
+      Подготовить базу
+    </button>
+  </div>
 </div>
 <div class="list-group">
   <a class="list-group-item list-group-item-action" *ngFor="let event of events"

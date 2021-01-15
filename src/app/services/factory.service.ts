@@ -45,6 +45,7 @@ export class FactoryService {
     let _datacar = this.getnewDataCar();
     return new class implements participant {
       id: string = '';
+      idperson: string = '';
       idevent: string = _idevent;
       person: person = _person;
       imageperson: string = '';

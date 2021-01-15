@@ -51,6 +51,10 @@ export class ParticipantsService {
     return this.participants
   }
 
+  getParticipantByPerson(person: person) {
+    return this._db.object<participant>('/participants/' + this.idcurrentevent + '/all').query;
+  }
+
   setParticipant(_participant: participant) {
     let localevent = this._EventsService.getEventOnce(this.idcurrentevent);
     localevent.then(item => {
@@ -71,15 +75,13 @@ export class ParticipantsService {
       _key = this._db.list('/persons/').push(_participant.person).key;
       this._db.object('/persons/' + _key).update({'id': _key});
       _participant.person.id = _key;
-      //this.writeCar(_participant)
+      _participant.idperson = _key;
       this.writeParticipant(_participant, localevent);
     } else {
       if (_participant.person.datainput <= _participant.datainput) {
         _participant.person.datainput = _participant.datainput;
         this._db.object('/persons/' + _key).update(_participant.person)
       }
-      //this.writeCar(_participant);
-      //this._Auth.createUserAutomatic(_participant.person.email).then(user => console.log(user.user));
       this.writeParticipant(_participant, localevent);
     }
 
@@ -474,13 +476,33 @@ export class ParticipantsService {
       )
   }
 
-  inputUserUid(): void {
+  duty_inputUserUid(): void {
     this._db.list<person>('/persons/').query.once('value').then(personsval => {
       personsval.forEach(personval => {
 
         let correctresult: person = personval.val() as person;
         correctresult.userUid = this._Auth.getUidFromTelephone(correctresult.telephone);
-        this._db.object<person>('/persons/' + correctresult.id).update({'userUid': correctresult.userUid})
+        this._db.object<person>('/persons/' + correctresult.id).update({'userUid': correctresult.userUid});
+        this._db.object<person>('/persons/' + correctresult.id).update({'insta': ""})
+      })
+    })
+  }
+
+  duty_inputIdParticipant(): void {
+    this._db.list('/participants/').query.once('value').then(events => {
+      events.forEach(event => {
+        event.forEach(_participants => {
+          _participants.forEach(_value => {
+            let _participant: participant = _value.val();
+            if (_participant.person == undefined) {
+              console.log(_value.key)
+            } else {
+              this._db.object('/participants/' + _participant.idevent + '/all/' + _participant.id).update(
+                {'idperson': _participant.person.id}
+              )
+            }
+          })
+        })
       })
     })
   }
@@ -552,6 +574,10 @@ export class ParticipantsService {
         );
       }
     )
+  }
+
+  duty_getParticipants() {
+    return this._db.list('/participants/').query.once('value');
   }
 
   duty_updateresultsbyevent(_event: event) {

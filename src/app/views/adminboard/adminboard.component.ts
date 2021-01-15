@@ -45,8 +45,9 @@ export class AdminboardComponent implements OnInit {
     )
   }
 
-  changeUid() {
-    this._ParticipantsService.inputUserUid();
+  changeUidOfPerson() {
+    this._ParticipantsService.duty_inputUserUid();
+    this._ParticipantsService.duty_inputIdParticipant();
   }
 
 }

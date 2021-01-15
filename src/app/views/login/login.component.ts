@@ -38,12 +38,13 @@ export class LoginComponent implements OnInit {
     this.windowRef = this.authService.windowRef;
     this.windowRef.recaptchaVerifier = this.authService.recaptcha();
 
-    // @ts-ignore
     this.windowRef.recaptchaVerifier
       .render()
-      .then(widgetId => {
-        this.windowRef.recaptchaWidgetId = widgetId
-      });
+      .then(getWidget);
+
+    function getWidget(widgetId: any) {
+      this.windowRef.recaptchaWidgetId = widgetId
+    }
   }
 
   signInWithEmail() {

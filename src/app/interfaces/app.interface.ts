@@ -17,6 +17,7 @@ export interface person {
 export interface participant {
   id: string,
   idevent: string,
+  idperson: string,
   person: person,
   imageperson: string,
   car: car,

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../../services/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {ParticipantsService} from '../../../services/participants.service';
-import {competition, person, result} from '../../../interfaces/app.interface';
+import {competition, participant, person, result} from '../../../interfaces/app.interface';
 import {FactoryService} from '../../../services/factory.service';
 
 @Component({
@@ -13,6 +13,8 @@ import {FactoryService} from '../../../services/factory.service';
 export class PersonComponent implements OnInit {
 
   public currentperson: person;
+
+  public localparticipants: participant[];
 
   public results: result[];
 
@@ -55,10 +57,11 @@ export class PersonComponent implements OnInit {
             this.results = _tabres);
         }
         )
+        this.duty_getParticipants(params["idperson"]);
       }
     }
-    )
-    this.authService.getCurrentUser().subscribe(person => {this.idCurrentUser = person.id});
+    );
+    this.authService.getPersonOfCurrentUser().subscribe(person => {this.idCurrentUser = person.id});
   }
 
   deisplayBestLeague() {
@@ -94,6 +97,21 @@ export class PersonComponent implements OnInit {
 
   haveInsta(): boolean {
     return this.currentperson.insta !== "";
+  }
+
+  duty_getParticipants(idperson: string) {
+    this.localparticipants = [];
+    this._ParticipantsService.duty_getParticipants().then(events => {
+      events.forEach(event => {
+        event.forEach(_participants => {
+          _participants.forEach(_value => {
+            let _participant: participant = _value.val();
+            if (_participant.idperson == idperson)
+            this.localparticipants.push(_participant);
+          })
+        })
+      })
+    })
   }
 
 }
