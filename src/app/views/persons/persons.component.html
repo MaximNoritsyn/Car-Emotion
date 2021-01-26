@@ -1,13 +1,15 @@
 <div>
   <H4>{{ 'persons.persons' | translate }}</H4>
-  <div class="list-group">
-    <a *ngFor="let person of persons" class="list-group-item"
-       [routerLink]="['/person/'  + person.id]"
-    >
-      <div class="col-xs-2">{{person.id}}</div>
-      <div class="col-xs-2">{{person.familyName}}</div>
-      <div class="col-xs-2">{{person.name}}</div>
-      <div class="col-xs-2">{{person.userUid}}</div>
-    </a>
-  </div>
+  <table>
+    <tr *ngFor="let person of persons" class="list-group-item">
+      <td class="col-xs-2">{{person.id}}</td>
+      <td class="col-xs-2">{{person.familyName}}</td>
+      <td class="col-xs-2">{{person.name}}</td>
+      <td class="col-xs-2">{{person.city}}</td>
+      <td class="col-xs-2">{{person.datainput}}</td>
+      <td class="col-xs-2">{{person.email}}</td>
+      <td class="col-xs-2">{{person.telephone}}</td>
+      <td class="col-xs-2">{{person.userUid}}</td>
+    </tr>
+  </table>
 </div>

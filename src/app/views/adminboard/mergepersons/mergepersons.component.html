@@ -1,0 +1,78 @@
+<div class="form-group">
+  <div class="form-group col-xs-6">
+    <div>
+      <label class="label" for="id1"> Первый </label>
+      <input type="text" class="form-control" id="id1" [(ngModel)]="id1"
+             [ngModelOptions]="{standalone: true}"
+             (change)="changeIdPrimary()">
+    </div>
+    <hr>
+    <div class="h3">
+      {{person1.name}} {{person1.familyName}}
+    </div>
+    <div class="h6">
+      Город: {{person1.city}} - insta: {{person1.insta}}
+    </div>
+    <div class="h6">
+      Номер телефона: {{person1.telephone}} - идентификатор поиска пользователя: {{person1.userUid}}
+    </div>
+    <hr>
+    <div>Зарегестрированные участники</div>
+    <div class="list-group">
+      <div *ngFor="let part1 of participants1" class="list-group-item">
+        {{part1.datainput}}
+      </div>
+    </div>
+    <hr>
+    <div>Результаты</div>
+    <div class="list-group">
+      <div *ngFor="let res1 of results1" class="list-group-item">
+        {{res1.event.name}} - {{res1.result}} - {{res1.competition}}
+      </div>
+    </div>
+    <div *ngIf="!VisibleButtonDelete()">
+      <button class="btn btn-danger"
+              (click)="delete1()">Удалить эту запись и перенести данные отсюда
+      </button>
+    </div>
+
+  </div>
+
+  <div class="form-group col-xs-6">
+    <div>
+      <label class="label" for="id2">{{ 'participant.isnewperson' | translate }}</label>
+      <input type="text" class="form-control" id="id2" [(ngModel)]="id2"
+             [ngModelOptions]="{standalone: true}"
+             (change)="changeIdDelete()">
+    </div>
+    <hr>
+    <div class="h3">
+      {{person2.name}} {{person2.familyName}}
+    </div>
+    <div class="h6">
+      Город: {{person2.city}} - insta: {{person2.insta}}
+    </div>
+    <div class="h6">
+      Номер телефона: {{person2.telephone}} - идентификатор поиска пользователя: {{person2.userUid}}
+    </div>
+    <hr>
+    <div>Зарегестрированные участники</div>
+    <div class="list-group">
+      <div *ngFor="let part2 of participants2" class="list-group-item">
+        {{part2.datainput}}
+      </div>
+    </div>
+    <hr>
+    <div>Результаты</div>
+    <div class="list-group">
+      <div *ngFor="let res2 of results2" class="list-group-item">
+        {{res2.event.name}} - {{res2.result}} - {{res2.competition}}
+      </div>
+    </div>
+    <div *ngIf="!VisibleButtonDelete()">
+      <button class="btn btn-danger"
+              (click)="delete2()">Удалить эту запись и перенести данные отсюда
+      </button>
+    </div>
+  </div>
+</div>
